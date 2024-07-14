@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 from routers import account, match, spectator
 
 load_dotenv()
-API_KEY = os.getenv('API_KEY')
-DOMAIN = os.getenv('DOMAIN')
+API_KEY = os.getenv("API_KEY")
+DOMAIN = os.getenv("DOMAIN")
 
 app = FastAPI()
 
