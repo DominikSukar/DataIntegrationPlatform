@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+import logging
 
 from typing import List
 
@@ -9,6 +10,8 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException, Query
 
 from .account import get_summoner_puuid
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
@@ -24,7 +27,9 @@ api_key_url = f"?api_key={API_KEY}"
 def match_history(
     nickname: str = Query(None), tag: str = Query(None), puuid: str = Query(None)
 ):
-    "Returns data about matches of a user's provided puuid."
+    """Returns user's match history by provided puuid.
+    It is also possible to provide simple nickname and tag, 
+    however additional request is made by API, making response slower."""
 
     if nickname and tag:
         puuid = get_summoner_puuid(nickname, tag)

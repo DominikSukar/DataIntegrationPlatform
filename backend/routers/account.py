@@ -1,13 +1,15 @@
 import os
 import requests
 import json
-import sys
+import logging
 
 from dotenv import load_dotenv
 
 from fastapi import APIRouter, HTTPException, Query
 
 from models.summoner import SummonerByNickname, SummonerByPUUID
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 API_KEY: str = os.getenv("API_KEY")
@@ -27,7 +29,13 @@ def get_summoner_puuid(summoner_name: str, tag_line: str):
     "Returns data about a summoner by their summoner name."
     summoner_url: str = f"{router_api_url}/{summoner_name}/{tag_line}" + api_key_url
 
-    raw_data: str = requests.get(summoner_url).text
+    response: str = requests.get(summoner_url)
+    if not response.status_code == 200:
+        return HTTPException(
+            status_code=503, detail="Failed to retrieve data from Riot's API"
+        )
+
+    raw_data: str = response.text
     summoner_data = json.loads(raw_data)["puuid"]
 
     return summoner_data

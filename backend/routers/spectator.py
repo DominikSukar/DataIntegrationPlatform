@@ -1,10 +1,13 @@
 import os
 import requests
 import json
+import logging
 
 from dotenv import load_dotenv
 
 from fastapi import APIRouter, HTTPException
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
@@ -22,6 +25,7 @@ def get_current_match(puuid: str):
 
     response: str = requests.get(current_match_url)
     if not response.status_code == 200:
+        logger.error("Failed to retrieve data from Riot's API")
         return HTTPException(
             status_code=503, detail="Failed to retrieve data from Riot's API"
         )
