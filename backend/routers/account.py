@@ -31,12 +31,14 @@ def get_summoner_puuid(summoner_name: str, tag_line: str):
 
     response: str = requests.get(summoner_url)
     if not response.status_code == 200:
+        logger.error("Could not get summoner puuid. Error: {}".format(response))
         return HTTPException(
             status_code=503, detail="Failed to retrieve data from Riot's API"
         )
 
     raw_data: str = response.text
     summoner_data = json.loads(raw_data)["puuid"]
+    logger.debug(f"PUUID {summoner_data} found for user {summoner_name}#{tag_line}")
 
     return summoner_data
 
