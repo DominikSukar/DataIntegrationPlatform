@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException, Query
 
 from models.summoner import SummonerByNickname, SummonerByPUUID
+from api_requests.account import get_account_by_riot_id, get_account_by_puuid
 
 logger = logging.getLogger(__name__)
 
@@ -26,44 +27,26 @@ api_key_url = f"?api_key={API_KEY}"
 
 
 @router.get("/get_puuid/")
-def get_summoner_puuid(summoner_name: str, tag_line: str):
-    "Returns data about a summoner by their summoner name."
-    summoner_url: str = f"{router_api_url}/{summoner_name}/{tag_line}" + api_key_url
+def get_summoner_puuid(summoner_name: str, tag_line: str) -> str:
+    "Return summoner's puuid based on his summoner name and tag line."
+    puuid = get_account_by_riot_id(summoner_name, tag_line)
 
-    response: str = requests.get(summoner_url)
-    if not response.status_code == 200:
-        logger.error("Could not get summoner puuid. Error: {}".format(response.text))
-        return HTTPException(
-            status_code=503, detail="Failed to retrieve data from Riot's API"
-        )
-
-    raw_data: str = response.text
-    summoner_data = json.loads(raw_data)["puuid"]
-    logger.debug(f"PUUID {summoner_data} found for user {summoner_name}#{tag_line}")
-
-    return summoner_data
+    return puuid
 
 
 @router.get("/info/")
-async def get_summoner_info(
-    nickname: str = Query(None), tag: str = Query(None), puuid: str = Query(None)
-):
+async def get_summoner_info(nickname: str = None, tag: str = None, puuid: str = None):
     """
     Returns data about a summoner by their nickname+tag or PUUID.
     """
-    if nickname and tag:
-        puuid = get_summoner_puuid(nickname, tag)
-
-    account_info_url = f"{router_api_url_puuid}/{puuid}" + api_key_url
-
-    response: str = requests.get(account_info_url)
-    if not response.status_code == 200:
-        logger.error(f"Failed to retrieve data from Riot's API. Error: {response.text}. URL: {account_info_url}")
-        return HTTPException(
-            status_code=503, detail="Failed to retrieve data from Riot's API"
+    if not puuid and not (nickname and tag):
+        raise HTTPException(
+            status_code=400, detail="Please provide either puuid or nickname nad tag pair"
         )
 
-    raw_data: str = response.text
-    summoner_info = json.loads(raw_data)
+    if nickname and tag:
+        puuid = get_account_by_riot_id(nickname, tag)
+    
+    summoner_info = get_account_by_puuid(puuid)
 
     return summoner_info
