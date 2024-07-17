@@ -16,11 +16,11 @@ URL_GET_ACTIVE_SHARD_FOR_A_PLAYER = DOMAIN + "active-shard/by-game"
 URL_GET_ACCOUNT_BY_ACCES_TOKEN = DOMAIN + "account/me"
 
 router_api_url_puuid = DOMAIN + "/riot/account/v1/accounts/by-puuid"
-api_key_url = f"?api_key={API_KEY}"
+API_KEY = f"?api_key={API_KEY}"
 
 def get_account_by_puuid(puuid: str):
     "Provide summoner's PUUID, get dict of nickname, tag_line and puuid"
-    URL = URL_GET_ACCOUNT_BY_PUUID + "/" + puuid + "?api_key=" + API_KEY
+    URL = URL_GET_ACCOUNT_BY_PUUID + "/" + puuid + API_KEY
 
     response = requests.get(URL)
 
@@ -38,7 +38,7 @@ def get_account_by_puuid(puuid: str):
 
 def get_account_by_riot_id(summoner_name: str, tag_line: str) -> str:
     "Provide summoner's nickname and tag, get PUUID in return"
-    URL = URL_GET_ACCOUNT_BY_RIOT_ID + f"/{summoner_name}/{tag_line}" + "?api_key=" + API_KEY
+    URL = URL_GET_ACCOUNT_BY_RIOT_ID + f"/{summoner_name}/{tag_line}" + API_KEY
 
     response = requests.get(URL)
     if not response.status_code == 200:
