@@ -1,7 +1,3 @@
-import os
+from utils.env import API_KEY, DOMAIN_EUROPE
 
-from dotenv import load_dotenv
-
-load_dotenv()
-API_KEY: str = os.getenv("API_KEY")
-DOMAIN: str = os.getenv("DOMAIN_EUROPE")
+DOMAIN = DOMAIN_EUROPE + "/riot/account/v1"
