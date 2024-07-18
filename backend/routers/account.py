@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException, Query
 
 from models.summoner import SummonerByNickname, SummonerByPUUID
-from api_requests.account import get_account_by_riot_id, get_account_by_puuid
+from api_requests.account import AccountController
 
 logger = logging.getLogger(__name__)
 
@@ -27,9 +27,10 @@ api_key_url = f"?api_key={API_KEY}"
 
 
 @router.get("/get_puuid/")
-def get_summoner_puuid(summoner_name: str, tag_line: str) -> str:
+async def get_summoner_puuid(summoner_name: str, tag_line: str) -> str:
     "Return summoner's puuid based on his summoner name and tag line."
-    puuid = get_account_by_riot_id(summoner_name, tag_line)
+    account = AccountController()
+    puuid = account.get_account_by_riot_id(summoner_name, tag_line)
 
     return puuid
 
@@ -44,9 +45,10 @@ async def get_summoner_info(nickname: str = None, tag: str = None, puuid: str = 
             status_code=400, detail="Please provide either puuid or nickname nad tag pair"
         )
 
+    account = AccountController()
     if nickname and tag:
-        puuid = get_account_by_riot_id(nickname, tag)
+        puuid = account.get_account_by_riot_id(nickname, tag)
     
-    summoner_info = get_account_by_puuid(puuid)
+    summoner_info = account.get_account_by_puuid(puuid)
 
     return summoner_info
