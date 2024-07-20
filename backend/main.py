@@ -13,6 +13,6 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-app.include_router(account.router, prefix="/summoner")
-app.include_router(match.router, prefix="/match_history")
-app.include_router(spectator.router, prefix="/current_match")
+app.include_router(account.router, tags=["Account"], prefix="/summoner")
+app.include_router(match.router, tags=["Match"], prefix="/match_history")
+app.include_router(spectator.router, tags=["Spectator"], prefix="/current_match")
