@@ -8,7 +8,6 @@ from api_requests.spectator import SpectatorController
 from schemas import CurrentGameInfo
 
 logger = logging.getLogger(__name__)
-
 router = APIRouter()
 
 
