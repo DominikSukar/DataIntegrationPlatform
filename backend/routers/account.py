@@ -21,18 +21,18 @@ async def get_summoner_puuid(summoner_name: str, tag_line: str) -> str:
 
 
 @router.get("/info/")
-async def get_summoner_info(nickname: str = None, tag: str = None, puuid: str = None)->AccountDto:
+async def get_summoner_info(summoner_name: str = None, tag_line: str = None, puuid: str = None)->AccountDto:
     """
     Returns data about a summoner (puuid, gameName, tagLine) by their nickname+tag or PUUID.
     """
-    if not puuid and not (nickname and tag):
+    if not puuid and not (summoner_name and tag_line):
         raise HTTPException(
             status_code=400, detail="Please provide either puuid or nickname nad tag pair"
         )
 
     account = AccountController()
-    if nickname and tag:
-        puuid = account.get_account_by_riot_id(nickname, tag)
+    if summoner_name and tag_line:
+        puuid = account.get_account_by_riot_id(summoner_name, tag_line)
     
     summoner_info = account.get_account_by_puuid(puuid)
 
