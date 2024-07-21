@@ -10,9 +10,10 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.get("/get_puuid/")
+@router.get("/get_puuid/", status_code=200)
 async def get_summoner_puuid(summoner_name: str, tag_line: str) -> str:
     "Return summoner's puuid based on his summoner name and tag line."
+
     account = AccountController()
     puuid = account.get_account_by_riot_id(summoner_name, tag_line)
 
