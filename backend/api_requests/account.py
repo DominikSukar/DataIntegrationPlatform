@@ -1,67 +1,60 @@
-import requests
 import logging
-import json
-
-from fastapi import HTTPException
 
 from utils.env import API_KEY, DOMAIN_EUROPE
+from utils.request import send_request
+
+from schemas import AccountDto
 
 logger = logging.getLogger(__name__)
 
 
-
 class AccountController:
-    def __init__(self):
-        DOMAIN  = DOMAIN_EUROPE + "/riot/account/v1"
+    "Class manages the Riot's API 'ACCOUNT-V1' service. As of 07.20.2024 there are 4 endpoints."
 
-        self.URL_GET_ACCOUNT_BY_PUUID = DOMAIN + "/accounts/by-puuid"
-        self.URL_GET_ACCOUNT_BY_RIOT_ID = DOMAIN + "/accounts/by-riot-id"
-        self.URL_GET_ACTIVE_SHARD_FOR_A_PLAYER = DOMAIN + "active-shard/by-game"
-        self.URL_GET_ACCOUNT_BY_ACCES_TOKEN = DOMAIN + "account/me"
+    DOMAIN = DOMAIN_EUROPE + "/riot/account/v1"
+    key = f"?api_key={API_KEY}"
 
-        self.router_api_url_puuid = DOMAIN + "/riot/account/v1/accounts/by-puuid"
-        self.API_KEY_PARAM = f"?api_key={API_KEY}"
+    url_account_by_puuid = "{}/accounts/by-puuid/{}{}".format(DOMAIN, "{puuid}", key)
+    url_account_by_riot_ID = "{}/accounts/by-riot-id/{}/{}{}".format(
+        DOMAIN, "{game_name}", "{tag_line}", key
+    )
+    url_active_shard_for_a_player = "{}/active-shard/by-game{}/by-puuid/{}{}".format(
+        DOMAIN, "{game}", "{puuid}", key
+    )
+    url_account_by_access_token = "{}/accounts/me{}".format(DOMAIN, key)
 
-    def get_account_by_puuid(self, puuid: str):
+    def get_account_by_puuid(self, puuid: str) -> AccountDto:
         "Provide summoner's PUUID, get dict of nickname, tag_line and puuid"
-        URL = f"{self.URL_GET_ACCOUNT_BY_PUUID}/{puuid}{self.API_KEY_PARAM}"
+        URL = self.url_account_by_puuid.format(puuid=puuid)
 
-        response = requests.get(URL)
+        summoner_info = send_request(URL)
+        summoner_info = AccountDto.model_validate(summoner_info)
 
-        if not response.status_code == 200:
-            logger.error(f"Could not get summoner puuid. Error: {response.text}. URL: {URL}")
-            raise HTTPException(
-                status_code=503, detail="Failed to retrieve data from Riot's API"
-            )
-        
-        summoner_info = json.loads(response.text)
         logging.debug(f"get_account_by_puuid > summoner_info: {summoner_info}")
 
         return summoner_info
 
-
     def get_account_by_riot_id(self, summoner_name: str, tag_line: str) -> str:
         "Provide summoner's nickname and tag, get PUUID in return"
-        URL = f"{self.URL_GET_ACCOUNT_BY_RIOT_ID}/{summoner_name}/{tag_line}{self.API_KEY_PARAM}"
+        URL = self.url_account_by_riot_ID.format(
+            game_name=summoner_name, tag_line=tag_line
+        )
 
-        response = requests.get(URL)
-        if not response.status_code == 200:
-            logger.error(f"Could not get summoner puuid. Error: {response.text}. URL: {URL}")
-            raise HTTPException(
-                status_code=503, detail="Failed to retrieve data from Riot's API"
-            )
+        summoner_info = send_request(URL)
+        puuid = summoner_info["puuid"]
 
-        raw_data = response.text
-        puuid: str = json.loads(raw_data)["puuid"]
-        
         logger.debug(f"PUUID {puuid} found for user {summoner_name}#{tag_line}")
 
-        return puuid  
+        return puuid
 
-    def get_active_shard_for_a_player(self):
-        URL = self.URL_GET_ACTIVE_SHARD_FOR_A_PLAYER
+    def get_active_shard_for_a_player(self, game: str, puuid: str):
+        """This endpoint could be used on any REGION to look for a player in the different regions
+        Parameter 'game' is equal to 'var' od 'lor' (Valorant and Legends of Runeterra)
+        """
+        URL = self.url_active_shard_for_a_player.format(game=game, puuid=puuid)
         pass
 
     def get_account_by_access_token(self):
-        URL = self.URL_GET_ACCOUNT_BY_ACCES_TOKEN
+        """CANNOT EXECUTE. THIS API ENDPOINT IS NOT AVAILABLE IN YOUR POLICY"""
+        URL = self.url_account_by_access_token
         pass

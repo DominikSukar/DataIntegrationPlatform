@@ -1,4 +1,5 @@
 import logging
+import requests
 
 from fastapi import FastAPI
 
@@ -9,6 +10,8 @@ logging.basicConfig(
     format="%(levelname)s:      %(message)s",
     handlers=[logging.StreamHandler()],
 )
+logging.getLogger("requests").setLevel(logging.WARNING)
+
 logger = logging.getLogger(__name__)
 
 app = FastAPI()

@@ -1,44 +1,31 @@
-import os
-import requests
-import json
 import logging
 
-from dotenv import load_dotenv
+from fastapi import APIRouter, HTTPException
 
-from fastapi import APIRouter, HTTPException, Query
+from api_requests.account import AccountController
+from api_requests.spectator import SpectatorController
 
-from .account import get_summoner_puuid
+from schemas import CurrentGameInfo
 
 logger = logging.getLogger(__name__)
 
-load_dotenv()
-API_KEY = os.getenv("API_KEY")
-DOMAIN = os.getenv("DOMAIN_EUW1")
-
 router = APIRouter()
-router_api_url = DOMAIN + "/lol/spectator/v5/active-games/by-summoner"
-api_key_url = f"?api_key={API_KEY}"
 
 
 @router.get("/")
-def get_current_match(
-    nickname: str = Query(None), tag: str = Query(None), puuid: str = Query(None)
-):
+async def get_current_match(nickname: str = None, tag: str = None, puuid: str = None)->CurrentGameInfo:
     "Shows data about current match."
-
-    if nickname and tag:
-        puuid = get_summoner_puuid(nickname, tag)
-
-    current_match_url: str = f"{router_api_url}/{puuid}" + api_key_url
-
-    response: str = requests.get(current_match_url)
-    if not response.status_code == 200:
-        logger.error(f"Failed to retrieve data from Riot's API. Error: {response.text}. URL: {current_match_url}")
-        return HTTPException(
-            status_code=503, detail="Failed to retrieve data from Riot's API"
+    if not puuid and not (nickname and tag):
+        raise HTTPException(
+            status_code=400,
+            detail="Please provide either puuid or nickname nad tag pair",
         )
 
-    raw_data: str = response.text
-    match_data = json.loads(raw_data)
+    if nickname and tag:
+        controller = AccountController()
+        puuid = controller.get_account_by_riot_id(nickname, tag)
+
+    controller = SpectatorController()
+    match_data = controller.get_current_game_information__for_the_given_puuid(puuid)
 
     return match_data

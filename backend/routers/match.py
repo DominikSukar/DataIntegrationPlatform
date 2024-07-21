@@ -1,56 +1,35 @@
-import os
-import requests
-import json
 import logging
 
-from typing import List
+from fastapi import APIRouter, HTTPException
 
-from dotenv import load_dotenv
+from api_requests.account import AccountController
+from api_requests.match import MatchController
 
-from fastapi import APIRouter, HTTPException, Query
-
-from .account import get_summoner_puuid
+from schemas import MatchIds, MatchDto
 
 logger = logging.getLogger(__name__)
-
-load_dotenv()
-API_KEY = os.getenv("API_KEY")
-DOMAIN = os.getenv("DOMAIN_EUROPE")
-
 router = APIRouter()
-
-router_api_url = DOMAIN + "/lol/match/v5/matches/by-puuid"
-api_key_url = f"?api_key={API_KEY}"
 
 
 @router.get("/")
-def match_history(
-    nickname: str = Query(None), tag: str = Query(None), puuid: str = Query(None)
-):
+async def match_history(nickname: str = None, tag: str = None, puuid: str = None):
     """Returns user's match history by provided puuid.
-    It is also possible to provide simple nickname and tag, 
+    It is also possible to provide simple nickname and tag,
     however additional request is made by API, making response slower."""
+    if not puuid and not (nickname and tag):
+        raise HTTPException(
+            status_code=400,
+            detail="Please provide either puuid or nickname nad tag pair",
+        )
 
     if nickname and tag:
-        puuid = get_summoner_puuid(nickname, tag)
+        controller = AccountController()
+        puuid = controller.get_account_by_riot_id(nickname, tag)
 
-    match_list_url: str = f"{router_api_url}/{puuid}/ids" + api_key_url
-
-    response: str = requests.get(match_list_url)
-    if not response.status_code == 200:
-        return HTTPException(
-            status_code=503, detail="Failed to retrieve data from Riot's API"
-        )
-
-    raw_data: str = response.text
-    match_ids: List[str] = json.loads(raw_data)
+    controller = MatchController()
+    match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid)
 
     for match_id in match_ids:
-        match_url = f"{DOMAIN}/lol/match/v5/matches/{match_id}?api_key={API_KEY}"
-        raw_data = requests.get(match_url).text
-        match_data = json.loads(raw_data)
-        return match_data
-    else:
-        HTTPException(
-            status_code=400, detail="Provide either puuid or both nickname and tag"
-        )
+        match = controller.get_a_match_by_match_id(match_id)
+
+        return match

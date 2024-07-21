@@ -1,14 +1,11 @@
 import os
-import requests
-import json
 import logging
-
 from dotenv import load_dotenv
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException
 
-from models.summoner import SummonerByNickname, SummonerByPUUID
 from api_requests.account import AccountController
+from schemas import AccountDto
 
 logger = logging.getLogger(__name__)
 
@@ -36,9 +33,9 @@ async def get_summoner_puuid(summoner_name: str, tag_line: str) -> str:
 
 
 @router.get("/info/")
-async def get_summoner_info(nickname: str = None, tag: str = None, puuid: str = None):
+async def get_summoner_info(nickname: str = None, tag: str = None, puuid: str = None)->AccountDto:
     """
-    Returns data about a summoner by their nickname+tag or PUUID.
+    Returns data about a summoner (puuid, gameName, tagLine) by their nickname+tag or PUUID.
     """
     if not puuid and not (nickname and tag):
         raise HTTPException(
