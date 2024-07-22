@@ -1,7 +1,7 @@
 import logging
 
 from utils.env import API_KEY, DOMAIN_EUROPE
-from utils.request import send_request
+from utils.request import send_request, send_async_request
 
 from schemas import MatchIds, MatchDto, TimelineDto
 
@@ -31,13 +31,13 @@ class MatchController:
 
         return match_ids
 
-    def get_a_match_by_match_id(self, match_id: str) -> MatchDto:
+    async def get_a_match_by_match_id(self, session, match_id: str) -> MatchDto:
         """Endpoint gets you basic info about a match
         Note: This endpoint is garbage tier, documentation is even worse.
         Turn off validation if necessary"""
 
         URL = self.url_match.format(match_id=match_id)
-        match = send_request(URL)
+        match = await send_async_request(session, URL)
         # MatchDto.model_validate(match)
 
         # logging.debug(f"get_a_match_by_match_id > match: {match}")
