@@ -4,6 +4,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { MatchData } from '@/types/matchTypes';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -29,9 +30,24 @@ const formSchema = z.object({
   }),
 });
 
+interface FormData {
+  username: string;
+  region: string;
+}
+
 const regions = ["NA", "EUW", "EUNE", "KR", "BR", "JP", "OCE"];
 
 export function ProfileForm() {
+
+  const handleSubmit = async (formData: FormData) => {
+    try {
+      const response = await fetch(`http://localhost:8000/match_history?nickname=${formData.username}&tag=${formData.region}`);
+      console.log(await response.json());
+    } catch (error) {
+      console.error('Error fetching match data:', error);
+    }
+  };
+
   const [selectedRegion, setSelectedRegion] = useState(regions[0]);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -42,8 +58,9 @@ export function ProfileForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log({ ...values, region: selectedRegion });
-    // Implement your search logic here, using both the username and selected region
+    const formData = { ...values, region: selectedRegion };
+    console.log(formData);
+    handleSubmit(formData);
   }
 
   return (
