@@ -7,7 +7,7 @@ from fastapi import HTTPException
 logger = logging.getLogger(__name__)
 
 
-def _handle_non_200(response):
+def _handle_non_200(response, URL=None):
     status_code = response.status_code
 
     if status_code in [401, 403, 405, 415, 429, 500, 502, 503, 504]:
@@ -34,7 +34,7 @@ def send_request(URL: str):
         data = json.loads(response.text)
         return data
     else:
-        _handle_non_200(response)
+        _handle_non_200(response, URL)
 
 
 async def send_async_request(session, URL: str):
@@ -44,4 +44,4 @@ async def send_async_request(session, URL: str):
         if response.status == 200:
             return await response.json()
         else:
-            _handle_non_200(response)
+            _handle_non_200(response, URL)

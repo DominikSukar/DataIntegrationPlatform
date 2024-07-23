@@ -4,50 +4,23 @@ from fastapi.testclient import TestClient
 from fastapi import HTTPException
 from fastapi.exceptions import RequestValidationError
 
-from routers.account import router
+from routers.summoner import router
 
 client = TestClient(router)
 
-
-class TestGetAccountPUUID:
-    def test_existing_user(self):
-        "Test for user that exists"
-        params = {"summoner_name": "PrinceOfEssling", "tag_line": "EUW"}
-        response = client.get("/get_puuid", params=params)
-        assert response.status_code == 200
-
-    def test_not_existing_user(self):
-        "Test for user that should not exist"
-        params = {"summoner_name": "sdasdsad", "tag_line": "sadsad"}
-
-        with pytest.raises(HTTPException) as err:
-            client.get("/get_puuid", params=params)
-        assert err.value.status_code == 404
-
-    def test_no_parameters(self):
-        "Test for user that should not exist"
-        params = {}
-
-        with pytest.raises(RequestValidationError) as err:
-            client.get("/get_puuid", params=params)
-        errors = err.value.errors()
-
-        for error in errors:
-            assert error["type"] == "missing"
-            assert error["msg"] == "Field required"
-            assert error["input"] == None
-
-
-class TestGetAccountInfo:
+class TestGetSummonerInfo:
     def test_by_providing_user_id(self):
         "Test endpoint by requesting data by providing combination of summoner_name and tag_line"
         params = {"summoner_name": "PrinceOfEssling", "tag_line": "EUW"}
-        response = client.get("/info", params=params)
+        response = client.get("/", params=params)
         assert response.status_code == 200
         assert response.json() == {
-            "gameName": "PrinceOfEssling",
-            "tagLine": "EUW",
+            "id": "lWUIM6ChhgyyeccN5Z-CKFhX-WETnc19xTdetXkDO-W-sXI",
+            "accountId": "y4m_h-DtfgBfRr5msXkwQHwFvEwyHR-kCJM-VCArJ2Q2fpI",
             "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
+            "profileIconId": 1230,
+            "revisionDate": 1721682838135,
+            "summonerLevel": 78
         }
 
     def test_by_providing_not_existing_user_id(self):
@@ -55,7 +28,7 @@ class TestGetAccountInfo:
         params = {"summoner_name": "sdasdsad", "tag_line": "sadsad"}
 
         with pytest.raises(HTTPException) as err:
-            client.get("/info", params=params)
+            client.get("/", params=params)
         assert err.value.status_code == 404
 
     def test_by_providing_puuid(self):
@@ -63,18 +36,22 @@ class TestGetAccountInfo:
         params = {
             "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA"
         }
-        response = client.get("/info", params=params)
+        response = client.get("/", params=params)
         assert response.status_code == 200
         assert response.json() == {
-            "gameName": "PrinceOfEssling",
-            "tagLine": "EUW",
+            "id": "lWUIM6ChhgyyeccN5Z-CKFhX-WETnc19xTdetXkDO-W-sXI",
+            "accountId": "y4m_h-DtfgBfRr5msXkwQHwFvEwyHR-kCJM-VCArJ2Q2fpI",
             "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
+            "profileIconId": 1230,
+            "revisionDate": 1721682838135,
+            "summonerLevel": 78
         }
+
 
     def test_by_providing_not_existing_puuid(self):
         "Test endpoint by requesting data by puuid that is not decryptable or simply doesnt exist"
         params = {"puuid": "fdfsdfdsfsdfdsfs"}
 
         with pytest.raises(HTTPException) as err:
-            client.get("/info", params=params)
+            client.get("/", params=params)
         assert err.value.status_code == 400
