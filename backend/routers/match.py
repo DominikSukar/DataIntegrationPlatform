@@ -33,6 +33,7 @@ async def match_history(nickname: str = None, tag: str = None, puuid: str = None
 
     async with aiohttp.ClientSession() as session:
         match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid)
+        match_ids = match_ids[:5]
 
         time_before_fetching = time.time() - start_time
 

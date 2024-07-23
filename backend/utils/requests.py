@@ -7,18 +7,17 @@ from fastapi import HTTPException
 logger = logging.getLogger(__name__)
 
 
-def _handle_non_200(response, URL=None):
-    status_code = response.status_code
+def _handle_non_200(status_code, URL=None):
 
     if status_code in [401, 403, 405, 415, 429, 500, 502, 503, 504]:
-        logger.error(f"Error: {response.status_code}:{response.text}. URL: {URL}")
+        logger.error(f"Error: {status_code} URL: {URL}")
         raise HTTPException(
             status_code=503, detail="Failed to retrieve data from Riot's API"
         )
 
     elif status_code in [400]:
-        logger.error(f"Error: {response.status_code}:{response.text}. URL: {URL}")
-        raise HTTPException(status_code=status_code, detail=response.text)
+        logger.error(f"Error: {status_code} URL: {URL}")
+        raise HTTPException(status_code=status_code, detail="Client data error")
 
     elif status_code in [404]:
         raise HTTPException(status_code=status_code, detail="Data not found")
@@ -34,7 +33,7 @@ def send_request(URL: str):
         data = json.loads(response.text)
         return data
     else:
-        _handle_non_200(response, URL)
+        _handle_non_200(response.status_code, URL)
 
 
 async def send_async_request(session, URL: str):
@@ -44,4 +43,4 @@ async def send_async_request(session, URL: str):
         if response.status == 200:
             return await response.json()
         else:
-            _handle_non_200(response, URL)
+            _handle_non_200(response.status, URL)
