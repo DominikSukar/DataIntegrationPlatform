@@ -1,7 +1,7 @@
 import logging
 
 from utils.env import API_KEY, DOMAIN_EUROPE
-from utils.request import send_request, send_async_request
+from utils.requests import send_request, send_async_request
 
 from schemas import MatchIds, MatchDto, TimelineDto
 

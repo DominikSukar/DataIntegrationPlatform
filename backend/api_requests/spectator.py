@@ -3,7 +3,7 @@ import logging
 from schemas import CurrentGameInfo
 
 from utils.env import API_KEY, DOMAIN_EUW1
-from utils.request import send_request
+from utils.requests import send_request
 
 logger = logging.getLogger(__name__)
 
