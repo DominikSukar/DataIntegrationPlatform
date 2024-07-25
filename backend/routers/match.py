@@ -1,5 +1,4 @@
 import logging
-import time
 import aiohttp
 import asyncio
 
@@ -17,7 +16,6 @@ async def match_history(nickname: str = None, tag: str = None, puuid: str = None
     """Returns user's match history by provided puuid.
     It is also possible to provide simple nickname and tag,
     however additional request is made by API, making response slower."""
-    start_time = time.time()
 
     if not puuid and not (nickname and tag):
         raise HTTPException(
@@ -34,8 +32,6 @@ async def match_history(nickname: str = None, tag: str = None, puuid: str = None
     async with aiohttp.ClientSession() as session:
         match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid)
         match_ids = match_ids[:5]
-
-        time_before_fetching = time.time() - start_time
 
         tasks = [
             controller.get_a_match_by_match_id(session, match_id)
@@ -67,9 +63,5 @@ async def match_history(nickname: str = None, tag: str = None, puuid: str = None
                 if matched_participant:
                     data_to_return.append(matched_participant)
 
-        process_time = time.time() - start_time
-        data_to_return.insert(
-            0, {"time": process_time, "time_before_fetching": time_before_fetching}
-        )
 
         return data_to_return
