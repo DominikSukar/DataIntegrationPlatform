@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
+
+import { useRouter } from 'next/navigation'
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -35,14 +37,28 @@ interface FormData {
   region: string;
 }
 
+interface Match {
+  win: boolean;
+  championId: number;
+  championName: string;
+  invidualPosition: string;
+  teamId: number;
+}
+
+interface ProfileFormProps {
+  setMatchHistory: React.Dispatch<React.SetStateAction<Match[]|null>>;
+}
+
 const regions = ["NA", "EUW", "EUNE", "KR", "BR", "JP", "OCE"];
 
-export function ProfileForm() {
+export function ProfileForm({setMatchHistory}: ProfileFormProps) {
+  const router = useRouter()
 
   const handleSubmit = async (formData: FormData) => {
     try {
       const response = await fetch(`http://localhost:8000/match_history?nickname=${formData.username}&tag=${formData.region}`);
-      console.log(await response.json());
+      setMatchHistory(await response.json())
+      router.push('/user')
     } catch (error) {
       console.error('Error fetching match data:', error);
     }
