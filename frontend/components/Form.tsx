@@ -58,7 +58,7 @@ export function ProfileForm({setMatchHistory}: ProfileFormProps) {
     try {
       const response = await fetch(`http://localhost:8000/match_history?nickname=${formData.username}&tag=${formData.region}`);
       setMatchHistory(await response.json())
-      router.push('/user')
+      router.push(`/user?summonername=${formData.username}&tag=${formData.region}`)
     } catch (error) {
       console.error('Error fetching match data:', error);
     }

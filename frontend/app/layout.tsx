@@ -13,7 +13,7 @@ const fontSans = FontSans({
 export const metadata: Metadata = {
   title: "FF15",
   description: "Best LoL current game ",
-  keywords: "FF15, LoL, LoL stats, League of Legends, LoL champs, LoL current game, LoL active game, LoL live game, statistics, LoL spectate"
+  keywords: "FF15, LoL, LoL stats, League of Legends, league of legends players stats, league of legends user stats, league of legends game stats, stats for league of legends, statistics league of legends, league legends stats"
 }
 
 export default function RootLayout({ children }: {children: React.ReactNode}) {
