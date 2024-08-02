@@ -38,7 +38,7 @@ const User = ({searchParams}: {searchParams: {summonername: string, tag: string}
     <div>
       <div>{summonerName} # {tag}</div>
       {matches.map((match, index) => (
-        <Game key={index} win={match.win} championId={match.championId} championName={match.championName} individualPosition={match.individualPosition} />
+        <Game key={index} match={match}/>
       ))}
     </div>
   )
