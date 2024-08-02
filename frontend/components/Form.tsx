@@ -45,19 +45,14 @@ interface Match {
   teamId: number;
 }
 
-interface ProfileFormProps {
-  setMatchHistory: React.Dispatch<React.SetStateAction<Match[]|null>>;
-}
-
 const regions = ["NA", "EUW", "EUNE", "KR", "BR", "JP", "OCE"];
 
-export function ProfileForm({setMatchHistory}: ProfileFormProps) {
+export function ProfileForm() {
   const router = useRouter()
 
   const handleSubmit = async (formData: FormData) => {
     try {
       const response = await fetch(`http://localhost:8000/match_history?nickname=${formData.username}&tag=${formData.region}`);
-      setMatchHistory(await response.json())
       router.push(`/user?summonername=${formData.username}&tag=${formData.region}`)
     } catch (error) {
       console.error('Error fetching match data:', error);

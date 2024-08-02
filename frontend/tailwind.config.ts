@@ -20,7 +20,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ['DM Sans', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -77,8 +77,8 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       backgroundImage: {
-        'green-gradient': 'linear-gradient(to right, #00f260, #0575e6)',
-        'red-gradient': 'linear-gradient(to right, #870000, #190a05)',
+        'green-gradient': 'linear-gradient( 89.4deg,  rgba(14,174,87,1) 0.8%, rgba(10,35,104,1) 99.4% );',
+        'red-gradient': 'linear-gradient( 89.4deg,  rgba(194,0,39,1) 0.8%, rgba(10,35,104,1) 99.4% );',
       },
     },
   },
