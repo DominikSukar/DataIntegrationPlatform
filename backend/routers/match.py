@@ -53,6 +53,10 @@ async def match_history(nickname: str = None, tag: str = None, puuid: str = None
                             "championName": participant["championName"],
                             "individualPosition": participant["individualPosition"],
                             "teamId": participant["teamId"],
+                            "kills": participant["kills"],
+                            "deaths": participant["deaths"],
+                            "assists": participant["assists"],
+                            "timePlayed": participant["timePlayed"],
                         }
                         for participant in participants
                         if participant["puuid"] == puuid

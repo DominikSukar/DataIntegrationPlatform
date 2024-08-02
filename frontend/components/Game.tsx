@@ -11,9 +11,8 @@ function Game({win, championId, championName, individualPosition}: {win: boolean
 
   return (
     <div className={`${gameClasses[win ? 'win' : 'lose']} rounded-[10px] m-5 p-2 px-5 w-fit`}>
-        <div>Champion ID: {championId}</div>
-        <div>Champion Name: {championName}</div>
-        <div>Individual Position: {individualPosition}</div>
+        <div>{championName}</div>
+        <div>Position: {individualPosition}</div>
     </div>
   )
 }
