@@ -64,8 +64,7 @@ async def match_history(nickname: str = None, tag: str = None, puuid: str = None
                     None,
                 )
 
-                if matched_participant:
-                    data_to_return.append(matched_participant)
+                data_to_return.append(matched_participant)
 
 
         return data_to_return

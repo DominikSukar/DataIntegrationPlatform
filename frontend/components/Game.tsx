@@ -37,12 +37,16 @@ function Game({match}: GameProps) {
   }
 
   return (
-    <div className={`${gameClasses[win ? 'win' : 'lose']} rounded-[10px] m-5 p-2 px-5 w-fit`}>
-        <div className='font-bold'>{win ? 'Victory' : 'Defeat'}</div>
-        <div>{championName}</div>
-        <div>{secondsToHMS(timePlayed)}</div>
-        <div>Position: {individualPosition}</div>
-        <div>{kills}/{deaths}/{assists}</div>
+    <div className={`${gameClasses[win ? 'win' : 'lose']} rounded-[10px] m-5 p-2 px-5 w-fit flex gap-5`}>
+        <div>         
+          <div className='font-bold'>{win ? 'Victory' : 'Defeat'}</div>
+          <div>{secondsToHMS(timePlayed)}</div></div>
+        <div>
+          <div>{championName}</div>
+          <div>{individualPosition}</div>
+        </div>
+        <div>{kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{deaths}</span>}{<span className="text-slate-400">/</span>}{assists}</div>
+
     </div>
   )
 }
