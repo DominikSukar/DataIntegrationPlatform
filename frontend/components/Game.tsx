@@ -1,51 +1,61 @@
 import React from 'react'
 
 import {secondsToHMS} from "../utils/time"
-import { time } from 'console';
 
-interface Game {
-  win: boolean, 
-  championId: number, 
-  championName: string, 
-  individualPosition: string,
-  kills: string,
-  deaths: string,
-  assists: string,
-  timePlayed: number,
+import MatchParticipant from '../components/MatchParticipant'
+
+interface Participant {
+  win: boolean;
+  championId: number;
+  championName: string;
+  individualPosition: string;
+  teamId: number;
+  kills: number,
+  deaths: number,
+  assists: number,
+  timePlayed: number
 }
 
-interface GameProps {
-  match: Game;
+interface matchData {
+  main_participant: Participant,
+  team_1: Participant[],
+  team_2: Participant[],
 }
 
 
-function Game({match}: GameProps) {
-  const {
-    win,
-    championId,
-    championName,
-    individualPosition,
-    kills,
-    deaths ,
-    assists ,
-    timePlayed ,
-  } = match;
-
+function Game({match}: {match: matchData}) {
   const gameClasses = {
     win: "bg-green-gradient border-green-950",
     lose: "bg-red-gradient border-red-950"
   }
 
+  const mainParticipant = match.main_participant
+  const team_1 = match.team_1
+  const team_2 = match.team_2
+
   return (
-    <div className={`${gameClasses[win ? 'win' : 'lose']} rounded-[10px] m-5 p-2 px-5 w-fit flex gap-5`}>
-        <div>         
-          <div className='font-bold'>{win ? 'Victory' : 'Defeat'}</div>
-          <div>{secondsToHMS(timePlayed)}</div></div>
-        <div>
-          <div>{championName}</div>
-          <div>{individualPosition}</div>
+    <div className={`${gameClasses[mainParticipant.win ? 'win' : 'lose']} rounded-[10px] m-1 p-2 px-5 w-fit flex gap-5 min-w-[600px]`}>
+        <div className="min-w-16">         
+          <div className='font-bold'>{mainParticipant.win ? 'Victory' : 'Defeat'}</div>
+          <div>{secondsToHMS(mainParticipant.timePlayed)}</div></div>
+        <div className="min-w-16">
+          <div>{mainParticipant.championName}</div>
+          <div>{mainParticipant.individualPosition}</div>
         </div>
-        <div>{kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{deaths}</span>}{<span className="text-slate-400">/</span>}{assists}</div>
+        <div className="min-w-16">{mainParticipant.kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{mainParticipant.deaths}</span>}{<span className="text-slate-400">/</span>}{mainParticipant.assists}</div>
+        <div className="flex">
+          <div>
+            {team_1.map((participant, index) => (
+              <MatchParticipant key={index} participant={participant} />
+            ))}
+          </div>
+          <div>
+            {team_2.map((participant, index) => (
+              <MatchParticipant key={index} participant={participant} />
+            ))}
+          </div>
+        </div>
+        
 
     </div>
   )

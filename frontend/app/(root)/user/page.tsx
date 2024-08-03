@@ -3,12 +3,22 @@ import { useEffect, useState } from 'react';
 
 import Game  from "@/components/Game"
 
-interface matchData {
+interface Participant {
   win: boolean;
   championId: number;
   championName: string;
   individualPosition: string;
   teamId: number;
+  kills: number,
+  deaths: number,
+  assists: number,
+  timePlayed: number
+}
+
+interface matchData {
+  main_participant: Participant,
+  team_1: Participant[],
+  team_2: Participant[],
 }
 
 const User = ({searchParams}: {searchParams: {summonername: string, tag: string}}) => {
@@ -37,9 +47,11 @@ const User = ({searchParams}: {searchParams: {summonername: string, tag: string}
   return (
     <div>
       <div>{summonerName} # {tag}</div>
-      {matches.map((match, index) => (
-        <Game key={index} match={match}/>
-      ))}
+      <div className="flex flex-col items-center">
+        {matches.map((match, index) => (
+          <Game key={index} match={match}/>
+        ))}
+      </div>
     </div>
   )
 }

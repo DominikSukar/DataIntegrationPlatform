@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '@fontsource/dm-sans/400.css';
+@import '@fontsource/dm-sans/300.css';
 @import '@fontsource/dm-sans/500.css';
 @import '@fontsource/dm-sans/700.css';
 
@@ -26,12 +26,5 @@ html {
     background-attachment: fixed;
     color: #fff;
     margin: 0;
-  }
-  @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(/fonts/Roboto.woff2) format('woff2');
   }
 }
