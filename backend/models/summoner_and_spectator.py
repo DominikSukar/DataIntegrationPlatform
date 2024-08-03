@@ -4,7 +4,7 @@ from enum import Enum
 class SummonerAndSpectorServerModel(str, Enum):
     BR = "BR"
     EUNE = "EUNE"
-    EUW = "EU"
+    EUW = "EUW"
     JP = "JP"
     KR = "KR"
     LAN = "LAN"
