@@ -1,6 +1,6 @@
 import logging
 
-from utils.env import API_KEY, DOMAIN_EUROPE
+from utils.env import API_KEY, EUROPE
 from utils.requests import send_request, send_async_request
 
 from schemas import MatchIds, MatchDto, TimelineDto
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class MatchController:
     "Class manages the Riot's API 'MATCH-V5' service. As of 07.20.2024 there are 3 endpoints."
 
-    DOMAIN = DOMAIN_EUROPE + "/lol/match/v5/matches"
+    DOMAIN = EUROPE + "/lol/match/v5/matches"
     key = f"?api_key={API_KEY}"
 
     url_list_of_match_ids = "{}/by-puuid/{}/ids{}".format(

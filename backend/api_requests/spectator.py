@@ -2,7 +2,7 @@ import logging
 
 from schemas import CurrentGameInfo
 
-from utils.env import API_KEY, DOMAIN_EUW
+from utils.env import API_KEY, EUW
 from utils.requests import send_request
 
 logger = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ class SpectatorController:
     Every method is called by their RIOT respesctive counterparts"""
 
     "Please note that spectator-v5 service uses euw1 domain"
-    DOMAIN = DOMAIN_EUW + "/lol/spectator/v5"
+    DOMAIN = EUW + "/lol/spectator/v5"
     key = f"?api_key={API_KEY}"
 
     url_current_game_information = "{}/active-games/by-summoner/{}{}".format(
