@@ -45,26 +45,28 @@ async def match_history(nickname: str = None, tag: str = None, puuid: str = None
             if match_data:
                 participants = match_data["info"]["participants"]
 
-                matched_participant = next(
-                    (
-                        {
+                dict_strc = {"main_participant": None, "team_1": [], "team_2": []}
+
+                for participant in participants:
+                    participant_data = {
+                        "championId": participant["championId"],
+                        "championName": participant["championName"],
+                        "individualPosition": participant["individualPosition"],
+                        "teamId": participant["teamId"],
+                        "kills": participant["kills"],
+                        "deaths": participant["deaths"],
+                        "assists": participant["assists"],
+                    }
+                    if participant["puuid"] == puuid:
+                        dict_strc["main_participant"] = {
+                            **participant_data,
                             "win": participant["win"],
-                            "championId": participant["championId"],
-                            "championName": participant["championName"],
-                            "individualPosition": participant["individualPosition"],
-                            "teamId": participant["teamId"],
-                            "kills": participant["kills"],
-                            "deaths": participant["deaths"],
-                            "assists": participant["assists"],
                             "timePlayed": participant["timePlayed"],
                         }
-                        for participant in participants
-                        if participant["puuid"] == puuid
-                    ),
-                    None,
-                )
 
-                data_to_return.append(matched_participant)
+                    team_key = "team_1" if participant["teamId"] == 100 else "team_2"
+                    dict_strc[team_key].append(participant_data)
 
+                data_to_return.append(dict_strc)
 
         return data_to_return
