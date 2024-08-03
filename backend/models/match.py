@@ -1,7 +1,7 @@
 from enum import Enum
 
-class AccountModel(str, Enum):
+class MatchModel(str, Enum):
     EUROPE = "EUROPE"
     AMERICAS = "AMERICAS"
     ASIA = "ASIA"
-    ESPORTS = "ESPORTS"
+    SEA = "SEA"

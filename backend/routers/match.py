@@ -2,32 +2,25 @@ import logging
 import aiohttp
 import asyncio
 
-from fastapi import APIRouter, HTTPException
-
+from fastapi import APIRouter
+from models import MatchModel
 from api_requests.account import AccountController
 from api_requests.match import MatchController
+from utils.wrappers import require_puuid_or_nickname_and_tag
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
 @router.get("/")
-async def match_history(nickname: str = None, tag: str = None, puuid: str = None):
-    """Returns user's match history by provided puuid.
-    It is also possible to provide simple nickname and tag,
-    however additional request is made by API, making response slower."""
+@require_puuid_or_nickname_and_tag
+async def match_history(server: MatchModel, summoner_name: str = None, tag_line: str = None, puuid: str = None):
+    """Returns user's match history by provided puuid."""
+    if summoner_name and tag_line:
+        controller = AccountController(server)
+        puuid = controller.get_account_by_riot_id(summoner_name, tag_line)
 
-    if not puuid and not (nickname and tag):
-        raise HTTPException(
-            status_code=400,
-            detail="Please provide either puuid or nickname nad tag pair",
-        )
-
-    if nickname and tag:
-        controller = AccountController()
-        puuid = controller.get_account_by_riot_id(nickname, tag)
-
-    controller = MatchController()
+    controller = MatchController(server)
 
     async with aiohttp.ClientSession() as session:
         match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid)

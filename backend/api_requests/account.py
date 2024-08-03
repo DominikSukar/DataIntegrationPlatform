@@ -1,9 +1,8 @@
 import logging
 
 from ._base import RiotAPIBase
-
 from utils.requests import send_request
-
+from models import AccountModel
 from schemas import AccountDto
 
 logger = logging.getLogger(__name__)
@@ -14,26 +13,27 @@ class AccountController(RiotAPIBase):
 
     PATH = "/riot/account/v1"
 
-    def __init__(self):
+    def __init__(self, server: AccountModel):
+        domain = super().get_domain(server)
+        key = super().KEY
         self.url_account_by_puuid = "{}{}/accounts/by-puuid/{}{}".format(
-            "{domain}", self.PATH, "{puuid}", super().KEY
+            domain, self.PATH, "{puuid}", key
         )
         self.url_account_by_riot_ID = "{}{}/accounts/by-riot-id/{}/{}{}".format(
-            "{domain}", self.PATH, "{game_name}", "{tag_line}", super().KEY
+            domain, self.PATH, "{game_name}", "{tag_line}", key
         )
         self.url_active_shard_for_a_player = (
             "{}/active-shard/by-game{}{}/by-puuid/{}{}".format(
-                "{domain}", self.PATH, "{game}", "{puuid}", super().KEY
+                domain, self.PATH, "{game}", "{puuid}", key
             )
         )
         self.url_account_by_access_token = "{}{}/accounts/me{}".format(
-            "{domain}", self.PATH, super().KEY
+            domain, self.PATH, key
         )
 
-    def get_account_by_puuid(self, puuid: str, server: str) -> AccountDto:
+    def get_account_by_puuid(self, puuid: str) -> AccountDto:
         "Provide summoner's PUUID, get dict of nickname, tag_line and puuid"
-        domain = super().get_domain(server)
-        URL = self.url_account_by_puuid.format(domain=domain, puuid=puuid)
+        URL = self.url_account_by_puuid.format(puuid=puuid)
 
         summoner_info = send_request(URL)
         summoner_info = AccountDto.model_validate(summoner_info)
@@ -42,11 +42,10 @@ class AccountController(RiotAPIBase):
 
         return summoner_info
 
-    def get_account_by_riot_id(self, summoner_name: str, tag_line: str, server: str) -> str:
+    def get_account_by_riot_id(self, summoner_name: str, tag_line: str) -> str:
         "Provide summoner's nickname and tag, get PUUID in return"
-        domain = super().get_domain(server)
         URL = self.url_account_by_riot_ID.format(
-            domain=domain, game_name=summoner_name, tag_line=tag_line
+            game_name=summoner_name, tag_line=tag_line
         )
 
         summoner_info = send_request(URL)

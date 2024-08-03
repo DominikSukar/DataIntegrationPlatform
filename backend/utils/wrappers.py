@@ -18,12 +18,6 @@ def require_puuid_or_nickname_and_tag(
                 detail="Please provide either puuid or nickname and tag pair",
             )
         
-        if not puuid:
-            print("not puuid")
-        if not (summoner_name and tag_line):
-            print("not s & t")
-        print(f"validation passed for {puuid, summoner_name, tag_line} ")
-        
         return await func(*args, **kwargs)
     
     return wrapper
