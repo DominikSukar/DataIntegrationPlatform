@@ -16,7 +16,8 @@ class SpectatorController(RiotAPIBase):
     PATH = "/lol/spectator/v5"
 
     def __init__(self, server: SummonerAndSpectorServerModel):
-        domain = super().get_domain(server)
+        super().__init__(server, SummonerAndSpectorServerModel)
+        domain = super().get_domain(self.server)
         key = super().KEY
         self.url_current_game_information = "{}{}/active-games/by-summoner/{}{}".format(
             domain, self.PATH, "{puuid}", key
