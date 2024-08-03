@@ -1,6 +1,6 @@
 import logging
 
-from utils.env import API_KEY, DOMAIN_EUW1
+from utils.env import API_KEY, DOMAIN_EUW
 from utils.requests import send_request
 
 from schemas import SummonerDTO
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class SummonerControler:
     "Class manages the Riot's API 'SUMMONER-V4' service. As of 23.07.2024 there are 5 endpoints."
 
-    DOMAIN = DOMAIN_EUW1 + "/lol/summoner/v4/summoners"
+    DOMAIN = DOMAIN_EUW + "/lol/summoner/v4/summoners"
     key = f"?api_key={API_KEY}"
 
     url_account_by_puuid = "{}/by-puuid/{}{}".format(DOMAIN, "{puuid}", key)
