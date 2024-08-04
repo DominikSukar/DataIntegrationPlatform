@@ -13,7 +13,8 @@ interface Participant {
   kills: number,
   deaths: number,
   assists: number,
-  timePlayed: number
+  timePlayed: number,
+  summonerName: string
 }
 
 interface matchData {
@@ -34,7 +35,8 @@ function Game({match}: {match: matchData}) {
   const team_2 = match.team_2
 
   return (
-    <div className={`${gameClasses[mainParticipant.win ? 'win' : 'lose']} rounded-[10px] m-1 p-2 px-5 w-fit flex gap-5 min-w-[600px]`}>
+    <div className={`${gameClasses[mainParticipant.win ? 'win' : 'lose']} rounded-[10px] m-1 p-2 px-5 w-fit flex items-center justify-around gap-5 min-w-[700px]`}>
+      <div>
         <div className="min-w-16">         
           <div className='font-bold'>{mainParticipant.win ? 'Victory' : 'Defeat'}</div>
           <div>{secondsToHMS(mainParticipant.timePlayed)}</div></div>
@@ -43,20 +45,19 @@ function Game({match}: {match: matchData}) {
           <div>{mainParticipant.individualPosition}</div>
         </div>
         <div className="min-w-16">{mainParticipant.kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{mainParticipant.deaths}</span>}{<span className="text-slate-400">/</span>}{mainParticipant.assists}</div>
-        <div className="flex">
-          <div>
-            {team_1.map((participant, index) => (
-              <MatchParticipant key={index} participant={participant} />
-            ))}
-          </div>
-          <div>
-            {team_2.map((participant, index) => (
-              <MatchParticipant key={index} participant={participant} />
-            ))}
-          </div>
+      </div>  
+      <div className="min-w-[400px] flex">
+        <div>
+          {team_1.map((participant, index) => (
+            <MatchParticipant key={index} participant={participant} />
+          ))}
         </div>
-        
-
+        <div>
+          {team_2.map((participant, index) => (
+            <MatchParticipant key={index} participant={participant} />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

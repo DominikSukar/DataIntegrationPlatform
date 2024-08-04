@@ -12,7 +12,8 @@ interface Participant {
   kills: number,
   deaths: number,
   assists: number,
-  timePlayed: number
+  timePlayed: number,
+  summonerName: string
 }
 
 interface matchData {
