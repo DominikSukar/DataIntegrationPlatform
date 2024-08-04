@@ -2,6 +2,7 @@ import logging
 import requests
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from routers import account, match, spectator, summoner
@@ -30,6 +31,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(account.router, tags=["Account"], prefix="/account")
 app.include_router(summoner.router, tags=["Summoner"], prefix="/summoner")
 app.include_router(match.router, tags=["Match"], prefix="/match_history")
