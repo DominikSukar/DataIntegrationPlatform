@@ -5,14 +5,14 @@ from fastapi import APIRouter, Query
 from models import SummonerAndSpectorServerModel
 from api_requests.spectator import SpectatorController
 from schemas import CurrentGameInfo
-from utils.wrappers import require_puuid_or_nickname_and_tag
+from utils.wrappers import map_puuid_and_server
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
 @router.get("/")
-@require_puuid_or_nickname_and_tag
+@map_puuid_and_server
 async def get_current_match(
     server: SummonerAndSpectorServerModel,
     mapped_server: Any = Query(None, include_in_schema=False),

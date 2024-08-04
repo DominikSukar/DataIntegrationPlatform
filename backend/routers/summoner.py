@@ -4,7 +4,7 @@ from typing import Any
 from fastapi import APIRouter, Query
 from api_requests.summoner import SummonerControler
 from models import SummonerAndSpectorServerModel
-from utils.wrappers import require_puuid_or_nickname_and_tag
+from utils.wrappers import map_puuid_and_server
 
 from schemas import SummonerDTO
 
@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.get("/", status_code=200)
-@require_puuid_or_nickname_and_tag
+@map_puuid_and_server
 async def get_summoner(
     server: SummonerAndSpectorServerModel,
     mapped_server: Any = Query(None, include_in_schema=False),

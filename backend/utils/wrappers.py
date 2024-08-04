@@ -30,7 +30,7 @@ def map_server(
     
     return wrapper
 
-def require_puuid_or_nickname_and_tag(
+def map_puuid_and_server(
     func: Callable
 ) -> Callable:
     @wraps(func)

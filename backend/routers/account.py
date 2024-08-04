@@ -3,7 +3,7 @@ import logging
 from fastapi import APIRouter, Query
 
 from api_requests.account import AccountController
-from utils.wrappers import require_puuid_or_nickname_and_tag, map_server
+from utils.wrappers import map_puuid_and_server, map_server
 
 from models import AccountModel, SummonerAndSpectorServerModel
 from schemas import AccountDto
@@ -29,7 +29,7 @@ async def get_account_puuid(
 
 
 @router.get("/info/")
-@require_puuid_or_nickname_and_tag
+@map_puuid_and_server
 async def get_account_info(
     server: SummonerAndSpectorServerModel,
     mapped_server: AccountModel = Query(None, include_in_schema=False),
