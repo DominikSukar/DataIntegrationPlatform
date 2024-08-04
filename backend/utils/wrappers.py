@@ -58,9 +58,8 @@ def require_puuid_or_nickname_and_tag(
                 pass
         
         if not puuid:
-            if "#" in summoner_name:
-                tag_line = summoner_name.split("#", 1)[1]
-                summoner_name = summoner_name.split("#", 1)[0]
+            if "_" in summoner_name:
+                summoner_name, tag_line = summoner_name.split("_", 1)
             elif server.value:
                 tag_line = server.value
 

@@ -20,6 +20,7 @@ def random_user():
     featured_games = controller.get_list_of_featured_games()
     if featured_games["gameList"]:
         user = featured_games["gameList"][0]["participants"][0]["riotId"]
+        user = user.replace("#", "_")
 
         return user
     
@@ -37,7 +38,7 @@ class TestGetCurrentMatch:
 
     def test_not_existing_user(self):
         "Test for user that should not exist"
-        params = {"summoner_name": "sdasdsad", "tag_line": "sadsad", "server": "EUW"}
+        params = {"summoner_name": "sdasdsad",  "server": "EUW"}
 
         with pytest.raises(HTTPException) as err:
             client.get("/", params=params)

@@ -12,11 +12,10 @@ client = TestClient(router)
 
 
 class TestGetSummonerInfo:
-    def test_by_providing_user_id(self):
+    def test_by_providing_summoner_name(self):
         "Test endpoint by requesting data by providing combination of summoner_name and tag_line"
         REQUEST_PARAMS = {
             "summoner_name": "PrinceOfEssling",
-            "tag_line": "EUW",
             "server": "EUW",
         }
         EXPECTED_STABLE_FIELDS = {
@@ -36,7 +35,7 @@ class TestGetSummonerInfo:
 
     def test_by_providing_not_existing_user_id(self):
         "Test endpoint by requesting data by providing combination of summoner_name and tag_line"
-        params = {"summoner_name": "63cburlhqa", "tag_line": "xz7", "server": "EUW"}
+        params = {"summoner_name": "63cburlhqa", "server": "EUW"}
 
         with pytest.raises(HTTPException) as err:
             client.get("/", params=params)

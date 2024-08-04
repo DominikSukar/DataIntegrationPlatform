@@ -51,7 +51,7 @@ class AccountController(RiotAPIBase):
         summoner_info = send_request(URL)
         puuid = summoner_info["puuid"]
 
-        logger.debug(f"PUUID {puuid} found for user {summoner_name}#{tag_line}")
+        logger.debug(f"PUUID {puuid} found for user {summoner_name}_{tag_line}")
 
         return puuid
 
