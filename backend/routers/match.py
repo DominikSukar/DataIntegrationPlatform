@@ -2,9 +2,8 @@ import logging
 import aiohttp
 import asyncio
 
-from fastapi import APIRouter
-from models import MatchModel
-from api_requests.account import AccountController
+from fastapi import APIRouter, Query
+from models import MatchModel, SummonerAndSpectorServerModel
 from api_requests.match import MatchController
 from utils.wrappers import require_puuid_or_nickname_and_tag
 
@@ -14,13 +13,14 @@ router = APIRouter()
 
 @router.get("/")
 @require_puuid_or_nickname_and_tag
-async def match_history(server: MatchModel, summoner_name: str = None, tag_line: str = None, puuid: str = None):
+async def match_history(
+    server: SummonerAndSpectorServerModel,
+    mapped_server: MatchModel = Query(None, include_in_schema=False),
+    summoner_name: str = None,
+    puuid: str = None,
+):
     """Returns user's match history by provided puuid."""
-    if summoner_name and tag_line:
-        controller = AccountController(server)
-        puuid = controller.get_account_by_riot_id(summoner_name, tag_line)
-
-    controller = MatchController(server)
+    controller = MatchController(mapped_server)
 
     async with aiohttp.ClientSession() as session:
         match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid)

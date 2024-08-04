@@ -14,8 +14,7 @@ class MatchController(RiotAPIBase):
     PATH = "/lol/match/v5/matches"
 
     def __init__(self, server: MatchModel):
-        super().__init__(server, MatchModel)
-        domain = super().get_domain(self.server)
+        domain = super().get_domain(server)
         key = super().KEY
         self.url_list_of_match_ids = "{}{}/by-puuid/{}/ids{}".format(
             domain, self.PATH, "{puuid}", key

@@ -14,8 +14,7 @@ class SummonerControler(RiotAPIBase):
     PATH = "/lol/summoner/v4/summoners"
 
     def __init__(self, server: SummonerAndSpectorServerModel):
-        super().__init__(server, SummonerAndSpectorServerModel)
-        domain = super().get_domain(self.server)
+        domain = super().get_domain(server)
         key = super().KEY
         self.url_account_by_puuid = "{}{}/by-puuid/{}{}".format(
             domain, self.PATH, "{puuid}", key

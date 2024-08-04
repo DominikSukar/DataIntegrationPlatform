@@ -1,6 +1,11 @@
 from functools import wraps
 from fastapi import HTTPException
 from typing import Callable
+from enum import Enum
+
+from models import AccountModel, MatchModel, SummonerAndSpectorServerModel
+from api_requests.account import AccountController
+from utils.domain_routers import get_mapped_server
 
 def require_puuid_or_nickname_and_tag(
     func: Callable
@@ -10,14 +15,41 @@ def require_puuid_or_nickname_and_tag(
         # Extract parameters from kwargs
         puuid = kwargs.get('puuid')
         summoner_name = kwargs.get('summoner_name')
-        tag_line = kwargs.get('tag_line')
+        server = kwargs.get('server')
 
-        if (not puuid and not (summoner_name and tag_line)) or ((puuid and tag_line) or (puuid and summoner_name)):
+        if not puuid and not summoner_name:
             raise HTTPException(
                 status_code=400,
-                detail="Please provide either puuid or nickname and tag pair",
+                detail="Please provide either puuid or nickname",
             )
         
-        return await func(*args, **kwargs)
+        "Check if our server is of multi-type SummonerAndSpectorServerModel, so EUW, EUNE, NA, etc"
+        if isinstance(server, SummonerAndSpectorServerModel):
+            "Create var that will be used to determine whether we are dealing with a main server (EUROPE, ASIA etc) or minor server (EUW, EUNE, KR)"
+            mapped_server = get_mapped_server(server)
+        else:
+            "If not then check if its either of type AccountModel (without SEA) or MatchModel (without ESPORTS)"
+            if isinstance(server, AccountModel):
+                pass
+            if isinstance(server, MatchModel):
+                pass
+        
+        if not puuid:
+            if "#" in summoner_name:
+                tag_line = summoner_name.split("#", 1)[1]
+                summoner_name = summoner_name.split("#", 1)[0]
+            elif server.value:
+                tag_line = server.value
+
+            if mapped_server:
+                controller = AccountController(mapped_server)
+            else:
+                controller = AccountController(server)
+            puuid = controller.get_account_by_riot_id(summoner_name, tag_line)
+
+        kwargs.pop('puuid', None)
+        kwargs.pop('mapped_server', None) 
+        
+        return await func(mapped_server=mapped_server, puuid=puuid, *args, **kwargs)
     
     return wrapper

@@ -14,8 +14,7 @@ class AccountController(RiotAPIBase):
     PATH = "/riot/account/v1"
 
     def __init__(self, server: AccountModel):
-        super().__init__(server, AccountModel)
-        domain = super().get_domain(self.server)
+        domain = super().get_domain(server)
         key = super().KEY
         self.url_account_by_puuid = "{}{}/accounts/by-puuid/{}{}".format(
             domain, self.PATH, "{puuid}", key

@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class SummonerAndSpectorServerModel(str, Enum):
+    """EUW, EUNE, KR etc"""
     BR = "BR"
     EUNE = "EUNE"
     EUW = "EUW"
