@@ -36,7 +36,7 @@ class TestGetSummonerInfo:
 
     def test_by_providing_not_existing_user_id(self):
         "Test endpoint by requesting data by providing combination of summoner_name and tag_line"
-        params = {"summoner_name": "sdasdsad", "tag_line": "sadsad", "server": "EUW"}
+        params = {"summoner_name": "63cburlhqa", "tag_line": "xz7", "server": "EUW"}
 
         with pytest.raises(HTTPException) as err:
             client.get("/", params=params)

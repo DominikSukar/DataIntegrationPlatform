@@ -7,6 +7,29 @@ from models import AccountModel, MatchModel, SummonerAndSpectorServerModel
 from api_requests.account import AccountController
 from utils.domain_routers import get_mapped_server
 
+def map_server(
+    func: Callable
+) -> Callable:
+    @wraps(func)
+    async def wrapper(*args, **kwargs):
+        server = kwargs.get('server')        
+        "Check if our server is of multi-type SummonerAndSpectorServerModel, so EUW, EUNE, NA, etc"
+        if isinstance(server, SummonerAndSpectorServerModel):
+            "Create var that will be used to determine whether we are dealing with a main server (EUROPE, ASIA etc) or minor server (EUW, EUNE, KR)"
+            mapped_server = get_mapped_server(server)
+        else:
+            "If not then check if its either of type AccountModel (without SEA) or MatchModel (without ESPORTS)"
+            if isinstance(server, AccountModel):
+                pass
+            if isinstance(server, MatchModel):
+                pass
+
+        kwargs.pop('mapped_server', None) 
+        
+        return await func(mapped_server=mapped_server, *args, **kwargs)
+    
+    return wrapper
+
 def require_puuid_or_nickname_and_tag(
     func: Callable
 ) -> Callable:

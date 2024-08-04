@@ -3,7 +3,7 @@ import logging
 from fastapi import APIRouter, Query
 
 from api_requests.account import AccountController
-from utils.wrappers import require_puuid_or_nickname_and_tag
+from utils.wrappers import require_puuid_or_nickname_and_tag, map_server
 
 from models import AccountModel, SummonerAndSpectorServerModel
 from schemas import AccountDto
@@ -13,6 +13,7 @@ router = APIRouter()
 
 
 @router.get("/get_puuid/", status_code=200)
+@map_server
 async def get_account_puuid(
     summoner_name: str,
     tag_line: str,
@@ -21,7 +22,7 @@ async def get_account_puuid(
 ) -> str:
     "Return account's puuid based on his account name and tag line."
 
-    controller = AccountController(server)
+    controller = AccountController(mapped_server)
     puuid = controller.get_account_by_riot_id(summoner_name, tag_line)
 
     return puuid
