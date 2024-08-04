@@ -37,26 +37,13 @@ interface FormData {
   region: string;
 }
 
-interface Match {
-  win: boolean;
-  championId: number;
-  championName: string;
-  invidualPosition: string;
-  teamId: number;
-}
-
 const regions = ["NA", "EUW", "EUNE", "KR", "BR", "JP", "OCE"];
 
 export function ProfileForm() {
   const router = useRouter()
 
   const handleSubmit = async (formData: FormData) => {
-    try {
-      const response = await fetch(`http://localhost:8000/match_history?nickname=${formData.username}&tag=${formData.region}`);
-      router.push(`/user?summonername=${formData.username}&tag=${formData.region}`)
-    } catch (error) {
-      console.error('Error fetching match data:', error);
-    }
+    router.push(`/user?summonername=${formData.username}&server=${formData.region}`)
   };
 
   const [selectedRegion, setSelectedRegion] = useState(regions[0]);

@@ -21,16 +21,16 @@ interface matchData {
   team_2: Participant[],
 }
 
-const User = ({searchParams}: {searchParams: {summonername: string, tag: string}}) => {
+const User = ({searchParams}: {searchParams: {summonername: string, server: string}}) => {
   const summonerName = searchParams.summonername
-  const tag = searchParams.tag
+  const server = searchParams.server
 
   const [matches, setMatches] = useState<matchData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/match_history?nickname=${summonerName}&tag=${tag}`);
+        const response = await fetch(`http://localhost:8000/match_history/?summoner_name=${summonerName}&server=${server}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -42,11 +42,11 @@ const User = ({searchParams}: {searchParams: {summonername: string, tag: string}
     };
 
     fetchData();
-  }, [summonerName, tag]);
+  }, [summonerName, server]);
 
   return (
     <div>
-      <div>{summonerName} # {tag}</div>
+      <div>{summonerName} # {server}</div>
       <div className="flex flex-col items-center">
         {matches.map((match, index) => (
           <Game key={index} match={match}/>
