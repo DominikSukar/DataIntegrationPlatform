@@ -49,6 +49,10 @@ async def match_history(
                         "kills": participant["kills"],
                         "deaths": participant["deaths"],
                         "assists": participant["assists"],
+                        "summonerName": participant["riotIdGameName"],
+                        "tagLine": participant["riotIdTagline"],
+                        "summoner1Id": participant["summoner1Id"],
+                        "summoner2Id": participant["summoner2Id"],
                     }
                     if participant["puuid"] == puuid:
                         dict_strc["main_participant"] = {
