@@ -17,8 +17,8 @@ function MatchParticipant({participant}: {participant: Participant}) {
 
   if (participant.teamId === 100) {
     return (
-      <div className="flex font-light text-xs justify-end">
-          <div>{participant.summonerName}</div>
+      <div className="flex font-light text-xs justify-end items-center">
+          <span>{participant.summonerName}</span>
           <ChampionIcon championName={participant.championName}></ChampionIcon>
           <div className="w-16 flex justify-center items-center">{participant.kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{participant.deaths}</span>}{<span className="text-slate-400">/</span>}{participant.assists}</div>
       </div>
@@ -26,7 +26,7 @@ function MatchParticipant({participant}: {participant: Participant}) {
   }
 
   return (
-    <div className="flex font-light text-xs justify-start">
+    <div className="flex font-light text-xs justify-start items-center">
         <div className="w-16 flex justify-center items-center">{participant.kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{participant.deaths}</span>}{<span className="text-slate-400">/</span>}{participant.assists}</div>
         <ChampionIcon championName={participant.championName}></ChampionIcon>
         <div>{participant.summonerName}</div>
