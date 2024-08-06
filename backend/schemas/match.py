@@ -380,27 +380,33 @@ class ChallengesDto(BaseModel):
     visionScorePerMinute: Optional[float] = None
     wardsGuarded: Optional[int]
 
+
 class MatchDto(BaseModel):
     metadata: MetadataDto
     info: InfoDto
+
 
 class MetadataTimeLineDto(BaseModel):
     dataVersion: str
     matchId: str
     participants: List[str]
 
+
 class ParticipantTimeLineDto(BaseModel):
     participantId: int
     puuid: str
+
 
 class EventsTimeLineDto(BaseModel):
     timestamp: int
     realTimestamp: int
     type: str
 
+
 class PositionDto(BaseModel):
     x: int
     y: int
+
 
 class ChampionStatsDto(BaseModel):
     abilityHaste: int
@@ -429,6 +435,7 @@ class ChampionStatsDto(BaseModel):
     powerRegen: int
     spellVamp: int
 
+
 class DamageStatsDto(BaseModel):
     magicDamageDone: int
     magicDamageDoneToChampions: int
@@ -442,6 +449,7 @@ class DamageStatsDto(BaseModel):
     trueDamageDone: int
     trueDamageDoneToChampions: int
     trueDamageTaken: int
+
 
 class ParticipantFrameDto(BaseModel):
     championStats: ChampionStatsDto
@@ -457,13 +465,16 @@ class ParticipantFrameDto(BaseModel):
     totalGold: int
     xp: int
 
+
 class ParticipantFramesDto(BaseModel):
     participantFrames: Dict[int, ParticipantFrameDto]
+
 
 class FramesTimeLineDto(BaseModel):
     events: List[EventsTimeLineDto]
     participantFrames: ParticipantFramesDto
     timestamp: int
+
 
 class InfoTimeLineDto(BaseModel):
     endOfGameResult: str
@@ -471,6 +482,7 @@ class InfoTimeLineDto(BaseModel):
     gameId: int
     participants: List[ParticipantTimeLineDto]
     frames: List[FramesTimeLineDto]
+
 
 class TimelineDto(BaseModel):
     metadata: MetadataTimeLineDto

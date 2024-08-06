@@ -39,7 +39,7 @@ class TestGetAccountPUUID:
         for error in errors:
             assert error["type"] == "missing"
             assert error["msg"] == "Field required"
-            assert error["input"] == None
+            assert error["input"] is None
 
 
 class TestGetAccountInfo:
@@ -56,7 +56,6 @@ class TestGetAccountInfo:
             "tagLine": "EUW",
             "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
         }
-
 
     def test_by_providing_summoner_name_with_tag_line(self):
         "Test endpoint by requesting data by providing only summoner_name, but with tag inside"
