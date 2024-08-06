@@ -9,6 +9,30 @@ on:
       - main
 
 jobs:
+  lint_backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12.4'
+
+    - name: Install dependencies for linting
+      run: |
+        pip install black ruff
+
+    - name: Run Black
+      run: |
+        black --check backend
+
+    - name: Run Ruff
+      run: |
+        ruff backend
+
   test-backend:
     runs-on: ubuntu-latest
 
@@ -19,7 +43,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12.4'  # Specify the Python version you are using
+          python-version: '3.12.4'
 
       - name: Install dependencies
         run: |
@@ -29,6 +53,7 @@ jobs:
 
       - name: Run tests
         env:
+          #### Variables ####
           DOMAIN_EUROPE: https://europe.api.riotgames.com
           DOMAIN_AMERICAS: https://americas.api.riotgames.com
           DOMAIN_ASIA: https://asia.api.riotgames.com
@@ -57,7 +82,8 @@ jobs:
           DOMAIN_TR: https://tr1.api.riotgames.com
           DOMAIN_TW: https://tw2.api.riotgames.com
           DOMAIN_VN: https://vn2.api.riotgames.com
-          # Secrets
+
+          #### Secrets ####
           API_KEY: ${{ secrets.API_KEY }}
           
         run: |
