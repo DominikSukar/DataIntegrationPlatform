@@ -31,7 +31,7 @@ jobs:
 
     - name: Run Ruff
       run: |
-        ruff backend
+        ruff check backend
 
   test-backend:
     runs-on: ubuntu-latest
