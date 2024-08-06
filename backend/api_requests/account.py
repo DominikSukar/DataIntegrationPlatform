@@ -59,10 +59,8 @@ class AccountController(RiotAPIBase):
         """This endpoint could be used on any REGION to look for a player in the different regions
         Parameter 'game' is equal to 'var' od 'lor' (Valorant and Legends of Runeterra)
         """
-        URL = self.url_active_shard_for_a_player.format(game=game, puuid=puuid)
         pass
 
     def get_account_by_access_token(self):
         """CANNOT EXECUTE. THIS API ENDPOINT IS NOT AVAILABLE IN YOUR POLICY"""
-        URL = self.url_account_by_access_token
         pass

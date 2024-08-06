@@ -1,7 +1,6 @@
 from functools import wraps
 from fastapi import HTTPException
 from typing import Callable
-from enum import Enum
 
 from models import AccountModel, MatchModel, SummonerAndSpectorServerModel
 from api_requests.account import AccountController

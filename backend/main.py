@@ -1,5 +1,4 @@
 import logging
-import requests
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles

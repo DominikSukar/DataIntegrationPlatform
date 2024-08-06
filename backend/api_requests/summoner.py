@@ -22,12 +22,10 @@ class SummonerControler(RiotAPIBase):
 
     def get_a_summoner_by_its_RSO_encrypted_PUUID(self) -> SummonerDTO:
         """Not used"""
-        URL = self.url_account_by_access_token
         pass
 
     def get_a_summoner_by_account_ID(self) -> SummonerDTO:
         """Not used"""
-        URL = self.url_account_by_access_token
         pass
 
     def get_a_summoner_by_PUUID(self, puuid: str) -> SummonerDTO:
@@ -44,10 +42,8 @@ class SummonerControler(RiotAPIBase):
 
     def get_a_summoner_by_access_token(self) -> SummonerDTO:
         """Not used"""
-        URL = self.url_account_by_access_token
         pass
 
     def get_a_summoner_by_summoner_ID(self) -> SummonerDTO:
         """Not used"""
-        URL = self.url_account_by_access_token
         pass

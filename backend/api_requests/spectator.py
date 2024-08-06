@@ -3,7 +3,6 @@ import logging
 from ._base import RiotAPIBase
 from schemas import CurrentGameInfo
 from models import SummonerAndSpectorServerModel
-from utils.env import API_KEY, EUW
 from utils.requests import send_request
 
 logger = logging.getLogger(__name__)

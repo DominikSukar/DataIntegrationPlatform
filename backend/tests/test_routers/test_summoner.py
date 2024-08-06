@@ -2,7 +2,6 @@ import pytest
 
 from fastapi.testclient import TestClient
 from fastapi import HTTPException
-from fastapi.exceptions import RequestValidationError
 
 from routers.summoner import router
 
