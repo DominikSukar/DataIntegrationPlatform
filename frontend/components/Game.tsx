@@ -37,15 +37,17 @@ function Game({match}: {match: matchData}) {
   return (
     <div className={`${gameClasses[mainParticipant.win ? 'win' : 'lose']} rounded-[10px] m-1 p-2 px-5 w-fit flex items-center justify-around gap-5 min-w-[700px]`}>
       <div className="flex">
-        <div className="min-w-16">         
+        <div className="flex flex-col items-center justify-center m-1 min-w-16">         
           <h3>{mainParticipant.win ? 'Victory' : 'Defeat'}</h3>
           <p>{secondsToHMS(mainParticipant.timePlayed)}</p>
         </div>
-        <div className="min-w-16">
+        <div className="flex flex-col items-center justify-center m-1 min-w-16">
           <div>{mainParticipant.championName}</div>
           <div>{mainParticipant.individualPosition}</div>
+        </div >
+        <div className="flex flex-col items-center justify-center m-1 min-w-16">
+          <div className="min-w-16">{mainParticipant.kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{mainParticipant.deaths}</span>}{<span className="text-slate-400">/</span>}{mainParticipant.assists}</div>
         </div>
-        <div className="min-w-16">{mainParticipant.kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{mainParticipant.deaths}</span>}{<span className="text-slate-400">/</span>}{mainParticipant.assists}</div>
       </div>  
       <div className="min-w-[400px] flex">
         <div>
