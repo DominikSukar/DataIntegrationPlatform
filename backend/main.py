@@ -3,8 +3,10 @@ import logging
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from routers import account, match, spectator, summoner
+from middleware import UpperCaseServerParamMiddleware
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -29,6 +31,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(
+    BaseHTTPMiddleware,
+    dispatch=UpperCaseServerParamMiddleware(
+        some_attribute="some_attribute_here_if_needed"
+    ),
+)
+
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(account.router, tags=["Account"], prefix="/account")
