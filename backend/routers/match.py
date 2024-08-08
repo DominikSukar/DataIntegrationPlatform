@@ -24,7 +24,7 @@ async def match_history(
 
     async with aiohttp.ClientSession() as session:
         match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid)
-        match_ids = match_ids[:5]
+        match_ids = match_ids[:3]
 
         tasks = [
             controller.get_a_match_by_match_id(session, match_id)
@@ -37,12 +37,32 @@ async def match_history(
         for match_data in match_data_list:
             if match_data:
                 participants = match_data["info"]["participants"]
+                info = match_data["info"]
+                metadata = match_data["metadata"]
 
-                dict_strc = {"main_participant": None, "team_1": [], "team_2": []}
+                team_strc = {}
+
+                for team in info["teams"]:
+                    team_ID = "team_1" if team["teamId"] == 100 else "team_2"
+                    team_bans = team["bans"]
+                    team_objectives = team["objectives"]
+                    team_strc[team_ID] = {"bans": team_bans, "objectives": team_objectives}
+
+                info = {
+                    "server": server,
+                    "matchId": metadata["matchId"],
+                    "gameResult": info["endOfGameResult"],
+                    "gameDuration": info["gameDuration"],
+                    "gameMode": info["gameMode"],
+                    "gameType": info["gameType"],
+                    "teams": team_strc
+                    
+                }
+                dict_strc = {"info": info,"main_participant": None, "team_1": [], "team_2": []}
 
                 for participant in participants:
                     participant_data = {
-                        "championId": participant["championId"],
+                        "server": server,
                         "championName": participant["championName"],
                         "individualPosition": participant["individualPosition"],
                         "teamId": participant["teamId"],
@@ -51,8 +71,6 @@ async def match_history(
                         "assists": participant["assists"],
                         "summonerName": participant["riotIdGameName"],
                         "tagLine": participant["riotIdTagline"],
-                        "summoner1Id": participant["summoner1Id"],
-                        "summoner2Id": participant["summoner2Id"],
                     }
                     if participant["puuid"] == puuid:
                         dict_strc["main_participant"] = {
