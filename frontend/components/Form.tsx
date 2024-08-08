@@ -43,7 +43,7 @@ export function ProfileForm() {
   const router = useRouter()
 
   const handleSubmit = async (formData: FormData) => {
-    router.push(`/user?summonername=${formData.username}&server=${formData.region}`)
+    router.push(`/summoner/${formData.region}/${formData.username}`)
   };
 
   const [selectedRegion, setSelectedRegion] = useState(regions[0]);

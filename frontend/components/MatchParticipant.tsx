@@ -1,24 +1,23 @@
+import Link from 'next/link';
 import ChampionIcon from '../components/ChampionIcon'
 
-interface Participant {
-  win: boolean;
-  championId: number;
-  championName: string;
-  individualPosition: string;
-  teamId: number;
-  kills: number,
-  deaths: number,
-  assists: number,
-  timePlayed: number
-  summonerName: string;
-}
+import { Participant, Info } from '@/types/matchTypes';
 
-function MatchParticipant({participant}: {participant: Participant}) {
+function MatchParticipant({participant, info}: {participant: Participant, info: Info}) {
+  try {
+    const server = info.server
+    console.log("Server:", server)
+  } catch (err) {
+    console.log("Participant:")
+  }
 
   if (participant.teamId === 100) {
     return (
       <div className="flex font-light text-xs justify-end items-center">
-          <span>{participant.summonerName}</span>
+          <Link href={`/summoner/${info.server}/${participant.summonerName}_${participant.tagLine}`}
+          className="no-underline">
+            <div className="w-28 text-right overflow-hidden whitespace-nowrap text-ellipsis text-white">{participant.summonerName}#{participant.tagLine}</div>
+          </Link> 
           <ChampionIcon championName={participant.championName}></ChampionIcon>
           <div className="w-16 flex justify-center items-center">{participant.kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{participant.deaths}</span>}{<span className="text-slate-400">/</span>}{participant.assists}</div>
       </div>
@@ -29,7 +28,10 @@ function MatchParticipant({participant}: {participant: Participant}) {
     <div className="flex font-light text-xs justify-start items-center">
         <div className="w-16 flex justify-center items-center">{participant.kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{participant.deaths}</span>}{<span className="text-slate-400">/</span>}{participant.assists}</div>
         <ChampionIcon championName={participant.championName}></ChampionIcon>
-        <div>{participant.summonerName}</div>
+        <Link href={`/summoner/${participant.server}/${participant.summonerName}_${participant.tagLine}`}
+        className="no-underline">
+          <div className="w-28 text-left overflow-hidden whitespace-nowrap text-ellipsis text-white">{participant.summonerName}#{participant.tagLine}</div>
+        </Link> 
     </div>
   )
 }

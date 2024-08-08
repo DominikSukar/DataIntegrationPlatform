@@ -4,27 +4,11 @@ import {secondsToHMS} from "../utils/time"
 
 import MatchParticipant from '../components/MatchParticipant'
 
-interface Participant {
-  win: boolean;
-  championId: number;
-  championName: string;
-  individualPosition: string;
-  teamId: number;
-  kills: number,
-  deaths: number,
-  assists: number,
-  timePlayed: number,
-  summonerName: string
-}
-
-interface matchData {
-  main_participant: Participant,
-  team_1: Participant[],
-  team_2: Participant[],
-}
+import { Participant, MatchData } from '@/types/matchTypes'
+import { markAsUntransferable } from 'worker_threads'
 
 
-function Game({match}: {match: matchData}) {
+function Game({match}: {match: MatchData}) {
   const gameClasses = {
     win: "bg-green-gradient border-green-950",
     lose: "bg-red-gradient border-red-950"
@@ -33,6 +17,15 @@ function Game({match}: {match: matchData}) {
   const mainParticipant = match.main_participant
   const team_1 = match.team_1
   const team_2 = match.team_2
+  const info = match.info
+
+  console.log("**********************")
+  console.log(Object.keys(match));
+  console.log(Object.keys(team_1[0]));
+  console.log(Object.keys(team_2[0]));
+  console.log(Object.keys(info));
+
+  console.log("mainParticipant: ", mainParticipant)
 
   return (
     <div className={`${gameClasses[mainParticipant.win ? 'win' : 'lose']} rounded-[10px] m-1 p-2 px-5 w-fit flex items-center justify-around gap-5 min-w-[700px]`}>
@@ -49,15 +42,15 @@ function Game({match}: {match: matchData}) {
           <div className="min-w-16">{mainParticipant.kills}{<span className="text-slate-400">/</span>}{<span className="text-red-600 font-bold">{mainParticipant.deaths}</span>}{<span className="text-slate-400">/</span>}{mainParticipant.assists}</div>
         </div>
       </div>  
-      <div className="min-w-[400px] flex">
+      <div className="min-w-[400px] flex justify-center">
         <div>
           {team_1.map((participant, index) => (
-            <MatchParticipant key={index} participant={participant} />
+            <MatchParticipant key={index} participant={participant} info={info} />
           ))}
         </div>
         <div>
           {team_2.map((participant, index) => (
-            <MatchParticipant key={index} participant={participant} />
+            <MatchParticipant key={index} participant={participant} info={info} />
           ))}
         </div>
       </div>
