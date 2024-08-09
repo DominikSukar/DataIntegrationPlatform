@@ -19,14 +19,6 @@ function Game({match}: {match: MatchData}) {
   const team_2 = match.team_2
   const info = match.info
 
-  console.log("**********************")
-  console.log(Object.keys(match));
-  console.log(Object.keys(team_1[0]));
-  console.log(Object.keys(team_2[0]));
-  console.log(Object.keys(info));
-
-  console.log("mainParticipant: ", mainParticipant)
-
   return (
     <div className={`${gameClasses[mainParticipant.win ? 'win' : 'lose']} rounded-[10px] m-1 p-2 px-5 w-fit flex items-center justify-around gap-5 min-w-[700px]`}>
       <div className="flex">

@@ -9,9 +9,7 @@ async function fetchMatchData(server: string, summonerName: string): Promise<Mat
 
 const SummonerPage = async ({ params }: PageProps) => {
   const { server, summonername } = params;
-  console.log("Fetching", server, summonername)
   const matches = await fetchMatchData(server, summonername);
-  console.log("Fetched", matches[0])
 
   return (
     <div>
