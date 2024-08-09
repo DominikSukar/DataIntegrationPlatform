@@ -1,6 +1,5 @@
 export interface Participant {
   server: string,
-  win: boolean;
   championId: number;
   championName: string;
   individualPosition: string;
@@ -8,11 +7,24 @@ export interface Participant {
   kills: number,
   deaths: number,
   assists: number,
-  timePlayed: number,
+  kda: number,
   summonerName: string
   tagLine: string
   summoner1Id: number,
   summoner2Id: number,
+  item0: number,
+  item1: number,
+  item2: number,
+  item3: number,
+  item4: number,
+  item5: number,
+  item6: number,
+  vision: number
+}
+
+export interface MainParticipant extends Participant {
+  win: boolean;
+  timePlayed: number,
 }
 
 export interface Info {
