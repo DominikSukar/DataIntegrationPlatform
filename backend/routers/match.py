@@ -46,7 +46,10 @@ async def match_history(
                     team_ID = "team_1" if team["teamId"] == 100 else "team_2"
                     team_bans = team["bans"]
                     team_objectives = team["objectives"]
-                    team_strc[team_ID] = {"bans": team_bans, "objectives": team_objectives}
+                    team_strc[team_ID] = {
+                        "bans": team_bans,
+                        "objectives": team_objectives,
+                    }
 
                 info = {
                     "server": server,
@@ -55,10 +58,14 @@ async def match_history(
                     "gameDuration": info["gameDuration"],
                     "gameMode": info["gameMode"],
                     "gameType": info["gameType"],
-                    "teams": team_strc
-                    
+                    "teams": team_strc,
                 }
-                dict_strc = {"info": info,"main_participant": None, "team_1": [], "team_2": []}
+                dict_strc = {
+                    "info": info,
+                    "main_participant": None,
+                    "team_1": [],
+                    "team_2": [],
+                }
 
                 for participant in participants:
                     kills = participant["kills"]
@@ -89,7 +96,7 @@ async def match_history(
                         "item6": participant["item6"],
                         "summoner1Id": participant["summoner1Id"],
                         "summoner2Id": participant["summoner2Id"],
-                        "visionScore": participant["visionScore"]
+                        "visionScore": participant["visionScore"],
                     }
 
                     if participant["puuid"] == puuid:

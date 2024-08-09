@@ -1,9 +1,10 @@
 from starlette.requests import Request
 
+
 class UpperCaseServerParamMiddleware:
     def __init__(
-            self,
-            some_attribute: str,
+        self,
+        some_attribute: str,
     ):
         self.some_attribute = some_attribute
 
