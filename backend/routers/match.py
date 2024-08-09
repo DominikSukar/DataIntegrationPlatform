@@ -61,17 +61,37 @@ async def match_history(
                 dict_strc = {"info": info,"main_participant": None, "team_1": [], "team_2": []}
 
                 for participant in participants:
+                    kills = participant["kills"]
+                    assists = participant["assists"]
+                    deaths = participant["deaths"]
+                    if not deaths == 0:
+                        kda = (kills + assists) / deaths
+                        kda = "{:.2f}".format(kda)
+                    else:
+                        kda = "Perfect"
+
                     participant_data = {
-                        "server": server,
                         "championName": participant["championName"],
                         "individualPosition": participant["individualPosition"],
                         "teamId": participant["teamId"],
-                        "kills": participant["kills"],
-                        "deaths": participant["deaths"],
-                        "assists": participant["assists"],
+                        "kills": kills,
+                        "deaths": deaths,
+                        "assists": assists,
+                        "kda": kda,
                         "summonerName": participant["riotIdGameName"],
                         "tagLine": participant["riotIdTagline"],
+                        "item0": participant["item0"],
+                        "item1": participant["item1"],
+                        "item2": participant["item2"],
+                        "item3": participant["item3"],
+                        "item4": participant["item4"],
+                        "item5": participant["item5"],
+                        "item6": participant["item6"],
+                        "summoner1Id": participant["summoner1Id"],
+                        "summoner2Id": participant["summoner2Id"],
+                        "visionScore": participant["visionScore"]
                     }
+
                     if participant["puuid"] == puuid:
                         dict_strc["main_participant"] = {
                             **participant_data,
