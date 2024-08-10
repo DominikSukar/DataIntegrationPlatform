@@ -24,8 +24,16 @@ html {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    background-color: black;;
     color: #fff;
     margin: 0;
+    --overlay-opacity: 0.6;
+    background-image: 
+      linear-gradient(
+        rgba(0, 0, 0, var(--overlay-opacity)), 
+        rgba(0, 0, 0, var(--overlay-opacity))
+      ),
+      url('/background.jpg');
   }
 }
 

@@ -12,8 +12,8 @@ import { Participant, MatchData } from "@/types/matchTypes";
 
 function Game({ match }: { match: MatchData }) {
   const gameClasses = {
-    win: "bg-green-gradient border-green-950",
-    lose: "bg-red-gradient border-red-950",
+    win: "border-indigo-700",
+    lose: "border-red-700",
   };
 
   const mainParticipant = match.main_participant;
@@ -23,9 +23,10 @@ function Game({ match }: { match: MatchData }) {
 
   return (
     <div
-      className={`${
-        gameClasses[mainParticipant.win ? "win" : "lose"]
-      } rounded-[10px] m-1 p-2 px-5 w-fit flex items-center justify-around gap-5 min-w-[700px]`}
+      className={`bg-white bg-opacity-20 backdrop-blur-md rounded-l-full border-4 
+         rounded-[10px] m-1 p-2 px-5 w-fit flex items-center justify-around gap-5 min-w-[700px]
+          ${gameClasses[mainParticipant.win ? "win" : "lose"]}
+          animate-fadeInUp`}
     >
       <div className="flex">
         <div className="flex flex-col items-center justify-center m-1 min-w-16">
@@ -60,7 +61,18 @@ function Game({ match }: { match: MatchData }) {
             {<span className="text-slate-400">/</span>}
             {mainParticipant.assists}
           </div>
-          <div>{mainParticipant.kda} KDA</div>
+          <div className={`
+          ${
+            mainParticipant.kda < 1.0
+              ? "text-red-500"
+              : mainParticipant.kda < 3.0
+              ? "text-white-400"
+              : mainParticipant.kda < 5.0
+              ? "text-green-400"
+              : mainParticipant.kda < 10.0
+              ? "text-blue-400"
+              : "text-yellow-500"
+          }`}>{mainParticipant.kda} KDA</div>
         </div>
       </div>
       <div className="min-w-[400px] flex justify-center">
