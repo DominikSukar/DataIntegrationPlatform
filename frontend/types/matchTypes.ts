@@ -8,17 +8,10 @@ export interface Participant {
   deaths: number,
   assists: number,
   kda: number,
-  summonerName: string
-  tagLine: string
-  summoner1Id: number,
-  summoner2Id: number,
-  item0: number,
-  item1: number,
-  item2: number,
-  item3: number,
-  item4: number,
-  item5: number,
-  item6: number,
+  summonerName: string,
+  tagLine: string,
+  items: [number],
+  summoners: [number],
   vision: number
 }
 
@@ -69,7 +62,7 @@ export interface ObjectiveDetail {
 
 
 export interface MatchData {
-  main_participant: Participant;
+  main_participant: MainParticipant;
   team_1: Participant[];
   team_2: Participant[];
   info: Info;
@@ -78,6 +71,6 @@ export interface MatchData {
 export interface PageProps {
   params: {
     server: string;
-    summonername: string;
+    summonerName: string;
   }
 }

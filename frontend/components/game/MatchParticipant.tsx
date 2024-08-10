@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ChampionIcon from "../components/ChampionIcon";
+import ChampionIcon from "./ChampionIcon";
 
 import { Participant, Info } from "@/types/matchTypes";
 
@@ -21,7 +21,7 @@ function MatchParticipant({
             {participant.summonerName}#{participant.tagLine}
           </div>
         </Link>
-        <ChampionIcon championName={participant.championName}></ChampionIcon>
+        <ChampionIcon championName={participant.championName} size={20}></ChampionIcon>
         <div
           className={`w-16 flex justify-center items-center
           ${
@@ -60,7 +60,7 @@ function MatchParticipant({
       >
         {participant.kda}
       </div>
-      <ChampionIcon championName={participant.championName}></ChampionIcon>
+      <ChampionIcon championName={participant.championName} size={20}></ChampionIcon>
       <Link
         href={`/summoner/${participant.server}/${participant.summonerName}_${participant.tagLine}`}
         className="no-underline"

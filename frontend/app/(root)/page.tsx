@@ -5,7 +5,7 @@ const dmSans = DM_Sans({
   subsets: ['latin'],
 })
 
-import { ProfileForm } from "@/components/Form"
+import { ProfileForm } from "@/components/forms/Form"
 
 const Home = () => {
   return (
