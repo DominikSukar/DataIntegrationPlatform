@@ -17,7 +17,7 @@ async def match_history(
     server: SummonerAndSpectorServerModel,
     mapped_server: MatchModel = Query(None, include_in_schema=False),
     summoner_name: str = None,
-    puuid: str = None,
+    puuid: str  = None,
 ):
     """Returns user's match history by provided puuid."""
     controller = MatchController(mapped_server)
@@ -37,12 +37,11 @@ async def match_history(
         for match_data in match_data_list:
             if match_data:
                 participants = match_data["info"]["participants"]
-                info = match_data["info"]
                 metadata = match_data["metadata"]
 
                 team_strc = {}
 
-                for team in info["teams"]:
+                for team in match_data["info"]["teams"]:
                     team_ID = "team_1" if team["teamId"] == 100 else "team_2"
                     team_bans = team["bans"]
                     team_objectives = team["objectives"]
@@ -50,18 +49,24 @@ async def match_history(
                         "bans": team_bans,
                         "objectives": team_objectives,
                     }
+                try:
+                    game_info = {
+                        "server": server,
+                        "matchId": metadata["matchId"],
+                        "gameDuration": match_data["info"]["gameDuration"],
+                        "gameMode": match_data["info"]["gameMode"],
+                        "gameType": match_data["info"]["gameType"],
+                        "teams": team_strc,
+                    }
+                except Exception:
+                    del match_data["info"]["participants"]
+                    del match_data["info"]["teams"]
+                    raise ValueError(match_data)
+                if not match_data["info"]["gameMode"] == "ARAM":
+                    game_info["gameResult"] = match_data["info"]["endOfGameResult"]
 
-                info = {
-                    "server": server,
-                    "matchId": metadata["matchId"],
-                    "gameResult": info["endOfGameResult"],
-                    "gameDuration": info["gameDuration"],
-                    "gameMode": info["gameMode"],
-                    "gameType": info["gameType"],
-                    "teams": team_strc,
-                }
                 dict_strc = {
-                    "info": info,
+                    "info": game_info,
                     "main_participant": None,
                     "team_1": [],
                     "team_2": [],
@@ -87,15 +92,9 @@ async def match_history(
                         "kda": kda,
                         "summonerName": participant["riotIdGameName"],
                         "tagLine": participant["riotIdTagline"],
-                        "item0": participant["item0"],
-                        "item1": participant["item1"],
-                        "item2": participant["item2"],
-                        "item3": participant["item3"],
-                        "item4": participant["item4"],
-                        "item5": participant["item5"],
-                        "item6": participant["item6"],
-                        "summoner1Id": participant["summoner1Id"],
-                        "summoner2Id": participant["summoner2Id"],
+                        "items": [participant["item0"], participant["item1"], participant["item2"], participant["item3"],
+                                  participant["item4"], participant["item5"], participant["item6"]],
+                        "summoners": [participant["summoner1Id"], participant["summoner2Id"]],
                         "visionScore": participant["visionScore"],
                     }
 
