@@ -96,6 +96,7 @@ async def match_history(
                                   participant["item4"], participant["item5"], participant["item6"]],
                         "summoners": [participant["summoner1Id"], participant["summoner2Id"]],
                         "visionScore": participant["visionScore"],
+                        "isMain": False,
                     }
 
                     if participant["puuid"] == puuid:
@@ -104,6 +105,7 @@ async def match_history(
                             "win": participant["win"],
                             "timePlayed": participant["timePlayed"],
                         }
+                        participant_data["isMain"] = True
 
                     team_key = "team_1" if participant["teamId"] == 100 else "team_2"
                     dict_strc[team_key].append(participant_data)
