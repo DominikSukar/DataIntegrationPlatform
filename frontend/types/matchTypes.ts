@@ -12,7 +12,8 @@ export interface Participant {
   tagLine: string,
   items: [number],
   summoners: [number],
-  vision: number
+  vision: number,
+  isMain: boolean,
 }
 
 export interface MainParticipant extends Participant {

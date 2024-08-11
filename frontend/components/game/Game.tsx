@@ -28,9 +28,9 @@ function Game({ match }: { match: MatchData }) {
           ${gameClasses[mainParticipant.win ? "win" : "lose"]}
           animate-fadeInUp`}
     >
-      <div className="flex">
+      <div className="flex items-center">
         <div className="flex flex-col items-center justify-center m-1 min-w-16">
-          <h3>{mainParticipant.win ? "Victory" : "Defeat"}</h3>
+          <h3 className={`${mainParticipant.win ? "text-indigo-300" : "text-red-300"} `}>{mainParticipant.win ? "Victory" : "Defeat"}</h3>
           <div>{mainParticipant.individualPosition}</div>
           <p>{secondsToHMS(mainParticipant.timePlayed)}</p>
         </div>
@@ -75,7 +75,7 @@ function Game({ match }: { match: MatchData }) {
           }`}>{mainParticipant.kda} KDA</div>
         </div>
       </div>
-      <div className="min-w-[400px] flex justify-center">
+      <div className="min-w-[400px] flex justify-center items-center">
         <div>
           {team_1.map((participant, index) => (
             <MatchParticipant
