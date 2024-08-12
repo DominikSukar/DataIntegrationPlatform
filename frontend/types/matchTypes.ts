@@ -23,7 +23,9 @@ export interface MainParticipant extends Participant {
 
 export interface Info {
   server: string;
+  endOfGameResult: number;
   matchId: string;
+  gameEndTimestamp: number;
   gameResult: string;
   gameDuration: number;
   gameMode: string;
