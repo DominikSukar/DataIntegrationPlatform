@@ -52,7 +52,9 @@ async def match_history(
                 try:
                     game_info = {
                         "server": server,
+                        "endOfGameResult": match_data["info"]["endOfGameResult"],
                         "matchId": metadata["matchId"],
+                        "gameEndTimestamp": match_data["info"]["gameEndTimestamp"],
                         "gameDuration": match_data["info"]["gameDuration"],
                         "gameMode": match_data["info"]["gameMode"],
                         "gameType": match_data["info"]["gameType"],
