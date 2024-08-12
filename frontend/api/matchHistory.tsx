@@ -10,7 +10,7 @@ export async function fetchMatchData({
 }): Promise<MatchData[]> {
   const response = await fetch(
     `${DOMAIN}/match_history/${server}/?summoner_name=${summonerName}`,
-    { cache: "no-store" }
+    { next: { revalidate: 60 } }
   );
 
   if (!response.ok) {

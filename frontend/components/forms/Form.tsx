@@ -57,7 +57,6 @@ export function ProfileForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const formData = { ...values, region: selectedRegion };
-    console.log(formData);
     handleSubmit(formData);
   }
 

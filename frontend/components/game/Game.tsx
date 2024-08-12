@@ -31,7 +31,6 @@ function Game({ match }: { match: MatchData }) {
       <div className="flex items-center">
         <div className="flex flex-col items-center justify-center m-1 min-w-16">
           <h3 className={`${mainParticipant.win ? "text-indigo-300" : "text-red-300"} `}>{mainParticipant.win ? "Victory" : "Defeat"}</h3>
-          <div>{mainParticipant.individualPosition}</div>
           <p>{secondsToHMS(mainParticipant.timePlayed)}</p>
         </div>
         <div className="flex flex-col">

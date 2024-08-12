@@ -23,7 +23,7 @@ function MatchParticipant({
         </Link>
         <ChampionIcon championName={participant.championName} size={20}></ChampionIcon>
         <div
-          className={`w-16 flex justify-center items-center
+          className={`w-10 flex justify-center items-center
           ${
             participant.kda < 1.0
               ? "text-red-500"
@@ -45,7 +45,7 @@ function MatchParticipant({
   return (
     <div className="flex font-light text-xs justify-start items-center">
       <div
-        className={`w-16 flex justify-center items-center
+        className={`w-10 flex justify-center items-center
           ${
             participant.kda < 1.0
               ? "text-red-500"
@@ -59,11 +59,10 @@ function MatchParticipant({
           }`}
       >
         {participant.kda}
-        {participant.isMain}
       </div>
       <ChampionIcon championName={participant.championName} size={20}></ChampionIcon>
       <Link
-        href={`/summoner/${participant.server}/${participant.summonerName}_${participant.tagLine}`}
+        href={`/summoner/${info.server}/${participant.summonerName}_${participant.tagLine}`}
         className="no-underline"
       >
         <div className={`w-28 text-left overflow-hidden whitespace-nowrap text-ellipsis text-white ${participant.isMain ? "font-bold" : ""}`}>
