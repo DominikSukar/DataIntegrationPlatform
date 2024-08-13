@@ -1,24 +1,24 @@
 export interface Participant {
-  server: string,
+  server: string;
   championId: number;
   championName: string;
   individualPosition: string;
   teamId: number;
-  kills: number,
-  deaths: number,
-  assists: number,
-  kda: number,
-  summonerName: string,
-  tagLine: string,
-  items: [number],
-  summoners: [number],
-  vision: number,
-  isMain: boolean,
+  kills: number;
+  deaths: number;
+  assists: number;
+  kda: number;
+  summonerName: string;
+  tagLine: string;
+  items: [number];
+  summoners: [number];
+  vision: number;
+  isMain: boolean;
 }
 
 export interface MainParticipant extends Participant {
   win: boolean;
-  timePlayed: number,
+  timePlayed: number;
 }
 
 export interface Info {
@@ -63,7 +63,6 @@ export interface ObjectiveDetail {
   kills: number;
 }
 
-
 export interface MatchData {
   main_participant: MainParticipant;
   team_1: Participant[];
@@ -75,5 +74,5 @@ export interface PageProps {
   params: {
     server: string;
     summonerName: string;
-  }
+  };
 }

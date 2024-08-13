@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { MatchData } from '@/types/matchTypes';
+import { MatchData } from "@/types/matchTypes";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -40,10 +40,10 @@ interface FormData {
 const regions = ["NA", "EUW", "EUNE", "KR", "BR", "JP", "OCE"];
 
 export function ProfileForm() {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = async (formData: FormData) => {
-    router.push(`/summoner/${formData.region}/${formData.username}`)
+    router.push(`/summoner/${formData.region}/${formData.username}`);
   };
 
   const [selectedRegion, setSelectedRegion] = useState(regions[0]);

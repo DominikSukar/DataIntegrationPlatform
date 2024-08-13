@@ -1,7 +1,13 @@
 import { MainParticipant, Info } from "@/types/matchTypes";
 import { secondsToHMS } from "@/utils/time";
 
-function GameInfo({ mainParticipant, info }: { mainParticipant: MainParticipant, info: Info}) {
+function GameInfo({
+  mainParticipant,
+  info,
+}: {
+  mainParticipant: MainParticipant;
+  info: Info;
+}) {
   const gameDate = new Date(info.gameEndTimestamp).toDateString();
   return (
     <div className="flex flex-col items-center justify-center m-1 min-w-16">

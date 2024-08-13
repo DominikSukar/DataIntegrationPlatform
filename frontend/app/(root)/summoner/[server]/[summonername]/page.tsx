@@ -8,7 +8,9 @@ const SummonerPage = async ({ params }: PageProps) => {
 
   return (
     <div>
-      <div>{summonerName} # {server}</div>
+      <div>
+        {summonerName} # {server}
+      </div>
       <div className="flex flex-col items-center">
         {matches.map((match, index) => (
           <Game key={index} match={match} />

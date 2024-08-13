@@ -19,9 +19,18 @@ function Game({ match }: { match: MatchData }) {
           ${gameClasses[mainParticipant.win ? "win" : "lose"]}
           animate-fadeInUp`}
     >
-      <GameInfo mainParticipant={match.main_participant} info={match.info}></GameInfo>
-      <GameMainParticipant mainParticipant={mainParticipant}></GameMainParticipant>
-      <GameParticipants team_1={match.team_1} team_2={match.team_2} info={match.info}></GameParticipants>
+      <GameInfo
+        mainParticipant={match.main_participant}
+        info={match.info}
+      ></GameInfo>
+      <GameMainParticipant
+        mainParticipant={mainParticipant}
+      ></GameMainParticipant>
+      <GameParticipants
+        team_1={match.team_1}
+        team_2={match.team_2}
+        info={match.info}
+      ></GameParticipants>
     </div>
   );
 }

@@ -1,24 +1,31 @@
-import ChampionIcon from "./ChampionIcon"
-import SpellIcon from "./SpellIcon"
-import ItemIcon from "./ItemIcon"
+import ChampionIcon from "./ChampionIcon";
+import SpellIcon from "./SpellIcon";
+import ItemIcon from "./ItemIcon";
 
-import { MainParticipant } from "@/types/matchTypes"
+import { MainParticipant } from "@/types/matchTypes";
 
-function GameMainParticipant({mainParticipant}: {mainParticipant: MainParticipant}) {
+function GameMainParticipant({
+  mainParticipant,
+}: {
+  mainParticipant: MainParticipant;
+}) {
   return (
     <div className="flex items-center">
       <div className="flex flex-col">
         <div className="flex items-center justify-center m-1 min-w-16">
-          <ChampionIcon championName={mainParticipant.championName} size={70}></ChampionIcon>
+          <ChampionIcon
+            championName={mainParticipant.championName}
+            size={70}
+          ></ChampionIcon>
           <div>
-            {mainParticipant.summoners.map((summoner, index)=>(
-              <SpellIcon spellID={summoner} size={34} key={index}/>
+            {mainParticipant.summoners.map((summoner, index) => (
+              <SpellIcon spellID={summoner} size={34} key={index} />
             ))}
           </div>
         </div>
         <div className="flex">
-          {mainParticipant.items.map((item, index)=>(
-            <ItemIcon itemID={item} size={24} key={index}/>
+          {mainParticipant.items.map((item, index) => (
+            <ItemIcon itemID={item} size={24} key={index} />
           ))}
         </div>
       </div>
@@ -34,7 +41,8 @@ function GameMainParticipant({mainParticipant}: {mainParticipant: MainParticipan
           {<span className="text-slate-400">/</span>}
           {mainParticipant.assists}
         </div>
-        <div className={`
+        <div
+          className={`
         ${
           mainParticipant.kda < 1.0
             ? "text-red-500"
@@ -45,10 +53,13 @@ function GameMainParticipant({mainParticipant}: {mainParticipant: MainParticipan
             : mainParticipant.kda < 10.0
             ? "text-blue-400"
             : "text-yellow-500"
-        }`}>{mainParticipant.kda} KDA</div>
+        }`}
+        >
+          {mainParticipant.kda} KDA
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default GameMainParticipant
+export default GameMainParticipant;

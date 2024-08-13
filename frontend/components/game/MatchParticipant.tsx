@@ -17,11 +17,18 @@ function MatchParticipant({
           href={`/summoner/${info.server}/${participant.summonerName}_${participant.tagLine}`}
           className="no-underline"
         >
-          <div className={`w-28 text-right overflow-hidden whitespace-nowrap text-ellipsis text-white ${participant.isMain ? "font-bold" : ""}`}>
+          <div
+            className={`w-28 text-right overflow-hidden whitespace-nowrap text-ellipsis text-white ${
+              participant.isMain ? "font-bold" : ""
+            }`}
+          >
             {participant.summonerName}#{participant.tagLine}
           </div>
         </Link>
-        <ChampionIcon championName={participant.championName} size={20}></ChampionIcon>
+        <ChampionIcon
+          championName={participant.championName}
+          size={20}
+        ></ChampionIcon>
         <div
           className={`w-10 flex justify-center items-center
           ${
@@ -60,12 +67,19 @@ function MatchParticipant({
       >
         {participant.kda}
       </div>
-      <ChampionIcon championName={participant.championName} size={20}></ChampionIcon>
+      <ChampionIcon
+        championName={participant.championName}
+        size={20}
+      ></ChampionIcon>
       <Link
         href={`/summoner/${info.server}/${participant.summonerName}_${participant.tagLine}`}
         className="no-underline"
       >
-        <div className={`w-28 text-left overflow-hidden whitespace-nowrap text-ellipsis text-white ${participant.isMain ? "font-bold" : ""}`}>
+        <div
+          className={`w-28 text-left overflow-hidden whitespace-nowrap text-ellipsis text-white ${
+            participant.isMain ? "font-bold" : ""
+          }`}
+        >
           {participant.summonerName}#{participant.tagLine}
         </div>
       </Link>
