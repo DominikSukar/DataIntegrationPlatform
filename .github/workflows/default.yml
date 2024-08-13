@@ -1,0 +1,114 @@
+name: Testing
+
+on:
+    push:
+      branches:
+        - main
+    pull_request:
+      branches:
+        - main
+
+jobs:
+  lint_backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12.4'
+
+    - name: Install dependencies for linting
+      run: |
+        pip install black ruff
+
+    - name: Run Black
+      run: |
+        black --check backend
+
+    - name: Run Ruff
+      run: |
+        ruff check backend --exit-zero
+  lint_frontend:
+    runs-on: ubuntu-latest
+  
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+      
+    - name: Change to frontend directory
+      run: cd frontend  # Replace 'frontend' with the actual directory name
+      
+    - name: Install dependencies
+      working-directory: ./frontend  # Replace 'frontend' with the actual directory name
+      run: npm install
+      
+    - name: Run ESLint
+      working-directory: ./frontend  # Replace 'frontend' with the actual directory name
+      run: npx eslint . --ext .js,.jsx,.ts,.tsx  
+
+  test-backend:
+      runs-on: ubuntu-latest
+      needs: lint_backend
+  
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+  
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: '3.12.4'
+  
+        - name: Install dependencies
+          run: |
+            cd backend
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt          
+  
+        - name: Run tests
+          env:
+            #### Variables ####
+            DOMAIN_EUROPE: https://europe.api.riotgames.com
+            DOMAIN_AMERICAS: https://americas.api.riotgames.com
+            DOMAIN_ASIA: https://asia.api.riotgames.com
+            DOMAIN_SEA: https://sea.api.riotgames.com
+            DOMAIN_ESPORTS: https://esports.api.riotgames.com
+  
+            #Domains for SPECTATOR, SUMMONER, status, lol-challanges, league, league-exp, clash, champion
+            DOMAIN_BR: https://br1.api.riotgames.com
+            #EUNE is EUN1 officialy
+            DOMAIN_EUNE: https://eun1.api.riotgames.com
+            DOMAIN_EUW: https://euw1.api.riotgames.com
+            DOMAIN_JP: https://jp1.api.riotgames.com
+            DOMAIN_KR: https://kr.api.riotgames.com
+            #LAN is LA1 officialy
+            DOMAIN_LAN: https://la1.api.riotgames.com
+            #LAS is LA2 officialy
+            DOMAIN_LAS: https://la2.api.riotgames.com
+            DOMAIN_ME: https://me1.api.riotgames.com
+            DOMAIN_NA: https://na1.api.riotgames.com
+            #OCE is OC1 offcially
+            DOMAIN_OCE: https://oc1.api.riotgames.com
+            DOMAIN_PH: https://ph2.api.riotgames.com
+            DOMAIN_RU: https://ru.api.riotgames.com
+            DOMAIN_SG: https://sg2.api.riotgames.com
+            DOMAIN_TH: https://th2.api.riotgames.com
+            DOMAIN_TR: https://tr1.api.riotgames.com
+            DOMAIN_TW: https://tw2.api.riotgames.com
+            DOMAIN_VN: https://vn2.api.riotgames.com
+  
+            #### Secrets ####
+            API_KEY: ${{ secrets.API_KEY }}
+            
+          run: |
+            cd backend
+            python -m pytest
