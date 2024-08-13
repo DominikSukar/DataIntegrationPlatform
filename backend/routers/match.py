@@ -17,7 +17,7 @@ async def match_history(
     server: SummonerAndSpectorServerModel,
     mapped_server: MatchModel = Query(None, include_in_schema=False),
     summoner_name: str = None,
-    puuid: str  = None,
+    puuid: str = None,
 ):
     """Returns user's match history by provided puuid."""
     controller = MatchController(mapped_server)
@@ -94,9 +94,19 @@ async def match_history(
                         "kda": kda,
                         "summonerName": participant["riotIdGameName"],
                         "tagLine": participant["riotIdTagline"],
-                        "items": [participant["item0"], participant["item1"], participant["item2"], participant["item3"],
-                                  participant["item4"], participant["item5"], participant["item6"]],
-                        "summoners": [participant["summoner1Id"], participant["summoner2Id"]],
+                        "items": [
+                            participant["item0"],
+                            participant["item1"],
+                            participant["item2"],
+                            participant["item3"],
+                            participant["item4"],
+                            participant["item5"],
+                            participant["item6"],
+                        ],
+                        "summoners": [
+                            participant["summoner1Id"],
+                            participant["summoner2Id"],
+                        ],
                         "visionScore": participant["visionScore"],
                         "isMain": False,
                     }
