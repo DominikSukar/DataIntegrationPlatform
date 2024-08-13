@@ -51,11 +51,6 @@ jobs:
       working-directory: ./frontend
       run: npm install
 
-    - name: Install ESLint and related packages
-      working-directory: ./frontend
-      run: |
-        npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript globals      
-
     - name: Run ESLint
       working-directory: ./frontend
       run: npx eslint .
