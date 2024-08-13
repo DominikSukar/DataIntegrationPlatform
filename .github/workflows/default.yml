@@ -34,26 +34,26 @@ jobs:
         ruff check backend --exit-zero
   lint_frontend:
     runs-on: ubuntu-latest
-  
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-      
+
     - name: Change to frontend directory
-      run: cd frontend  # Replace 'frontend' with the actual directory name
-      
+      run: cd frontend
+
     - name: Install dependencies
-      working-directory: ./frontend  # Replace 'frontend' with the actual directory name
+      working-directory: ./frontend
       run: npm install
-      
+
     - name: Run ESLint
-      working-directory: ./frontend  # Replace 'frontend' with the actual directory name
-      run: npx eslint . --ext .js,.jsx,.ts,.tsx  
+      working-directory: ./frontend
+      run: npx eslint .
 
   test-backend:
       runs-on: ubuntu-latest
