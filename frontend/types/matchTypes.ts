@@ -70,6 +70,15 @@ export interface MatchData {
   info: Info;
 }
 
+export interface SummonerData {
+accountId: string;
+profileIconId: number,
+revisionDate: number,
+id: string,
+puuid: string,
+summonerLevel: number
+}
+
 export interface PageProps {
   params: {
     server: string;
