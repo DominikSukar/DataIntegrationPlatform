@@ -1,4 +1,5 @@
 import { MainParticipant, Info } from "@/types/matchTypes";
+import { relativeTime } from "@/utils/relativeDate";
 import { secondsToHMS } from "@/utils/time";
 
 function GameInfo({
@@ -8,7 +9,7 @@ function GameInfo({
   mainParticipant: MainParticipant;
   info: Info;
 }) {
-  const gameDate = new Date(info.gameEndTimestamp).toDateString();
+  const gameDate = new Date(info.gameEndTimestamp);
   return (
     <div className="flex flex-col items-center justify-center m-1 min-w-16">
       <h3
@@ -19,7 +20,7 @@ function GameInfo({
         {mainParticipant.win ? "Victory" : "Defeat"}
       </h3>
       <div>{secondsToHMS(mainParticipant.timePlayed)}</div>
-      <div>{gameDate}</div>
+      <div>{relativeTime(gameDate)}</div>
     </div>
   );
 }

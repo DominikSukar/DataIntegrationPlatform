@@ -15,14 +15,14 @@ function Game({ match }: { match: MatchData }) {
   return (
     <div
       className={`bg-white bg-opacity-20 backdrop-blur-md rounded-l-full border-4 
-         rounded-[10px] m-1 p-2 px-5 w-fit flex items-center justify-around gap-5 min-w-[700px]
+         rounded-[10px] m-1 p-2 px-5 w-fit flex items-center justify-around gap-5 min-w-[1000px]
           ${gameClasses[mainParticipant.win ? "win" : "lose"]}
           animate-fadeInUp`}
     >
       <GameInfo
         mainParticipant={match.main_participant}
         info={match.info}
-      ></GameInfo>
+      ></GameInfo>    
       <GameMainParticipant
         mainParticipant={mainParticipant}
       ></GameMainParticipant>
