@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.get("/get_puuid/", status_code=200)
+@router.get("/get_puuid/{server}/", status_code=200)
 @map_server
 async def get_account_puuid(
     summoner_name: str,
@@ -28,7 +28,7 @@ async def get_account_puuid(
     return puuid
 
 
-@router.get("/info/")
+@router.get("/info/{server}/")
 @map_puuid_and_server
 async def get_account_info(
     server: SummonerAndSpectorServerModel,

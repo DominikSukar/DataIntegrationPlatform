@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/{server}/")
 @map_puuid_and_server
 async def get_current_match(
     server: SummonerAndSpectorServerModel,
