@@ -3,6 +3,7 @@ from .match import MatchIds, MatchDto, TimelineDto
 from .account import AccountDto
 from .summoner import SummonerDTO
 from .league import LeagueEntryDTO
+from .combined_schemas import LeagueAndSummonerEntryDTO
 
 __all__ = [
     "CurrentGameInfo",
@@ -13,4 +14,5 @@ __all__ = [
     "AccountDto",
     "SummonerDTO",
     "LeagueEntryDTO",
+    "LeagueAndSummonerEntryDTO"
 ]

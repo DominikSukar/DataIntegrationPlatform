@@ -2,11 +2,11 @@ import logging
 from typing import Any
 
 from fastapi import APIRouter, Query
-from api_requests.summoner import SummonerControler
+from api_requests import SummonerControler, LeagueControler
 from models import SummonerAndSpectorServerModel
 from utils.wrappers import map_puuid_and_server
 
-from schemas import SummonerDTO
+from schemas import LeagueAndSummonerEntryDTO
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -19,9 +19,22 @@ async def get_summoner(
     mapped_server: Any = Query(None, include_in_schema=False),
     summoner_name: str = None,
     puuid: str = None,
-) -> SummonerDTO:
+) -> LeagueAndSummonerEntryDTO:
     "Return summoner's info based on his PUUID"
-    controller = SummonerControler(server)
-    summoner = controller.get_a_summoner_by_PUUID(puuid)
+    summoner_controller = SummonerControler(server)
+    summoner_data = summoner_controller.get_a_summoner_by_PUUID(puuid)
 
-    return summoner
+    league_controller = LeagueControler(server)
+    league_data = (
+        league_controller.get_league_entries_in_all_queues_for_a_given_summoner_ID(
+            summoner_data.id
+        )
+    )
+    summoner_dict = summoner_data.model_dump()
+    league_dict = league_data.model_dump()
+    print(summoner_dict)
+    print(league_dict)
+    final_dataset = {**summoner_dict, **league_dict}
+    print(final_dataset)
+
+    return final_dataset

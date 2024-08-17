@@ -29,10 +29,20 @@ class LeagueControler(RiotAPIBase):
     ) -> LeagueEntryDTO:
         """Fetches ranked data"""
 
-        URL = self.url_account_by_puuid.format(summoner_id=summoner_id)
+        URL = self.url_league_entries_for_ID.format(summoner_id=summoner_id)
 
-        summoner_info = send_request(URL)
-        summoner_info = LeagueEntryDTO.model_validate(summoner_info)
+        summoner_ranked_infos = send_request(URL)
+        final_info = None
+
+        for ranked_info in summoner_ranked_infos:
+            if ranked_info["queueType"] == "RANKED_SOLO_5x5":
+                final_info = ranked_info
+                break
+
+        if final_info is None:
+            raise ValueError("Ranked 5x5 data not found")
+        
+        summoner_info = LeagueEntryDTO.model_validate(final_info)
 
         logging.debug(
             f"get_league_entries_in_all_queues_for_a_given_summoner_ID > summoner_info: {summoner_info}"
