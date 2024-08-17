@@ -21,7 +21,6 @@ async def get_summoner(
     puuid: str = None,
 ) -> SummonerDTO:
     "Return summoner's info based on his PUUID"
-    logger.info(f">>>>{server, mapped_server}")
     controller = SummonerControler(server)
     summoner = controller.get_a_summoner_by_PUUID(puuid)
 
