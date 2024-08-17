@@ -8,7 +8,7 @@ from schemas import LeagueEntryDTO
 logger = logging.getLogger(__name__)
 
 
-class SummonerControler(RiotAPIBase):
+class LeagueControler(RiotAPIBase):
     "Class manages the Riot's API 'LEAGUE-V4' service. As of 18.08.2024 there are 6 endpoints."
 
     PATH = "/lol/league/v4/entries"
