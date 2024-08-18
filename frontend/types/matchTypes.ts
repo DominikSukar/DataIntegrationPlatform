@@ -71,12 +71,25 @@ export interface MatchData {
 }
 
 export interface SummonerData {
-accountId: string;
-profileIconId: number,
-revisionDate: number,
-id: string,
-puuid: string,
-summonerLevel: number
+  accountId: string;
+  profileIconId: number;
+  revisionDate: number;
+  id: string;
+  puuid: string;
+  summonerLevel: number;
+  leagueId: string;
+  summonerId: string;
+  queueType: string;
+  tier: string;
+  rank: string;
+  leaguePoints: number;
+  wins: number;
+  losses: number;
+  winrate: number;
+  hotStreak: boolean;
+  veteran: boolean;
+  freshBlood: boolean;
+  inactive: boolean;
 }
 
 export interface PageProps {

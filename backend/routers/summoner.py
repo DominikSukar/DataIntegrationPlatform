@@ -32,9 +32,8 @@ async def get_summoner(
     )
     summoner_dict = summoner_data.model_dump()
     league_dict = league_data.model_dump()
-    print(summoner_dict)
-    print(league_dict)
+    winrate = league_dict["wins"] / (league_dict["wins"] + league_dict["losses"])
+    league_dict["winrate"] = int(winrate * 100)
     final_dataset = {**summoner_dict, **league_dict}
-    print(final_dataset)
 
     return final_dataset

@@ -16,6 +16,7 @@ class LeagueAndSummonerEntryDTO(BaseModel):
     leaguePoints: int
     wins: int
     losses: int
+    winrate: int
     hotStreak: bool
     veteran: bool
     freshBlood: bool
