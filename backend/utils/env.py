@@ -10,6 +10,8 @@ def get_var(var_name: str) -> str:
 
 
 API_KEY = get_var("API_KEY")
+ITEMS_PATH = get_var("ITEMS_PATH")
+SUMMONERS_PATH = get_var("SUMMONERS_PATH")
 
 EUROPE = get_var("DOMAIN_EUROPE")
 AMERICAS = get_var("DOMAIN_AMERICAS")
