@@ -1,29 +1,61 @@
 "use client"
 import React from 'react';
-import styled from 'styled-components'; // Or use your preferred CSS-in-JS solution
+import styled from 'styled-components';
 
 const StyledDescription = styled.div`
   .mainText {}
-  
+
   .stats {
-    display: inline; /* Inline for stats, to appear on the same line */
+    display: inline;
   }
+  .status {
+    display: inline;
+  }    
   
   .attention {
-    color: #ffd700; /* Gold color for emphasis */
+    color: #ffd700;
     font-weight: bold;
+  }
+
+  .keyword {
+    color: #800080;
+    font-style: italic;
   }
   
   .keywordStealth {
-    color: #800080; /* Purple for stealth keywords */
+    color: #800080;
     font-style: italic;
   }
   
   .active {
-    color: #00ff00; /* Green for active abilities */
+    color: #00ff00;
     font-weight: bold;
   }
+  .unique {
+    color: #00ff00;
+    font-weight: bold;
+  }    
   .passive {
+    color: #3b82f6;
+    font-weight: bold;
+  }
+  .rarityGeneric {
+    color: #3b82f6;
+    font-weight: bold;
+  }
+  .rarityLegendary {
+    color: #3b82f6;
+    font-weight: bold;
+  }  
+  .rarityMythic {
+    color: #3b82f6;
+    font-weight: bold;
+  }          
+  .rules {
+    color: #3b82f6;
+    font-weight: bold;
+  }
+  .li {
     color: #3b82f6;
     font-weight: bold;
   }    
@@ -38,10 +70,18 @@ const StyledDescription = styled.div`
 const customElements = {
   mainText: 'mainText',
   stats: 'stats',
+  status: 'status',
   attention: 'attention',
+  keyword: 'keyword',
+  li: 'li',
+  rarityMythic: 'rarityMythic',
+  rarityLegendary: 'rarityLegendary',
+  rarityGeneric: 'rarityGeneric',
   keywordStealth: 'keywordStealth',
   active: 'active',
+  unique: 'unique',
   passive: 'passive',
+  rules: 'rules',
   br: 'br',
 };
 

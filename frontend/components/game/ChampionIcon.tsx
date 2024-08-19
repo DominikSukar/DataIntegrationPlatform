@@ -15,7 +15,7 @@ function ChampionIcon({
 }) {
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={200}>
+      <Tooltip delayDuration={200} disableHoverableContent={true}>
         <TooltipTrigger>
           <Image
             src={`http://localhost:8000/static/dragontail-14.15.1/14.15.1/img/champion/${championName}.png`}
@@ -26,7 +26,7 @@ function ChampionIcon({
           />
         </TooltipTrigger>
         <TooltipContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md rounded-full border-2">
-          <p>{championName}</p>
+          <p className="font-bold text-amber-600">{championName}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

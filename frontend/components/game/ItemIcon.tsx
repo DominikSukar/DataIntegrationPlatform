@@ -5,7 +5,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import parse from 'html-react-parser'
 import ItemDescription from "./ItemDescription";
 
 import { fetchItems } from "@/api/datadragon";
@@ -18,6 +17,9 @@ const ItemIcon = async ({ itemID, size }: { itemID: number; size: number }) => {
       <div className="w-6 h-6 m-0.5 border border-white bg-white bg-opacity-20 backdrop-blur-md"></div>
     );
   }
+  /* https://blog.ggboost.com/bl-content/uploads/pages/731fd39180a3f7570690918001c01fa4/lol-new-items-confusion-1.webp
+  Dodac :after do css, aby wyswietlal te podstawowe ikonki. Zmienic kolorystke - wypierdolic wszystko, aktywy na ciemny pomaranczowy.
+   */
   return (
     <TooltipProvider>
       <Tooltip delayDuration={200}>
@@ -31,7 +33,7 @@ const ItemIcon = async ({ itemID, size }: { itemID: number; size: number }) => {
           />
         </TooltipTrigger>
         <TooltipContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md rounded-[20px] border-2 w-80">
-          <p className="font-bold">{item.name}</p>
+          <p className="font-bold text-amber-600">{item.name}</p>
           <ItemDescription description={item.description} />
           {item.gold.total === 0 ? (<p></p>) : (        
             <div className="flex">
