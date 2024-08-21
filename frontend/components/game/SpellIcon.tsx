@@ -14,7 +14,7 @@ const SpellIcon = async({ spellID, size }: { spellID: number; size: number }) =>
   const summoner = summoners[spellID]
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={200}>
+      <Tooltip delayDuration={200} disableHoverableContent={true}>
         <TooltipTrigger>
           <Image
             src={`http://localhost:8000/static/dragontail-14.15.1/14.15.1/img/spell/${spellID}.png`}
