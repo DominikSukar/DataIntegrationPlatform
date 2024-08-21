@@ -11,7 +11,7 @@ function GameInfo({
 }) {
   const gameDate = new Date(info.gameEndTimestamp);
   return (
-    <div className="flex flex-col items-center justify-center m-1 min-w-16">
+    <div className="flex flex-col items-center justify-center m-1 min-w-36">
       <h3
         className={`${
           mainParticipant.win ? "text-indigo-300" : "text-red-300"
