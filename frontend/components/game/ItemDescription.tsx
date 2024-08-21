@@ -3,69 +3,67 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledDescription = styled.div`
-  .mainText {}
+  .mainText {
+    margin-bottom: 10px;
+  }
 
   .stats {
     display: inline;
   }
+
   .status {
     display: inline;
-  }    
-  
+  }
+
   .attention {
     color: #ffd700;
     font-weight: bold;
+    margin-right: 5px;
   }
 
-  .keyword {
+  .keyword, .keywordStealth {
     color: #800080;
     font-style: italic;
   }
-  
-  .keywordStealth {
-    color: #800080;
-    font-style: italic;
-  }
-  
-  .active {
+
+  .active, .unique, .passive {
     color: #00ff00;
     font-weight: bold;
   }
-  .unique {
-    color: #00ff00;
-    font-weight: bold;
-  }    
-  .passive {
+
+  .rarityGeneric, .rarityLegendary, .rarityMythic {
     color: #3b82f6;
     font-weight: bold;
   }
-  .rarityGeneric {
-    color: #3b82f6;
-    font-weight: bold;
-  }
-  .rarityLegendary {
-    color: #3b82f6;
-    font-weight: bold;
-  }  
-  .rarityMythic {
-    color: #3b82f6;
-    font-weight: bold;
-  }          
+
   .rules {
     color: #3b82f6;
     font-weight: bold;
+    margin-top: 10px;
+    display: block;
   }
+
   .li {
     color: #3b82f6;
     font-weight: bold;
-  }    
+    margin-left: 20px;
+  }
 
   p, br {
     display: block;
     margin: 0;
     padding: 0;
   }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  br + br {
+    margin-bottom: 10px;
+  }
 `;
+
 
 const customElements = {
   mainText: 'mainText',
