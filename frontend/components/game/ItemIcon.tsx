@@ -22,7 +22,7 @@ const ItemIcon = async ({ itemID, size }: { itemID: number; size: number }) => {
    */
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={200}>
+      <Tooltip delayDuration={200} disableHoverableContent={true}>
         <TooltipTrigger>
           <Image
             src={`http://localhost:8000/static/dragontail-14.15.1/14.15.1/img/item/${itemID}.png`}
