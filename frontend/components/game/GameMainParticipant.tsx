@@ -17,9 +17,9 @@ function GameMainParticipant({
             championName={mainParticipant.championName}
             size={70}
           ></ChampionIcon>
-          <div>
+          <div className="flex flex-col">
             {mainParticipant.summoners.map((summoner, index) => (
-              <SpellIcon spellID={summoner} size={34} key={index} />
+              <SpellIcon spellID={summoner} size={32} key={index} />
             ))}
           </div>
         </div>
