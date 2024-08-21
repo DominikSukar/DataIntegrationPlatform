@@ -21,6 +21,7 @@ function GameInfo({
       </h3>
       <div>{secondsToHMS(mainParticipant.timePlayed)}</div>
       <div>{relativeTime(gameDate)}</div>
+      <div className="text-sm text-slate-400">{info.matchId}</div>
     </div>
   );
 }
