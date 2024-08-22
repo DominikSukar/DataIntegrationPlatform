@@ -18,7 +18,7 @@ function MatchParticipant({
           className="no-underline"
         >
           <div
-            className={`w-28 text-right overflow-hidden whitespace-nowrap text-ellipsis text-white ${
+            className={`w-28 text-right overflow-hidden whitespace-nowrap text-ellipsis text-white hover:text-slate-400 transition-colors duration-200 ease-in-out ${
               participant.isMain ? "font-bold" : ""
             }`}
           >
@@ -76,7 +76,7 @@ function MatchParticipant({
         className="no-underline"
       >
         <div
-          className={`w-28 text-left overflow-hidden whitespace-nowrap text-ellipsis text-white ${
+          className={`w-28 text-left overflow-hidden whitespace-nowrap text-ellipsis text-white hover:text-slate-400 transition-colors duration-200 ease-in-out ${
             participant.isMain ? "font-bold" : ""
           }`}
         >
