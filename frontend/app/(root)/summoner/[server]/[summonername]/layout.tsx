@@ -1,6 +1,8 @@
 import Logo from "@/components/game/Logo"
 import Link from "next/link"
 
+import AnimationWrapper from "@/components/AnimationWrapper"
+
 export default function DashboardLayout({
     children,
   }: {
