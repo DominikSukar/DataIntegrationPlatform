@@ -8,3 +8,9 @@ class MatchModel(str, Enum):
     AMERICAS = "AMERICAS"
     ASIA = "ASIA"
     SEA = "SEA"
+
+class MatchType(str, Enum):
+    _all: str = "all"
+    normal: str = "normal"
+    ranked: str = "ranked"
+    tournament: str = "tournament"

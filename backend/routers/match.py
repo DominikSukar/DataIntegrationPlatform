@@ -1,14 +1,16 @@
 import logging
 import aiohttp
 import asyncio
+from typing import Annotated
 
 from fastapi import APIRouter, Query
-from models import MatchModel, SummonerAndSpectorServerModel
+from models import MatchModel, MatchType, SummonerAndSpectorServerModel
 from api_requests.match import MatchController
 from utils.wrappers import map_puuid_and_server
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
 
 @router.get("/{server}/timeline")
 @map_puuid_and_server
@@ -25,16 +27,26 @@ async def match_timeline(
 @map_puuid_and_server
 async def match_history(
     server: SummonerAndSpectorServerModel,
+    match_type: Annotated[MatchType, Query(
+        title="Query string",
+        description="""Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
+        Default value is ranked, so not need to pass it. Do not use '--', it's FastAPI/enum bug.""",
+    )] = MatchType.ranked,
     mapped_server: MatchModel = Query(None, include_in_schema=False),
     summoner_name: str = None,
     puuid: str = None,
+    count: int = Query(
+        3,
+        ge=0,
+        le=100,
+        description="Defaults to 3. Valid values: 0 to 100. Number of match ids to return.",
+    ),
 ):
     """Returns user's match history by provided puuid."""
-    controller = MatchController(mapped_server)
+    controller = MatchController(mapped_server, match_type, count)
 
     async with aiohttp.ClientSession() as session:
         match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid)
-        match_ids = match_ids[:3]
 
         tasks = [
             controller.get_a_match_by_match_id(session, match_id)
@@ -91,6 +103,8 @@ async def match_history(
                     if not deaths == 0:
                         kda = (kills + assists) / deaths
                         kda = "{:.2f}".format(kda)
+                    elif deaths == 0 and kills == 0 and assists == 0:
+                        kda = "0.00"
                     else:
                         kda = "Perfect"
 
@@ -128,6 +142,10 @@ async def match_history(
                             "timePlayed": participant["timePlayed"],
                         }
                         participant_data["isMain"] = True
+                        game_result = "Win" if participant["win"] else "Defeat"
+                        if match_data["info"]["gameDuration"] < 200:
+                            game_result = "Remake"
+                        dict_strc["info"]["gameResult"] = game_result
 
                     team_key = "team_1" if participant["teamId"] == 100 else "team_2"
                     dict_strc[team_key].append(participant_data)

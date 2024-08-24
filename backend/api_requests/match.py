@@ -1,7 +1,7 @@
 import logging
 
 from ._base import RiotAPIBase
-from models import MatchModel
+from models import MatchModel, MatchType
 from utils.requests import send_request, send_async_request
 from schemas import MatchIds, MatchDto, TimelineDto
 
@@ -13,11 +13,11 @@ class MatchController(RiotAPIBase):
 
     PATH = "/lol/match/v5/matches"
 
-    def __init__(self, server: MatchModel):
+    def __init__(self, server: MatchModel, match_type: MatchType, count: int):
         domain = super().get_domain(server)
         key = super().KEY
-        self.url_list_of_match_ids = "{}{}/by-puuid/{}/ids{}".format(
-            domain, self.PATH, "{puuid}", key
+        self.url_list_of_match_ids = "{}{}/by-puuid/{}/ids{}&type={}&count={}".format(
+            domain, self.PATH, "{puuid}", key, match_type.value, count
         )
         self.url_match = "{}{}/{}{}".format(domain, self.PATH, "{match_id}", key)
         self.url_match_timeline = "{}{}/{}/timeline{}".format(
