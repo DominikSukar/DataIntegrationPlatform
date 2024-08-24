@@ -2,21 +2,23 @@ import GameInfo from "./GameInfo";
 import GameParticipants from "./GameParticipants";
 import GameMainParticipant from "./GameMainParticipant";
 
-import { MatchData } from "@/types/matchTypes";
+import { MatchData, Result, Info } from "@/types/matchTypes";
 
-function Game({ match }: { match: MatchData }) {
-  const gameClasses = {
-    win: "border-indigo-700",
-    lose: "border-red-700",
+function Game({ match}: { match: MatchData}) {
+  const gameClasses: Record<Result, string> = {
+    Win: "border-indigo-700",
+    Defeat: "border-red-700",
+    Remake: "border-slate-400",
   };
 
   const mainParticipant = match.main_participant;
+  const gameResult = match.info.gameResult
 
   return (
     <div
       className={`bg-white bg-opacity-20 backdrop-blur-md rounded-l-full border-4 
          rounded-[10px] m-1 p-2 px-5 w-fit flex items-center justify-around gap-5 min-w-[1000px]
-          ${gameClasses[mainParticipant.win ? "win" : "lose"]}
+         ${gameClasses[gameResult]}
           animate-fadeInUp`}
     >
       <GameInfo

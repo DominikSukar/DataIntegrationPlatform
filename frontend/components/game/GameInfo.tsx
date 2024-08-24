@@ -14,10 +14,10 @@ function GameInfo({
     <div className="flex flex-col items-center justify-center m-1 min-w-36">
       <h3
         className={`${
-          mainParticipant.win ? "text-indigo-300" : "text-red-300"
+          info.gameResult === 'Win' ? "text-indigo-300" : info.gameResult === 'Defeat' ? "text-red-300" : "text-slate-400"
         } `}
       >
-        {mainParticipant.win ? "Victory" : "Defeat"}
+        {info.gameResult}
       </h3>
       <div>{secondsToHMS(mainParticipant.timePlayed)}</div>
       <div>{relativeTime(gameDate)}</div>

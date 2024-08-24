@@ -10,6 +10,16 @@ from utils.wrappers import map_puuid_and_server
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
+@router.get("/{server}/timeline")
+@map_puuid_and_server
+async def match_timeline(
+    server: SummonerAndSpectorServerModel,
+    mapped_server: MatchModel = Query(None, include_in_schema=False),
+    summoner_name: str = None,
+    puuid: str = None,
+):
+    pass
+
 
 @router.get("/{server}/")
 @map_puuid_and_server

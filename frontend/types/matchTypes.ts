@@ -21,12 +21,15 @@ export interface MainParticipant extends Participant {
   timePlayed: number;
 }
 
+
+export type Result = "Win" | "Defeat" | "Remake";
+
 export interface Info {
   server: string;
-  endOfGameResult: number;
+  endOfGameResult: string;
   matchId: string;
   gameEndTimestamp: number;
-  gameResult: string;
+  gameResult: Result;
   gameDuration: number;
   gameMode: string;
   gameType: string;

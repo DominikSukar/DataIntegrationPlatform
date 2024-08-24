@@ -41,21 +41,24 @@ function GameMainParticipant({
           {<span className="text-slate-400">/</span>}
           {mainParticipant.assists}
         </div>
-        <div
-          className={`
-        ${
-          mainParticipant.kda < 1.0
-            ? "text-red-500"
-            : mainParticipant.kda < 3.0
-            ? "text-white-400"
-            : mainParticipant.kda < 5.0
-            ? "text-green-400"
-            : mainParticipant.kda < 10.0
-            ? "text-blue-400"
-            : "text-yellow-500"
-        }`}
-        >
-          {mainParticipant.kda} KDA
+        <div className="flex">
+          <div
+            className={`
+          ${
+            mainParticipant.kda < 1.0
+              ? "text-red-500"
+              : mainParticipant.kda < 3.0
+              ? "text-white-400"
+              : mainParticipant.kda < 5.0
+              ? "text-green-400"
+              : mainParticipant.kda < 10.0
+              ? "text-blue-400"
+              : "text-yellow-500"
+          }`}
+          >
+            {mainParticipant.kda}
+          </div>
+          <p className="ml-1 text-gray-400">KDA</p>
         </div>
       </div>
     </div>
