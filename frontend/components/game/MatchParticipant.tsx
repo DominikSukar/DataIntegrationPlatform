@@ -18,7 +18,7 @@ function MatchParticipant({
           className="no-underline"
         >
           <div
-            className={`max-w-28 text-right overflow-hidden whitespace-nowrap text-ellipsis  text-slate-400 hover:text-slate-500 transition-colors duration-200 ease-in-out ${
+            className={`max-w-16 xl:max-w-28 text-right overflow-hidden whitespace-nowrap text-ellipsis  text-slate-400 hover:text-slate-500 transition-colors duration-200 ease-in-out ${
               participant.isMain ? "font-bold text-white" : ""
             }`}
           >
@@ -76,7 +76,7 @@ function MatchParticipant({
         className="no-underline"
       >
         <div
-          className={`max-w-28 text-left overflow-hidden whitespace-nowrap text-ellipsis text-slate-400 hover:text-slate-500 transition-colors duration-200 ease-in-out ${
+          className={`max-w-16 xl:max-w-28 text-left overflow-hidden whitespace-nowrap text-ellipsis text-slate-400 hover:text-slate-500 transition-colors duration-200 ease-in-out ${
             participant.isMain ? "font-bold text-white" : ""
           }`}
         >

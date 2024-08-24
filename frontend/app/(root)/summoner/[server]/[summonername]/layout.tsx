@@ -12,7 +12,7 @@ export default function DashboardLayout({
     <section>
       <nav></nav>
       <Link href="/">
-        <div className="absolute 0">
+        <div className="text-center lg:absolute 0">
           <Logo></Logo>
         </div>
       </Link>

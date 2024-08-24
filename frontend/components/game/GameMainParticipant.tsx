@@ -12,7 +12,7 @@ function GameMainParticipant({
   return (
     <div className="flex items-center">
       <div className="flex flex-col">
-        <div className="flex items-center justify-center m-1 min-w-16">
+        <div className="flex items-center justify-center m-1">
           <ChampionIcon
             championName={mainParticipant.championName}
             size={70}
@@ -29,8 +29,8 @@ function GameMainParticipant({
           ))}
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center m-10 min-w-16">
-        <div className="flex justify-center min-w-16">
+      <div className="flex flex-col items-center justify-center m-5 xl:m-10">
+        <div className="flex justify-center">
           {mainParticipant.kills}
           {<span className="text-slate-400">/</span>}
           {

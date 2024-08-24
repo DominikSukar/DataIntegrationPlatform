@@ -14,8 +14,8 @@
 */
 
 /* ========================================== TAILWIND STYLES */
-html {
-  font-family: 'DM Sans', sans-serif;
+html,body{
+  overflow-x: hidden;
 }
 
 @layer base {
@@ -54,8 +54,4 @@ h5 {
 }
 h6 {
   @apply text-xs;
-}
-
-a {
-  @apply text-blue-600 underline;
 }

@@ -6,7 +6,7 @@ import RankIcon from "./RankIcon";
 const User = async ({ params }: PageProps) => {
   const user = await fetchSummonerData(params);
   return (
-    <div className="flex items-center place-content-between min-w-[1000px] text-white border border-white bg-white bg-opacity-20 backdrop-blur-md mb-28 mt-10">
+    <div className="lg:flex items-center place-content-between text-white border border-white bg-white bg-opacity-20 backdrop-blur-md mb-28 mt-10">
         <div className="flex items-center">
           <ProfileIcon iconID={user.profileIconId} size={120}></ProfileIcon>
           <div className="flex flex-col">
