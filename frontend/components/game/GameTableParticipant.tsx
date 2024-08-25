@@ -1,5 +1,5 @@
 
-const GameParticipant = async() => {
+const GameTableParticipant = async() => {
   return (
     <div>
         <div>ChampionIcon + ChampionLevel</div>
@@ -21,4 +21,4 @@ const GameParticipant = async() => {
   )
 }
 
-export default GameParticipant
+export default GameTableParticipant

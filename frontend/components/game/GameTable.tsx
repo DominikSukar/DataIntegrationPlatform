@@ -1,17 +1,17 @@
-import GameParticipant from "./GameParticipant"
+import GameTableParticipant from "./GameTableParticipant"
 
 const GameTable = async() =>{
   return (
     <div>
         <div>
             <p>Ally team</p>
-            <GameParticipant></GameParticipant>
+            <GameTableParticipant></GameTableParticipant>
             <div>Bans DPS DPSTAKEN GOLD TOWERS DRAGONS BARON KRUGS HERALDS</div>
         </div>
         <div>
         <div>Bans DPS DPSTAKEN GOLD TOWERS DRAGONS BARON KRUGS HERALDS</div>
             <p>Enemy team</p>
-            <GameParticipant></GameParticipant>
+            <GameTableParticipant></GameTableParticipant>
         </div>        
     </div>
   )

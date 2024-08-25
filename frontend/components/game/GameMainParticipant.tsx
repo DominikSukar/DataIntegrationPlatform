@@ -10,7 +10,7 @@ function GameMainParticipant({
   mainParticipant: MainParticipant;
 }) {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center  max-w-[330px]">
       <div className="flex flex-col">
         <div className="flex items-center justify-center m-1">
           <ChampionIcon

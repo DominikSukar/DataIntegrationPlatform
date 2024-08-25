@@ -16,8 +16,8 @@ function Game({ match}: { match: MatchData}) {
 
   return (
     <div
-      className={`bg-white bg-opacity-20 backdrop-blur-md lg:rounded-l-full border-4 
-         rounded-[10px] m-1 p-1 lg:px-5 w-fit flex items-center justify-around lg:gap-5
+      className={`bg-white bg-opacity-20 backdrop-blur-md lg:rounded-l-full border-4 xl:w-[900px]
+         rounded-[10px] m-1 p-1 lg:px-5 flex items-center justify-around lg:gap-5
          ${gameClasses[gameResult]}
           animate-fadeInUp`}
     >
