@@ -3,7 +3,7 @@ import aiohttp
 import asyncio
 from typing import Annotated
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Path
 from models import MatchModel, MatchType, SummonerAndSpectorServerModel
 from api_requests.match import MatchController
 from utils.wrappers import map_puuid_and_server
@@ -12,15 +12,16 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.get("/{server}/timeline")
+@router.get("/{server}/{match_ID}")
 @map_puuid_and_server
 async def match_timeline(
     server: SummonerAndSpectorServerModel,
+    match_ID: Annotated[str, Path(example="EUW1_7091585440")],
     mapped_server: MatchModel = Query(None, include_in_schema=False),
     summoner_name: str = None,
     puuid: str = None,
 ):
-    pass
+    controller = MatchController(server, match_ID)
 
 
 @router.get("/{server}/")
@@ -43,10 +44,10 @@ async def match_history(
     ),
 ):
     """Returns user's match history by provided puuid."""
-    controller = MatchController(mapped_server, match_type, count)
+    controller = MatchController(mapped_server)
 
     async with aiohttp.ClientSession() as session:
-        match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid)
+        match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid, match_type, count)
 
         tasks = [
             controller.get_a_match_by_match_id(session, match_id)

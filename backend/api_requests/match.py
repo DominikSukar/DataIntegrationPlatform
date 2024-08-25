@@ -13,20 +13,25 @@ class MatchController(RiotAPIBase):
 
     PATH = "/lol/match/v5/matches"
 
-    def __init__(self, server: MatchModel, match_type: MatchType, count: int):
+    def __init__(self, server: MatchModel):
         domain = super().get_domain(server)
         key = super().KEY
-        self.url_list_of_match_ids = "{}{}/by-puuid/{}/ids{}&type={}&count={}".format(
-            domain, self.PATH, "{puuid}", key, match_type.value, count
+        self.url_list_of_match_ids = "{}{}/by-puuid/{}/ids{}".format(
+            domain, self.PATH, "{puuid}", key
         )
         self.url_match = "{}{}/{}{}".format(domain, self.PATH, "{match_id}", key)
         self.url_match_timeline = "{}{}/{}/timeline{}".format(
             domain, self.PATH, "{match_id}", key
         )
 
-    def get_a_list_of_match_ids_by_puuid(self, puuid: str) -> MatchIds:
+    def get_a_list_of_match_ids_by_puuid(
+        self, puuid: str, match_type: MatchType, count: int
+    ) -> MatchIds:
         "Endpoint gets you a list of user's matches"
-        URL = self.url_list_of_match_ids.format(puuid=puuid)
+        URL = (
+            self.url_list_of_match_ids.format(puuid=puuid)
+            + f"&type={match_type}&count={count}"
+        )
         match_ids = send_request(URL)
         MatchIds.model_validate(match_ids)
 
@@ -46,8 +51,9 @@ class MatchController(RiotAPIBase):
 
         return match
 
-    def get_a_match_timeline_by_match_id(self, match_id: str) -> TimelineDto:
-        "Endpoint gives you precise timeline of event through the match"
+    async def get_a_match_timeline_by_match_id(self, match_id: str) -> TimelineDto:
+        "Endpoint gives you precise timeline of events through the match"
         URL = self.url_match_timeline.format(match_id=match_id)
+        match_timeline = send_request(URL)
 
-        return URL
+        return match_timeline
