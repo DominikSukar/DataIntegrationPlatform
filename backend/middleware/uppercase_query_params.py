@@ -11,10 +11,11 @@ class UpperCaseServerParamMiddleware:
     async def __call__(self, request: Request, call_next):
         path = request.scope["path"]
         fragmented_path = path.strip("/").split("/")
+        print(fragmented_path)
 
         # This middleware is supposed to detect servername in path, so don't capitalize URLs with path consisting of one variable
-        if fragmented_path.__len__() > 1 and "datadragon" not in fragmented_path:
-            fragmented_path[-1] = fragmented_path[-1].upper()
+        if "datadragon" not in fragmented_path and "docs" not in fragmented_path and "openapi.json" not in fragmented_path:
+            fragmented_path[1] = fragmented_path[1].upper()
             whole_path = "/".join(fragmented_path)
             request.scope["path"] = f"/{whole_path}/"
 
