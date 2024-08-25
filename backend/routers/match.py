@@ -47,7 +47,7 @@ async def match_history(
     controller = MatchController(mapped_server)
 
     async with aiohttp.ClientSession() as session:
-        match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid, match_type, count)
+        match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid, match_type.value, count)
 
         tasks = [
             controller.get_a_match_by_match_id(session, match_id)
