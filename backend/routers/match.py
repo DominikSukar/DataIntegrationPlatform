@@ -109,6 +109,12 @@ async def match_history(
                     else:
                         kda = "Perfect"
 
+                    for style in participant["perks"]["styles"]:
+                        if style["description"] == "primaryStyle":
+                            primary_style = style["selections"][0]["perk"]
+                        elif style["description"] == "subStyle":
+                            secondary_style = style["selections"][0]["perk"]
+
                     participant_data = {
                         "championName": participant["championName"],
                         "individualPosition": participant["individualPosition"],
@@ -131,6 +137,10 @@ async def match_history(
                         "summoners": [
                             participant["summoner1Id"],
                             participant["summoner2Id"],
+                        ],
+                        "perks": [
+                            primary_style,
+                            secondary_style,
                         ],
                         "visionScore": participant["visionScore"],
                         "isMain": False,

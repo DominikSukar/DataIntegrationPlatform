@@ -12,6 +12,7 @@ export interface Participant {
   tagLine: string;
   items: [number];
   summoners: [number];
+  perks: [number];
   vision: number;
   isMain: boolean;
 }
