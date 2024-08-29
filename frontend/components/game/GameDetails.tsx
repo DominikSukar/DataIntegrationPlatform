@@ -12,9 +12,9 @@ const GameDetails = async ({
   info: Info;
 }) => {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center gap-20 mt-5">
       <div>
-        <h2>Red team</h2>
+      <h2 className="text-center text-red-500">Red team</h2>
         {team_1.map((participant, index) => (
           <GameDetailsParticipant key={index} participant={participant} info={info} />
         ))}
@@ -22,9 +22,9 @@ const GameDetails = async ({
       </div>
       <div>
         {/* Bans DPS DPSTAKEN GOLD TOWERS DRAGONS BARON KRUGS HERALDS */}
-        <h2>Blue team</h2>
+        <h2 className="text-center text-blue-500">Blue team</h2>
         {team_2.map((participant, index) => (
-          <GameDetailsParticipant key={index} participant={participant} info={info} />
+          <GameDetailsParticipant key={index} participant={participant} info={info} isReversed={true} />
         ))}
       </div>
     </div>

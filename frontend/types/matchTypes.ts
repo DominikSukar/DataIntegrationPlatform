@@ -8,11 +8,12 @@ export interface Participant {
   deaths: number;
   assists: number;
   kda: number;
+  kp: number;
   summonerName: string;
   tagLine: string;
-  items: [number];
-  summoners: [number];
-  perks: [number];
+  items: number[];
+  summoners: number[];
+  perks: Perks;
   vision: number;
   isMain: boolean;
 }
@@ -22,6 +23,20 @@ export interface MainParticipant extends Participant {
   timePlayed: number;
 }
 
+export interface Perks {
+  primary: PrimaryStyle;
+  secondary: SecondaryStyle;
+}
+
+export interface PrimaryStyle {
+  style: number;
+  perks: number[];
+}
+
+export interface SecondaryStyle {
+  style: number;
+  perks: number[];
+}
 
 export type Result = "Win" | "Defeat" | "Remake";
 

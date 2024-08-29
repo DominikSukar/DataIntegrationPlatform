@@ -1,6 +1,7 @@
 import ChampionIcon from "./ChampionIcon";
 import SpellIcon from "./SpellIcon";
 import ItemIcon from "./ItemIcon";
+import PerkIcon from "./PerkIcon";
 
 import { MainParticipant } from "@/types/matchTypes";
 
@@ -9,6 +10,9 @@ function GameMainParticipant({
 }: {
   mainParticipant: MainParticipant;
 }) {
+  const primaryPerks = mainParticipant.perks.primary;
+  const secondaryPerks = mainParticipant.perks.secondary;
+
   return (
     <div className="flex items-center  max-w-[330px]">
       <div className="flex flex-col">
@@ -21,6 +25,11 @@ function GameMainParticipant({
             {mainParticipant.summoners.map((summoner, index) => (
               <SpellIcon spellID={summoner} size={32} key={index} />
             ))}
+          </div>
+          {/*Hovering over perks should trigger animation that renders all the perks on (maybe) right side*/}
+          <div className="flex flex-col">
+            <PerkIcon perkID={primaryPerks.perks[0]} size={32}></PerkIcon>
+            <PerkIcon perkID={secondaryPerks.style} size={32}></PerkIcon>
           </div>
         </div>
         <div className="flex">
@@ -59,6 +68,25 @@ function GameMainParticipant({
             {mainParticipant.kda}
           </div>
           <p className="ml-1 text-gray-400">KDA</p>
+        </div>
+        <div className="flex">
+          <div
+            className={`
+          ${
+            mainParticipant.kp < 40
+              ? "text-red-500"
+              : mainParticipant.kp < 60
+              ? "text-white-400"
+              : mainParticipant.kp < 80
+              ? "text-green-400"
+              : mainParticipant.kp < 90
+              ? "text-blue-400"
+              : "text-yellow-500"
+          }`}
+          >
+            {mainParticipant.kp}
+          </div>
+          <p className="text-gray-400">% KP</p>
         </div>
       </div>
     </div>

@@ -28,11 +28,14 @@ async def match_timeline(
 @map_puuid_and_server
 async def match_history(
     server: SummonerAndSpectorServerModel,
-    match_type: Annotated[MatchType, Query(
-        title="Query string",
-        description="""Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
+    match_type: Annotated[
+        MatchType,
+        Query(
+            title="Query string",
+            description="""Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
         Default value is ranked, so not need to pass it. Do not use '--', it's FastAPI/enum bug.""",
-    )] = MatchType.ranked,
+        ),
+    ] = MatchType.ranked,
     mapped_server: MatchModel = Query(None, include_in_schema=False),
     summoner_name: str = None,
     puuid: str = None,
@@ -47,7 +50,9 @@ async def match_history(
     controller = MatchController(mapped_server)
 
     async with aiohttp.ClientSession() as session:
-        match_ids = controller.get_a_list_of_match_ids_by_puuid(puuid, match_type.value, count)
+        match_ids = controller.get_a_list_of_match_ids_by_puuid(
+            puuid, match_type.value, count
+        )
 
         tasks = [
             controller.get_a_match_by_match_id(session, match_id)
@@ -111,9 +116,15 @@ async def match_history(
 
                     for style in participant["perks"]["styles"]:
                         if style["description"] == "primaryStyle":
-                            primary_style = style["selections"][0]["perk"]
+                            primary_perks = [
+                                perk["perk"] for perk in style["selections"]
+                            ]
+                            primary_style = style["style"]
                         elif style["description"] == "subStyle":
-                            secondary_style = style["selections"][0]["perk"]
+                            secondary_perks = [
+                                perk["perk"] for perk in style["selections"]
+                            ]
+                            secondary_style = style["style"]
 
                     participant_data = {
                         "championName": participant["championName"],
@@ -123,6 +134,7 @@ async def match_history(
                         "deaths": deaths,
                         "assists": assists,
                         "kda": kda,
+                        "kp": int(participant["challenges"]["killParticipation"]*100),
                         "summonerName": participant["riotIdGameName"],
                         "tagLine": participant["riotIdTagline"],
                         "items": [
@@ -138,10 +150,16 @@ async def match_history(
                             participant["summoner1Id"],
                             participant["summoner2Id"],
                         ],
-                        "perks": [
-                            primary_style,
-                            secondary_style,
-                        ],
+                        "perks": {
+                            "primary": {
+                                "style": primary_style,
+                                "perks": primary_perks,
+                            },
+                            "secondary": {
+                                "style": secondary_style,
+                                "perks": secondary_perks,
+                            },
+                        },
                         "visionScore": participant["visionScore"],
                         "isMain": False,
                     }

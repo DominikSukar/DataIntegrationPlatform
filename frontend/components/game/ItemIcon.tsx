@@ -20,6 +20,7 @@ const ItemIcon = async ({ itemID, size }: { itemID: number; size: number }) => {
   /* https://blog.ggboost.com/bl-content/uploads/pages/731fd39180a3f7570690918001c01fa4/lol-new-items-confusion-1.webp
   Dodac :after do css, aby wyswietlal te podstawowe ikonki. Zmienic kolorystke - wypierdolic wszystko, aktywy na ciemny pomaranczowy.
    */
+
   return (
     <TooltipProvider>
       <Tooltip delayDuration={200} disableHoverableContent={true}>
