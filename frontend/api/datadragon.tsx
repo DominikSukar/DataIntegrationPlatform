@@ -1,5 +1,4 @@
 import { DOMAIN } from "../constants/api";
-import { MatchData } from "@/types/matchTypes";
 
 export async function fetchItems(): Promise<any> {
   const response = await fetch(`${DOMAIN}/datadragon/items/`, {
