@@ -5,13 +5,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import ItemDescription from "./ItemDescription";
-
-import { fetchSummoners } from "@/api/datadragon";
 
 const PerkIcon = async({ perkID, size }: { perkID: number; size: number }) => {
-  const summoners = await fetchSummoners();
-  const summoner = summoners[perkID]
   return (
     <TooltipProvider>
       <Tooltip delayDuration={200} disableHoverableContent={true}>

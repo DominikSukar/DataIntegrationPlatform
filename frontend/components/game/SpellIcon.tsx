@@ -5,7 +5,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import ItemDescription from "./ItemDescription";
 
 import { fetchSummoners } from "@/api/datadragon";
 

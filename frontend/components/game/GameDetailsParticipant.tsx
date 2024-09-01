@@ -3,11 +3,11 @@ import Link from "next/link";
 import { Participant, Info } from "@/types/matchTypes";
 
 import ChampionIcon from "./ChampionIcon";
-import SpellIcon from "./SpellIcon";
+import SpellIconCSR from "./SpellIconCSR";
 import RankIcon from "./RankIcon";
 import PerkIcon from "./PerkIcon";
 
-const GameDetailsParticipant = async ({
+const GameDetailsParticipant = ({
   participant,
   info,
   isReversed,
@@ -30,7 +30,7 @@ const GameDetailsParticipant = async ({
       {/* ChampionIconCOLUMN: tooltip to show leveling */}
       <div className="flex flex-col">
         {participant.summoners.map((summoner, index) => (
-          <SpellIcon spellID={summoner} size={16} key={index} />
+          <SpellIconCSR spellID={summoner} size={16} key={index} />
         ))}
       </div>
       <div className="flex flex-col">
