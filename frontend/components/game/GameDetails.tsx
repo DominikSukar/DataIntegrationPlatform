@@ -20,7 +20,7 @@ const GameDetails = ({
 
   return (
     <div className="flex flex-col items-center">
-      <Button className="w-20 border border-white bg-white bg-opacity-20 backdrop-blur-md" onClick={()=>setIsOpen(!isOpen)}>Details</Button>
+      <Button className="w-20 border border-white bg-white bg-opacity-5 backdrop-blur-md" onClick={()=>setIsOpen(!isOpen)}>Details</Button>
       {isOpen ? (
         <div className="flex justify-center gap-20 mt-5">
           <div>
