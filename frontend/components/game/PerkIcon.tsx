@@ -6,7 +6,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
+import { fetchPerks } from "@/api/datadragon";
+
 const PerkIcon = async({ perkID, size }: { perkID: number; size: number }) => {
+  const perks = await fetchPerks();
+  const perk = perks[perkID]
+
   return (
     <TooltipProvider>
       <Tooltip delayDuration={200} disableHoverableContent={true}>
@@ -19,6 +24,10 @@ const PerkIcon = async({ perkID, size }: { perkID: number; size: number }) => {
             alt={`Item ${perkID}`}
           />
         </TooltipTrigger>
+        <TooltipContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md rounded-[20px] border-2 w-80">
+          <p className="font-bold text-amber-600">{perk.name}</p>
+          <p>{perk.description}</p>
+        </TooltipContent>
       </Tooltip>
     </TooltipProvider>    
   );
