@@ -3,7 +3,7 @@ import json
 
 from fastapi import APIRouter, HTTPException
 
-from utils.env import ITEMS_PATH, SUMMONERS_PATH
+from utils.env import ITEMS_PATH, SUMMONERS_PATH, PERKS_PATH
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -53,6 +53,26 @@ async def get_summoners():
             }
 
         return summoners
+
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Item data file not found")
+
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error parsing item data")
+
+    except KeyError as e:
+        raise HTTPException(
+            status_code=500, detail=f"Unexpected data structure: {str(e)}"
+        )
+    
+@router.get("/perks/")
+async def get_perks():
+    "Fetches data about summoner perks"
+    try:
+        with open(PERKS_PATH, "r", encoding="utf-8") as file:
+            perks_data = json.load(file)
+
+        return perks_data
 
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Item data file not found")
