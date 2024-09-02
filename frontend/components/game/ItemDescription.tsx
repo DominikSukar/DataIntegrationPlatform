@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const StyledDescription = styled.div`
   .mainText {
+    color: black;
     margin-bottom: 10px;
   }
 
@@ -27,18 +28,18 @@ const StyledDescription = styled.div`
   }
 
   .active, .unique, .passive {
-    color: #00ff00;
+    color: white;
     font-weight: bold;
   }
 
   .rarityGeneric, .rarityLegendary, .rarityMythic {
     color: #3b82f6;
-    font-weight: bold;
+    font-style: italic;
   }
 
   .rules {
     color: #3b82f6;
-    font-weight: bold;
+    font-style: italic;
     margin-top: 10px;
     display: block;
   }
