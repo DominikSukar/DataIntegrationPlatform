@@ -5,7 +5,8 @@ import { Participant, Info } from "@/types/matchTypes";
 import ChampionIcon from "./ChampionIcon";
 import SpellIconCSR from "./SpellIconCSR";
 import RankIcon from "./RankIcon";
-import PerkIcon from "./PerkIcon";
+import PerkIconCSR from "./PerkIconCSR";
+import ItemIconCSR from "./ItemIconCSR";
 
 const GameDetailsParticipant = ({
   participant,
@@ -21,47 +22,44 @@ const GameDetailsParticipant = ({
 
   return (
     <div
-      className={`flex items-center ${isReversed ? "flex-row-reverse" : ""}`}
+      className={`flex my-1 items-center ${
+        !isReversed ? "flex-row-reverse" : ""
+      }`}
     >
-      <ChampionIcon
-        championName={participant.championName}
-        size={36}
-      ></ChampionIcon>
-      {/* ChampionIconCOLUMN: tooltip to show leveling */}
-      <div className="flex flex-col">
-        {participant.summoners.map((summoner, index) => (
-          <SpellIconCSR spellID={summoner} size={16} key={index} />
-        ))}
-      </div>
-      <div className="flex flex-col">
-        <PerkIcon perkID={primaryPerks.perks[0]} size={16}></PerkIcon>
-        <PerkIcon perkID={secondaryPerks.style} size={16}></PerkIcon>
-      </div>
-      {/* TOPERKSCOLUMN: tooltip to show perks specifics */}
-      <RankIcon rankName="Emerald" size={36}></RankIcon>
-      <Link
-        href={`/summoner/${info.server}/${participant.summonerName}_${participant.tagLine}`}
-        className="no-underline"
-      >
-        <h6
-          className={`w-16 xl:w-28 text-left overflow-hidden whitespace-nowrap text-ellipsis text-slate-400 hover:text-slate-500 transition-colors duration-200 ease-in-out ${
-            participant.isMain ? "font-bold text-white" : ""
-          }`}
-        >
-          {participant.summonerName}#{participant.tagLine}
-        </h6>
-      </Link>
-      <div className="flex flex-col items-center justify-center w-20">
-        <div className="flex justify-center">
-          <h6>{participant.kills}</h6>
-          <h6 className="text-slate-400">/</h6>
-          <h6 className="text-red-600 font-bold">{participant.deaths}</h6>
-          <h6 className="text-slate-400">/</h6>
-          <h6>{participant.assists}</h6>
-        </div>
-        <div className="flex">
-          <h6
-            className={`
+      <div>
+        <div>
+          <div className="flex justify-center">
+            <ChampionIcon
+              championName={participant.championName}
+              size={40}
+            ></ChampionIcon>
+            {/* ChampionIconCOLUMN: tooltip to show leveling */}
+            <div className="flex flex-col">
+              {participant.summoners.map((summoner, index) => (
+                <SpellIconCSR spellID={summoner} size={20} key={index} />
+              ))}
+            </div>
+            <div className="flex flex-col">
+              <PerkIconCSR
+                perkID={primaryPerks.perks[0]}
+                size={20}
+              ></PerkIconCSR>
+              <PerkIconCSR
+                perkID={secondaryPerks.style}
+                size={20}
+              ></PerkIconCSR>
+            </div>
+            <div className="flex flex-col items-center justify-center w-20">
+              <div className="flex justify-center">
+                <h6>{participant.kills}</h6>
+                <h6 className="text-slate-400">/</h6>
+                <h6 className="text-red-600 font-bold">{participant.deaths}</h6>
+                <h6 className="text-slate-400">/</h6>
+                <h6>{participant.assists}</h6>
+              </div>
+              <div className="flex">
+                <h6
+                  className={`
           ${
             participant.kda < 1.0
               ? "text-red-500"
@@ -73,15 +71,15 @@ const GameDetailsParticipant = ({
               ? "text-blue-400"
               : "text-yellow-500"
           }`}
-          >
-            {participant.kda}
-          </h6>
-          <h6 className="ml-1 text-gray-400">KDA</h6>
-        </div>
-      </div>
-      <div className="flex">
-            <h6
-              className={`
+                >
+                  {participant.kda}
+                </h6>
+                <h6 className="ml-1 text-gray-400">KDA</h6>
+              </div>
+            </div>
+            <div className="flex items-center">
+              <h6
+                className={`
           ${
             participant.kp < 40
               ? "text-red-500"
@@ -93,17 +91,44 @@ const GameDetailsParticipant = ({
               ? "text-blue-400"
               : "text-yellow-500"
           }`}
-            >
-              {participant.kp}
-            </h6>
-            <h6 className="text-gray-400">% KP</h6>
+              >
+                {participant.kp}
+              </h6>
+              <h6 className="text-gray-400">% KP</h6>
+            </div>
           </div>
+          <div className="flex">
+            {participant.items.map((item, index) => (
+              <ItemIconCSR itemID={item} size={24} key={index} />
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* TOPERKSCOLUMN: tooltip to show perks specifics */}
+      <div className="flex flex-col items-center mx-5">
+        <Link
+          href={`/summoner/${info.server}/${participant.summonerName}_${participant.tagLine}`}
+          className="no-underline"
+        >
+          <h6
+            className={`w-16 xl:w-28 text-center overflow-hidden whitespace-nowrap text-ellipsis text-slate-400 hover:text-slate-500 transition-colors duration-200 ease-in-out ${
+              participant.isMain ? "font-bold text-white" : ""
+            }`}
+          >
+            {participant.summonerName}#{participant.tagLine}
+          </h6>
+        </Link>
+        <div className="flex">
+          <RankIcon rankName="Emerald" size={20}></RankIcon>
+          <h6 className="text-slate-400">Emerald 3</h6>
+        </div>
+      </div>
+
       {/* CS + CS/min */}
       {participant.vision}
       {/* DPS + Obj DPS */}
       {/* DPS Taken */}
       {/* Gold */}
-      {/* Items */}
       {/* Button to show item buying order */}
     </div>
   );

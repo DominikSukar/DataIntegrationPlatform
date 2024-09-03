@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Tooltip,
@@ -7,11 +9,23 @@ import {
 } from "@/components/ui/tooltip";
 import ItemDescription from "./ItemDescription";
 
-import { fetchItems } from "@/api/datadragon";
-
+import { DOMAIN } from "../../constants/api";
 const ItemIcon = async ({ itemID, size }: { itemID: number; size: number }) => {
-  const items = await fetchItems();
-  const item = items[itemID];
+  const [item, setItem] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${DOMAIN}/datadragon/items/`);
+      const items = await response.json();
+      setItem(items[itemID]);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <></>;
   if (itemID === 0) {
     return (
       <div className={"w-6 h-6 m-0.5 border border-slate-400 bg-white bg-opacity-20 backdrop-blur-md"}></div>

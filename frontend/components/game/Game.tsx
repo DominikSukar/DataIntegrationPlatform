@@ -2,11 +2,12 @@ import GameInfo from "./GameInfo";
 import GameParticipants from "./GameParticipants";
 import GameMainParticipant from "./GameMainParticipant";
 import GameDetails from "./GameDetails";
-import GameDetailsButton from "./GameDetailsButton";
+
+import CSButton from "./CSButton";
 
 import { MatchData, Result, Info } from "@/types/matchTypes";
 
-function Game({ match }: { match: MatchData }) {
+function Game({ match}: { match: MatchData}) {
   const gameClasses: Record<Result, string> = {
     Win: "border-indigo-700",
     Defeat: "border-red-700",

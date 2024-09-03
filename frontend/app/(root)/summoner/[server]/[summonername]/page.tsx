@@ -12,7 +12,7 @@ const SummonerPage = async ({ params }: PageProps) => {
       <User params={params}></User>
       <div className="flex flex-col items-center">
         {matches ? (matches.map((match, index) => (
-          <Game key={index} match={match} />
+            <Game key={index} match={match}/>
         ))):(<div className="p-2 bg-white bg-opacity-20 backdrop-blur-md border-2 border-white border-opacity-30 rounded-[10px] overflow-hidden">No matches found</div>)}
       </div>
     </div>

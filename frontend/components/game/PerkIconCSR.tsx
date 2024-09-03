@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
@@ -6,19 +6,19 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/ui/tooltip"
 
 import { DOMAIN } from "../../constants/api";
 
-const SpellIconCSR = ({ spellID, size }: { spellID: number; size: number }) => {
-  const [summoner, setSummoner] = useState<any>(null);
+const PerkIcon = async({ perkID, size }: { perkID: number; size: number }) => {
+  const [perk, setPerk] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${DOMAIN}/datadragon/summoners/`);
-      const summoners = await response.json();
-      setSummoner(summoners[spellID]);
+      const response = await fetch(`${DOMAIN}/datadragon/perks/`);
+      const perks = await response.json();
+      setPerk(perks[perkID]);
       setLoading(false);
     };
 
@@ -32,20 +32,20 @@ const SpellIconCSR = ({ spellID, size }: { spellID: number; size: number }) => {
       <Tooltip delayDuration={200} disableHoverableContent={true}>
         <TooltipTrigger>
           <Image
-            src={`http://localhost:8000/static/dragontail-14.15.1/14.15.1/img/spell/${spellID}.png`}
+            src={`http://localhost:8000/static/dragontail-14.15.1/perk-images-byID/perk-images/Styles/${perkID}.png`}
             className="m-0.5"
             width={size}
             height={size}
-            alt={`Item ${spellID}`}
+            alt={`Item ${perkID}`}
           />
         </TooltipTrigger>
         <TooltipContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md rounded-[20px] border-2 w-80">
-          <p className="font-bold text-amber-600">{summoner ? (summoner.name) : (<></>)}</p>
-          <p>{summoner ? (summoner.description) : (<></>)}</p>
+          <p className="font-bold text-amber-600">{perk.name}</p>
+          <p>{perk.description}</p>
         </TooltipContent>
       </Tooltip>
-    </TooltipProvider>
+    </TooltipProvider>    
   );
-};
+}
 
-export default SpellIconCSR;
+export default PerkIcon;
