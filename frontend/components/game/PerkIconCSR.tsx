@@ -10,7 +10,7 @@ import {
 
 import { DOMAIN } from "../../constants/api";
 
-const PerkIcon = async({ perkID, size }: { perkID: number; size: number }) => {
+const PerkIconCSR = ({ perkID, size }: { perkID: number; size: number }) => {
   const [perk, setPerk] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -48,4 +48,4 @@ const PerkIcon = async({ perkID, size }: { perkID: number; size: number }) => {
   );
 }
 
-export default PerkIcon;
+export default PerkIconCSR;

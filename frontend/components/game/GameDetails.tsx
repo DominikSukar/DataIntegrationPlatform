@@ -1,7 +1,6 @@
 'use client'
-import { useState } from "react";
-import dynamic from 'next/dynamic';
-const GameDetailsParticipant = dynamic(() => import('./GameDetailsParticipant'), { ssr: false });
+import { useState } from "react";;
+import GameDetailsParticipant from "./GameDetailsParticipant";
 
 import { Button } from "@/components/ui/button";
 

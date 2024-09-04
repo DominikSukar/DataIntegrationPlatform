@@ -10,7 +10,7 @@ import {
 import ItemDescription from "./ItemDescription";
 
 import { DOMAIN } from "../../constants/api";
-const ItemIcon = async ({ itemID, size }: { itemID: number; size: number }) => {
+const ItemIconCSR = ({ itemID, size }: { itemID: number; size: number }) => {
   const [item, setItem] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -75,4 +75,4 @@ const ItemIcon = async ({ itemID, size }: { itemID: number; size: number }) => {
   );
 };
 
-export default ItemIcon;
+export default ItemIconCSR;
