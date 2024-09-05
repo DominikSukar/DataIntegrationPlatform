@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Tooltip,
@@ -9,26 +8,24 @@ import {
 } from "@/components/ui/tooltip";
 import ItemDescription from "./ItemDescription";
 
-import { DOMAIN } from "../../constants/api";
-const ItemIconCSR = ({ itemID, size }: { itemID: number; size: number }) => {
-  const [item, setItem] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+import { Item } from "@/types/matchTypes";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${DOMAIN}/datadragon/items/`);
-      const items = await response.json();
-      setItem(items[itemID]);
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) return <></>;
+export default function ItemIconCSR({
+  item,
+  itemID,
+  size,
+}: {
+  item: Item;
+  itemID: number;
+  size: number;
+}) {
   if (itemID === 0) {
     return (
-      <div className={"w-6 h-6 m-0.5 border border-slate-400 bg-white bg-opacity-20 backdrop-blur-md"}></div>
+      <div
+        className={
+          "w-6 h-6 m-0.5 border border-slate-400 bg-white bg-opacity-20 backdrop-blur-md"
+        }
+      ></div>
     );
   }
   /* https://blog.ggboost.com/bl-content/uploads/pages/731fd39180a3f7570690918001c01fa4/lol-new-items-confusion-1.webp
@@ -44,7 +41,10 @@ const ItemIconCSR = ({ itemID, size }: { itemID: number; size: number }) => {
             className="m-0.5"
             width={size}
             height={size}
+            placeholder="blur"
+            blurDataURL="/loading.gif"
             alt={`Item ${itemID}`}
+            priority={true}
           />
         </TooltipTrigger>
         <TooltipContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md rounded-[20px] border-2 w-80">
@@ -73,6 +73,4 @@ const ItemIconCSR = ({ itemID, size }: { itemID: number; size: number }) => {
       </Tooltip>
     </TooltipProvider>
   );
-};
-
-export default ItemIconCSR;
+}

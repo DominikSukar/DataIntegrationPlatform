@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Participant, Info } from "@/types/matchTypes";
+import { Participant, Info, ItemCollection } from "@/types/matchTypes";
 
 import ChampionIcon from "./ChampionIcon";
 import SpellIconCSR from "./SpellIconCSR";
@@ -8,15 +8,17 @@ import RankIcon from "./RankIcon";
 import PerkIconCSR from "./PerkIconCSR";
 import ItemIconCSR from "./ItemIconCSR";
 
-const GameDetailsParticipant = ({
+export default function GameDetailsParticipant({
   participant,
   info,
+  items,
   isReversed,
 }: {
   participant: Participant;
   info: Info;
+  items: ItemCollection;
   isReversed?: boolean;
-}) => {
+}) {
   const primaryPerks = participant.perks.primary;
   const secondaryPerks = participant.perks.secondary;
 
@@ -98,8 +100,8 @@ const GameDetailsParticipant = ({
             </div>
           </div>
           <div className="flex">
-            {participant.items.map((item, index) => (
-              <ItemIconCSR itemID={item} size={24} key={index} />
+            {participant.items.map((itemID, index) => (
+              <ItemIconCSR item={items[itemID]} itemID={itemID} size={24} key={index} />
             ))}
           </div>
         </div>
@@ -133,5 +135,3 @@ const GameDetailsParticipant = ({
     </div>
   );
 };
-
-export default GameDetailsParticipant;

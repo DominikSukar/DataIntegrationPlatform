@@ -1,12 +1,14 @@
 'use client'
-import { useState } from "react";;
+import { useState, useEffect } from "react";;
 import GameDetailsParticipant from "./GameDetailsParticipant";
 
 import { Button } from "@/components/ui/button";
 
 import { Participant, Info } from "@/types/matchTypes";
 
-const GameDetails = ({
+import { DOMAIN } from "../../constants/api";
+
+export default function GameDetails({
   team_1,
   team_2,
   info,
@@ -14,8 +16,20 @@ const GameDetails = ({
   team_1: Participant[];
   team_2: Participant[];
   info: Info;
-}) => {
+}) {
   const [isOpen, setIsOpen] = useState(false);
+  const [items, setItems] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${DOMAIN}/datadragon/items/`);
+      const items = await response.json();
+      setItems(items);
+    };
+
+    fetchData();
+  }, []);
+  
 
   return (
     <div className="flex flex-col items-center">
@@ -29,6 +43,7 @@ const GameDetails = ({
                 key={index}
                 participant={participant}
                 info={info}
+                items={items}
               />
             ))}
             {/*Bans DPS DPSTAKEN GOLD TOWERS DRAGONS BARON KRUGS HERALDS */}
@@ -41,6 +56,7 @@ const GameDetails = ({
                 key={index}
                 participant={participant}
                 info={info}
+                items={items}
                 isReversed={true}
               />
             ))}
@@ -52,5 +68,3 @@ const GameDetails = ({
     </div>
   );
 };
-
-export default GameDetails;

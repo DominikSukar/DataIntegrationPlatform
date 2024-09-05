@@ -33,8 +33,8 @@ function GameMainParticipant({
           </div>
         </div>
         <div className="flex">
-          {mainParticipant.items.map((item, index) => (
-            <ItemIcon itemID={item} size={24} key={index} />
+          {mainParticipant.items.map((itemID, index) => (
+            <ItemIcon itemID={itemID} size={24} key={index} />
           ))}
         </div>
       </div>
