@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Participant, Info, ItemCollection } from "@/types/matchTypes";
+import { Participant, Info, ItemCollection, Perk, PerkCollection } from "@/types/matchTypes";
 
 import ChampionIcon from "./ChampionIcon";
 import SpellIconCSR from "./SpellIconCSR";
@@ -12,11 +12,13 @@ export default function GameDetailsParticipant({
   participant,
   info,
   items,
+  perks,
   isReversed,
 }: {
   participant: Participant;
   info: Info;
   items: ItemCollection;
+  perks: PerkCollection;
   isReversed?: boolean;
 }) {
   const primaryPerks = participant.perks.primary;
@@ -43,10 +45,12 @@ export default function GameDetailsParticipant({
             </div>
             <div className="flex flex-col">
               <PerkIconCSR
+                perk={perks[primaryPerks.perks[0]]}
                 perkID={primaryPerks.perks[0]}
                 size={20}
               ></PerkIconCSR>
               <PerkIconCSR
+                perk={perks[primaryPerks.perks[0]]}
                 perkID={secondaryPerks.style}
                 size={20}
               ></PerkIconCSR>

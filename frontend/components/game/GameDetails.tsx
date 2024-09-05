@@ -4,7 +4,7 @@ import GameDetailsParticipant from "./GameDetailsParticipant";
 
 import { Button } from "@/components/ui/button";
 
-import { Participant, Info } from "@/types/matchTypes";
+import { Participant, Info, ItemCollection } from "@/types/matchTypes";
 
 import { DOMAIN } from "../../constants/api";
 
@@ -19,15 +19,22 @@ export default function GameDetails({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [items, setItems] = useState<any>(null);
+  const [perks, setPerks] = useState<any>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchItems = async () => {
       const response = await fetch(`${DOMAIN}/datadragon/items/`);
       const items = await response.json();
       setItems(items);
     };
+    const fetchPerks = async () => {
+      const response = await fetch(`${DOMAIN}/datadragon/perks/`);
+      const perks = await response.json();
+      setPerks(perks);
+    };
 
-    fetchData();
+    fetchItems();
+    fetchPerks();
   }, []);
   
 
@@ -44,6 +51,7 @@ export default function GameDetails({
                 participant={participant}
                 info={info}
                 items={items}
+                perks={perks}
               />
             ))}
             {/*Bans DPS DPSTAKEN GOLD TOWERS DRAGONS BARON KRUGS HERALDS */}
@@ -57,6 +65,7 @@ export default function GameDetails({
                 participant={participant}
                 info={info}
                 items={items}
+                perks={perks}
                 isReversed={true}
               />
             ))}

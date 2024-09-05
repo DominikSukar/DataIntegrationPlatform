@@ -1,6 +1,5 @@
 'use client'
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -8,24 +7,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-import { DOMAIN } from "../../constants/api";
+import { Perk } from "@/types/matchTypes";
 
-const PerkIconCSR = ({ perkID, size }: { perkID: number; size: number }) => {
-  const [perk, setPerk] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${DOMAIN}/datadragon/perks/`);
-      const perks = await response.json();
-      setPerk(perks[perkID]);
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) return <></>;
+export default function PerkIconCSR({ perk, perkID, size }: { perk: Perk; perkID: number; size: number }) {
 
   return (
     <TooltipProvider>
@@ -47,5 +31,3 @@ const PerkIconCSR = ({ perkID, size }: { perkID: number; size: number }) => {
     </TooltipProvider>    
   );
 }
-
-export default PerkIconCSR;
