@@ -7,14 +7,30 @@ import {
 } from "@/components/ui/tooltip";
 import ItemDescription from "./ItemDescription";
 
-import { fetchItems } from "@/api/datadragon";
+import { Item, ItemCollection } from "@/types/matchTypes";
 
-const ItemIcon = async ({ itemID, size }: { itemID: number; size: number }) => {
-  const items = await fetchItems();
-  const item = items[itemID];
+import { DOMAIN } from "../../constants/api";
+
+export default async function ItemIcon({
+  itemID,
+  size,
+}: {
+  itemID: number;
+  size: number;
+}) {
+  const response = await fetch(`${DOMAIN}/datadragon/items/`, {
+    next: { revalidate: 3600 },
+  });
+  const items: ItemCollection = await response.json();
+  const item: Item = items[itemID];
+
   if (itemID === 0) {
     return (
-      <div className={"w-6 h-6 m-0.5 border border-slate-400 bg-white bg-opacity-20 backdrop-blur-md"}></div>
+      <div
+        className={
+          "w-6 h-6 m-0.5 border border-slate-400 bg-white bg-opacity-20 backdrop-blur-md"
+        }
+      ></div>
     );
   }
   /* https://blog.ggboost.com/bl-content/uploads/pages/731fd39180a3f7570690918001c01fa4/lol-new-items-confusion-1.webp
@@ -59,6 +75,4 @@ const ItemIcon = async ({ itemID, size }: { itemID: number; size: number }) => {
       </Tooltip>
     </TooltipProvider>
   );
-};
-
-export default ItemIcon;
+}
