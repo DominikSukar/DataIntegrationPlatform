@@ -137,3 +137,13 @@ export interface Perk {
 export interface PerkCollection {
   [key: string]: Perk;
 }
+
+
+export interface Spell {
+  name: string;
+  description: string
+}
+
+export interface SpellCollection {
+  [key: string]: Spell;
+}
