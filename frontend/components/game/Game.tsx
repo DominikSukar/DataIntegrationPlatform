@@ -3,9 +3,7 @@ import GameParticipants from "./GameParticipants";
 import GameMainParticipant from "./GameMainParticipant";
 import GameDetails from "./GameDetails";
 
-import CSButton from "./CSButton";
-
-import { MatchData, Result, Info } from "@/types/matchTypes";
+import { MatchData, Result } from "@/types/matchTypes";
 
 function Game({ match}: { match: MatchData}) {
   const gameClasses: Record<Result, string> = {
