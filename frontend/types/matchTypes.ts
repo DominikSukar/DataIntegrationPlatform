@@ -127,3 +127,13 @@ export interface Item {
 export interface ItemCollection {
   [key: string]: Item;
 }
+
+export interface Perk {
+  name: string;
+  icon: string;
+  description: string
+}
+
+export interface PerkCollection {
+  [key: string]: Perk;
+}
