@@ -4,7 +4,7 @@ import GameDetailsParticipant from "./GameDetailsParticipant";
 
 import { Button } from "@/components/ui/button";
 
-import { Participant, Info, ItemCollection } from "@/types/matchTypes";
+import { Participant, Info } from "@/types/matchTypes";
 
 import { DOMAIN } from "../../constants/api";
 
@@ -20,6 +20,7 @@ export default function GameDetails({
   const [isOpen, setIsOpen] = useState(false);
   const [items, setItems] = useState<any>(null);
   const [perks, setPerks] = useState<any>(null);
+  const [spells, setSpells] = useState<any>(null);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -32,9 +33,15 @@ export default function GameDetails({
       const perks = await response.json();
       setPerks(perks);
     };
+    const fetchSpells = async () => {
+      const response = await fetch(`${DOMAIN}/datadragon/summoners/`);
+      const spells = await response.json();
+      setSpells(spells);
+    };
 
     fetchItems();
     fetchPerks();
+    fetchSpells();
   }, []);
   
 
@@ -51,6 +58,7 @@ export default function GameDetails({
                 participant={participant}
                 info={info}
                 items={items}
+                spells={spells}
                 perks={perks}
               />
             ))}
@@ -66,6 +74,7 @@ export default function GameDetails({
                 info={info}
                 items={items}
                 perks={perks}
+                spells={spells}
                 isReversed={true}
               />
             ))}

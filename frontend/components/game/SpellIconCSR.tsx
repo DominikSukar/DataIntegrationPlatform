@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -8,25 +7,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { DOMAIN } from "../../constants/api";
+import { Spell } from "@/types/matchTypes";
 
-const SpellIconCSR = ({ spellID, size }: { spellID: number; size: number }) => {
-  const [summoner, setSummoner] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${DOMAIN}/datadragon/summoners/`);
-      const summoners = await response.json();
-      setSummoner(summoners[spellID]);
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) return <></>;
-
+export default function SpellIconCSR({ spell, spellID, size }: { spell: Spell; spellID: number; size: number }) {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={200} disableHoverableContent={true}>
@@ -40,12 +23,10 @@ const SpellIconCSR = ({ spellID, size }: { spellID: number; size: number }) => {
           />
         </TooltipTrigger>
         <TooltipContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md rounded-[20px] border-2 w-80">
-          <p className="font-bold text-amber-600">{summoner ? (summoner.name) : (<></>)}</p>
-          <p>{summoner ? (summoner.description) : (<></>)}</p>
+          <p className="font-bold text-amber-600">{spell ? (spell.name) : (<></>)}</p>
+          <p>{spell ? (spell.description) : (<></>)}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
 };
-
-export default SpellIconCSR;

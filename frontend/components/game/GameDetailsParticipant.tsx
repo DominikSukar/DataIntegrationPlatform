@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Participant, Info, ItemCollection, Perk, PerkCollection } from "@/types/matchTypes";
+import { Participant, Info, ItemCollection, PerkCollection, SpellCollection } from "@/types/matchTypes";
 
 import ChampionIcon from "./ChampionIcon";
 import SpellIconCSR from "./SpellIconCSR";
@@ -13,12 +13,14 @@ export default function GameDetailsParticipant({
   info,
   items,
   perks,
+  spells,
   isReversed,
 }: {
   participant: Participant;
   info: Info;
   items: ItemCollection;
   perks: PerkCollection;
+  spells: SpellCollection;
   isReversed?: boolean;
 }) {
   const primaryPerks = participant.perks.primary;
@@ -39,8 +41,8 @@ export default function GameDetailsParticipant({
             ></ChampionIcon>
             {/* ChampionIconCOLUMN: tooltip to show leveling */}
             <div className="flex flex-col">
-              {participant.summoners.map((summoner, index) => (
-                <SpellIconCSR spellID={summoner} size={20} key={index} />
+              {participant.summoners.map((spellID, index) => (
+                <SpellIconCSR spell={spells[spellID]} spellID={spellID} size={20} key={index} />
               ))}
             </div>
             <div className="flex flex-col">
