@@ -117,3 +117,13 @@ export interface PageProps {
     summonerName: string;
   };
 }
+
+export interface Item {
+  name: string;
+  description: string;
+  gold: { total: number };
+}
+
+export interface ItemCollection {
+  [key: string]: Item;
+}
