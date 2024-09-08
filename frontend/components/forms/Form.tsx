@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from 'js-cookie';
 
 import { useRouter } from "next/navigation";
 
@@ -41,12 +42,24 @@ const regions = ["NA", "EUW", "EUNE", "KR", "BR", "JP", "OCE"];
 
 export default function ProfileForm() {
   const router = useRouter();
+  const [selectedRegion, setSelectedRegion] = useState(regions[0]);
+
+  useEffect(() => {
+    const savedRegion = Cookies.get('selectedRegion');
+    if (savedRegion && regions.includes(savedRegion)) {
+      setSelectedRegion(savedRegion);
+    }
+  }, []);
+
+  const handleRegionChange = (region: string) => {
+    setSelectedRegion(region);
+    Cookies.set('selectedRegion', region, { expires: 365 });
+  };
 
   const handleSubmit = async (formData: FormData) => {
     router.push(`/summoner/${formData.region}/${formData.username}`);
   };
 
-  const [selectedRegion, setSelectedRegion] = useState(regions[0]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -80,7 +93,7 @@ export default function ProfileForm() {
               {regions.map((region) => (
                 <DropdownMenuItem
                   key={region}
-                  onSelect={() => setSelectedRegion(region)}
+                  onSelect={() => handleRegionChange(region)}
                   className="text-white hover:bg-white hover:bg-opacity-30 transition-colors duration-300 focus:bg-white focus:bg-opacity-30 focus:text-black"
                 >
                   {region}
