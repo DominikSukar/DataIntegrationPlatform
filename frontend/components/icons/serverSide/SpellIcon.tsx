@@ -8,7 +8,7 @@ import {
 
 import { fetchSummoners } from "@/api/datadragon";
 
-const SpellIcon = async({ spellID, size }: { spellID: number; size: number }) => {
+export default async function SpellIcon({ spellID, size }: { spellID: number; size: number }) {
   const summoners = await fetchSummoners();
   const summoner = summoners[spellID]
   return (
@@ -31,5 +31,3 @@ const SpellIcon = async({ spellID, size }: { spellID: number; size: number }) =>
     </TooltipProvider>    
   );
 }
-
-export default SpellIcon;

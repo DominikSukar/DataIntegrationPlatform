@@ -6,7 +6,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-function ChampionIcon({
+/* Component is used on both client and server side. Do not put async.*/
+export default function ChampionIcon({
   championName,
   size,
 }: {
@@ -32,5 +33,3 @@ function ChampionIcon({
     </TooltipProvider>
   );
 }
-
-export default ChampionIcon;

@@ -2,11 +2,11 @@ import Link from "next/link";
 
 import { Participant, Info, ItemCollection, PerkCollection, SpellCollection } from "@/types/matchTypes";
 
-import ChampionIcon from "./ChampionIcon";
-import SpellIconCSR from "./SpellIconCSR";
-import RankIcon from "./RankIcon";
-import PerkIconCSR from "./PerkIconCSR";
-import ItemIconCSR from "./ItemIconCSR";
+import ChampionIcon from "@/components/icons/serverSide/ChampionIcon";
+import SpellIconCSR from "@/components/icons/clientSide/SpellIconCSR";
+import RankIcon from "@/components/icons/serverSide/RankIcon";
+import PerkIconCSR from "@/components/icons/clientSide/PerkIconCSR";
+import ItemIconCSR from "@/components/icons/clientSide/ItemIconCSR";
 
 export default function GameDetailsParticipant({
   participant,

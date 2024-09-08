@@ -5,11 +5,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import ItemDescription from "./ItemDescription";
+import ItemDescription from "@/components/ItemDescription";
 
 import { Item, ItemCollection } from "@/types/matchTypes";
 
-import { DOMAIN } from "../../constants/api";
+import { DOMAIN } from "@/constants/api";
 
 export default async function ItemIcon({
   itemID,

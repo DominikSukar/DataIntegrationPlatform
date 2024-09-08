@@ -1,4 +1,4 @@
-import Logo from "@/components/game/Logo";
+import Logo from "@/components/Logo";
 import Link from "next/link";
 
 import SummonersAnimationWrapper from "@/components/animationWrappers/Summoners";

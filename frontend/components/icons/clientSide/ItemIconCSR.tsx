@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import ItemDescription from "./ItemDescription";
+import ItemDescription from "@/components/ItemDescription";
 
 import { Item } from "@/types/matchTypes";
 
@@ -28,9 +28,7 @@ export default function ItemIconCSR({
       ></div>
     );
   }
-  /* https://blog.ggboost.com/bl-content/uploads/pages/731fd39180a3f7570690918001c01fa4/lol-new-items-confusion-1.webp
-  Dodac :after do css, aby wyswietlal te podstawowe ikonki. Zmienic kolorystke - wypierdolic wszystko, aktywy na ciemny pomaranczowy.
-   */
+  /* https://blog.ggboost.com/bl-content/uploads/pages/731fd39180a3f7570690918001c01fa4/lol-new-items-confusion-1.webp*/
 
   return (
     <TooltipProvider>

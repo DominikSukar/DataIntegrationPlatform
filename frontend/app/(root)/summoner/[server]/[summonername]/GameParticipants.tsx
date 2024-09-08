@@ -1,7 +1,7 @@
 import MatchParticipant from "./MatchParticipant";
 import { Participant, Info } from "@/types/matchTypes";
 
-function GameParticipants({
+export default function GameParticipants({
   team_1,
   team_2,
   info,
@@ -25,5 +25,3 @@ function GameParticipants({
     </div>
   );
 }
-
-export default GameParticipants;

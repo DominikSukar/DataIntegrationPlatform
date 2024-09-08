@@ -1,11 +1,11 @@
-import ChampionIcon from "./ChampionIcon";
-import SpellIcon from "./SpellIcon";
-import ItemIcon from "./ItemIcon";
-import PerkIcon from "./PerkIcon";
+import ChampionIcon from "@/components/icons/serverSide/ChampionIcon";
+import SpellIcon from "@/components/icons/serverSide/SpellIcon";
+import ItemIcon from "@/components/icons/serverSide/ItemIcon";
+import PerkIcon from "@/components/icons/serverSide/PerkIcon";
 
 import { MainParticipant } from "@/types/matchTypes";
 
-function GameMainParticipant({
+export default function GameMainParticipant({
   mainParticipant,
 }: {
   mainParticipant: MainParticipant;
@@ -92,5 +92,3 @@ function GameMainParticipant({
     </div>
   );
 }
-
-export default GameMainParticipant;

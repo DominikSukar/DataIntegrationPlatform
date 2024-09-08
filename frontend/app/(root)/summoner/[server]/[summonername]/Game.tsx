@@ -5,7 +5,7 @@ import GameDetails from "./GameDetails";
 
 import { MatchData, Result } from "@/types/matchTypes";
 
-function Game({ match}: { match: MatchData}) {
+export default function Game({ match}: { match: MatchData}) {
   const gameClasses: Record<Result, string> = {
     Win: "border-indigo-700",
     Defeat: "border-red-700",
@@ -44,5 +44,3 @@ function Game({ match}: { match: MatchData}) {
     </div>
   );
 }
-
-export default Game;

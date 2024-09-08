@@ -1,15 +1,15 @@
 import { DM_Sans } from "next/font/google";
 
-import Logo from "@/components/game/Logo";
+import Logo from "@/components/Logo";
+import ProfileForm from "@/components/forms/Form";
 
 const dmSans = DM_Sans({
   weight: "400",
   subsets: ["latin"],
 });
 
-import { ProfileForm } from "@/components/forms/Form";
 
-const Home = () => {
+export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
       <Logo></Logo>
@@ -17,5 +17,3 @@ const Home = () => {
     </main>
   );
 };
-
-export default Home;

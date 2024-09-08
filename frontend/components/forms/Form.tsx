@@ -39,7 +39,7 @@ interface FormData {
 
 const regions = ["NA", "EUW", "EUNE", "KR", "BR", "JP", "OCE"];
 
-export function ProfileForm() {
+export default function ProfileForm() {
   const router = useRouter();
 
   const handleSubmit = async (formData: FormData) => {

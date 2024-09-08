@@ -8,7 +8,7 @@ import {
 
 import { fetchPerks } from "@/api/datadragon";
 
-const PerkIcon = async({ perkID, size }: { perkID: number; size: number }) => {
+export default async function PerkIcon({ perkID, size }: { perkID: number; size: number }) {
   const perks = await fetchPerks();
   const perk = perks[perkID]
 
@@ -32,5 +32,3 @@ const PerkIcon = async({ perkID, size }: { perkID: number; size: number }) => {
     </TooltipProvider>    
   );
 }
-
-export default PerkIcon;

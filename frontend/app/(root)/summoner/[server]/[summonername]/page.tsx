@@ -1,5 +1,6 @@
-import Game from "@/components/game/Game";
-import User from "@/components/game/User";
+import User from "./User";
+import Game from "./Game";
+
 import { MatchData, PageProps } from "@/types/matchTypes";
 import { fetchMatchData } from "@/api/matchHistory";
 

@@ -1,9 +1,10 @@
 import { fetchSummonerData } from "@/api/summoner"
 import { PageProps } from "@/types/matchTypes";
-import ProfileIcon from "./ProfileIcon";
-import RankIcon from "./RankIcon";
 
-const User = async ({ params }: PageProps) => {
+import ProfileIcon from "@/components/icons/serverSide/ProfileIcon";
+import RankIcon from "@/components/icons/serverSide/RankIcon";
+
+export default async function User({ params }: PageProps) {
   const user = await fetchSummonerData(params);
   return (
     <div className="lg:flex items-center place-content-between text-white border border-white bg-white bg-opacity-20 backdrop-blur-md mb-28 mt-10">
@@ -29,5 +30,3 @@ const User = async ({ params }: PageProps) => {
     </div>
   )
 }
-
-export default User

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ChampionIcon from "./ChampionIcon";
+import ChampionIcon from "@/components/icons/serverSide/ChampionIcon";
 
 import { Participant, Info } from "@/types/matchTypes";
 

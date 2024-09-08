@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 import { Participant, Info } from "@/types/matchTypes";
 
-import { DOMAIN } from "../../constants/api";
+import { DOMAIN } from "@/constants/api";
 
 export default function GameDetails({
   team_1,
