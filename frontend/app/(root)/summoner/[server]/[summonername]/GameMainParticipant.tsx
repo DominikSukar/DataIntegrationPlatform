@@ -5,7 +5,7 @@ import PerkIcon from "@/components/icons/serverSide/PerkIcon";
 
 import { MainParticipant } from "@/types/matchTypes";
 
-export default function GameMainParticipant({
+export default async function GameMainParticipant({
   mainParticipant,
 }: {
   mainParticipant: MainParticipant;

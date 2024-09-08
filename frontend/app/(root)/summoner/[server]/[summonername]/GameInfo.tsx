@@ -2,7 +2,7 @@ import { MainParticipant, Info } from "@/types/matchTypes";
 import { relativeTime } from "@/utils/relativeDate";
 import { secondsToHMS } from "@/utils/time";
 
-export default function GameInfo({
+export default async function GameInfo({
   mainParticipant,
   info,
 }: {
