@@ -3,7 +3,7 @@ import ChampionIcon from "@/components/icons/serverSide/ChampionIcon";
 
 import { Participant, Info } from "@/types/matchTypes";
 
-function MatchParticipant({
+export default async function GameParticipantsSingle({
   participant,
   info,
 }: {
@@ -86,5 +86,3 @@ function MatchParticipant({
     </div>
   );
 }
-
-export default MatchParticipant;
