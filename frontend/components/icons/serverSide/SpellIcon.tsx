@@ -6,11 +6,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-import { fetchSummoners } from "@/api/datadragon";
+import { Spell, SpellCollection } from "@/types/matchTypes";
+import { DOMAIN } from "@/constants/api";
 
 export default async function SpellIcon({ spellID, size }: { spellID: number; size: number }) {
-  const summoners = await fetchSummoners();
-  const summoner = summoners[spellID]
+  const response = await fetch(`${DOMAIN}/datadragon/summoners/`, {
+    next: { revalidate: 3600 },
+  });
+  const summoners: SpellCollection = await response.json()
+  const summoner: Spell = summoners[spellID]
   return (
     <TooltipProvider>
       <Tooltip delayDuration={200} disableHoverableContent={true}>

@@ -4,13 +4,23 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
-import { fetchPerks } from "@/api/datadragon";
+import { Perk, PerkCollection } from "@/types/matchTypes";
+import { DOMAIN } from "@/constants/api";
 
-export default async function PerkIcon({ perkID, size }: { perkID: number; size: number }) {
-  const perks = await fetchPerks();
-  const perk = perks[perkID]
+export default async function PerkIcon({
+  perkID,
+  size,
+}: {
+  perkID: number;
+  size: number;
+}) {
+  const response = await fetch(`${DOMAIN}/datadragon/perks/`, {
+    next: { revalidate: 3600 },
+  });
+  const perks: PerkCollection = await response.json();
+  const perk: Perk = perks[perkID];
 
   return (
     <TooltipProvider>
@@ -29,6 +39,6 @@ export default async function PerkIcon({ perkID, size }: { perkID: number; size:
           <p>{perk.description}</p>
         </TooltipContent>
       </Tooltip>
-    </TooltipProvider>    
+    </TooltipProvider>
   );
 }
