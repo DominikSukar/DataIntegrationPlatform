@@ -2,11 +2,16 @@ import User from "./User";
 import Game from "./Game";
 
 import { MatchData, PageProps } from "@/types/matchTypes";
-import { fetchMatchData } from "@/api/matchHistory";
+import { DOMAIN } from "@/constants/api";
 
 const SummonerPage = async ({ params }: PageProps) => {
   const { server, summonerName } = params;
-  const matches = await fetchMatchData(params);
+
+  const response = await fetch(
+    `${DOMAIN}/match_history/${server}/?summoner_name=${summonerName}`,
+    { next: { revalidate: 60 } }
+  );
+  const matches: MatchData[] = await response.json();
 
   return (
     <div className="flex flex-col items-center">
