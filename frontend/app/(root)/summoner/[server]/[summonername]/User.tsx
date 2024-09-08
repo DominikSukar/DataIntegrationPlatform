@@ -1,11 +1,20 @@
-import { fetchSummonerData } from "@/api/summoner"
-import { PageProps } from "@/types/matchTypes";
-
 import ProfileIcon from "@/components/icons/serverSide/ProfileIcon";
 import RankIcon from "@/components/icons/serverSide/RankIcon";
 
+import { DOMAIN } from "@/constants/api";
+import { PageProps, SummonerData } from "@/types/matchTypes";
+
 export default async function User({ params }: PageProps) {
-  const user = await fetchSummonerData(params);
+  const server = params.server
+  const summonerName = params.summonerName
+
+  const response = await fetch(
+    `${DOMAIN}/summoner/${server}/?summoner_name=${summonerName}`,
+    { next: { revalidate: 3600 } }
+  );
+
+  const user = await response.json()
+
   return (
     <div className="lg:flex items-center place-content-between text-white border border-white bg-white bg-opacity-20 backdrop-blur-md mb-28 mt-10">
         <div className="flex items-center">
