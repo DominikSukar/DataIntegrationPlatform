@@ -40,6 +40,7 @@ class LeagueControler(RiotAPIBase):
                 break
 
         if final_info is None:
+            logger.warning(f"No RANKED_SOLO_5x5 data found for summoner's ID {summoner_id}")
             raise ValueError("Ranked 5x5 data not found")
         
         summoner_info = LeagueEntryDTO.model_validate(final_info)

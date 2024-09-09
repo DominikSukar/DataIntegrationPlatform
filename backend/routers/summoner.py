@@ -25,11 +25,18 @@ async def get_summoner(
     summoner_data = summoner_controller.get_a_summoner_by_PUUID(puuid)
 
     league_controller = LeagueControler(server)
-    league_data = (
-        league_controller.get_league_entries_in_all_queues_for_a_given_summoner_ID(
-            summoner_data.id
+    try:
+        league_data = (
+            league_controller.get_league_entries_in_all_queues_for_a_given_summoner_ID(
+                summoner_data.id
+            )
         )
-    )
+    except ValueError:
+        summoner_dict = summoner_data.model_dump()
+        final_dataset = {**summoner_dict}
+
+        return final_dataset
+    
     summoner_dict = summoner_data.model_dump()
     league_dict = league_data.model_dump()
     winrate = league_dict["wins"] / (league_dict["wins"] + league_dict["losses"])

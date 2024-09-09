@@ -8,16 +8,16 @@ class LeagueAndSummonerEntryDTO(BaseModel):
     id: str
     puuid: str
     summonerLevel: float
-    leagueId: str
-    summonerId: str
-    queueType: str
-    tier: str
-    rank: str
-    leaguePoints: int
-    wins: int
-    losses: int
-    winrate: int
-    hotStreak: bool
-    veteran: bool
-    freshBlood: bool
-    inactive: bool
+    leagueId: str | None = None
+    summonerId: str | None = None
+    queueType: str | None = None
+    tier: str | None = None
+    rank: str | None = None
+    leaguePoints: int | None = None
+    wins: int | None = None
+    losses: int | None = None
+    winrate: int | None = None
+    hotStreak: bool | None = None
+    veteran: bool | None = None
+    freshBlood: bool | None = None
+    inactive: bool | None = None
