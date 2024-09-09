@@ -52,7 +52,7 @@ export default function GameDetailsParticipant({
                 size={20}
               ></PerkIconCSR>
               <PerkIconCSR
-                perk={perks[primaryPerks.perks[0]]}
+                perk={perks[secondaryPerks.style]}
                 perkID={secondaryPerks.style}
                 size={20}
               ></PerkIconCSR>
