@@ -10,7 +10,7 @@ const IPSContext = createContext<IIPSContextType|undefined>(undefined);
 export const useIPSContext = () => {
   const context = useContext(IPSContext);
   if (context === undefined) {
-    throw new Error('useGameDetails must be used within a GameDetailsProvider');
+    throw new Error('useIPSContext must be used within a IPSContextProvider');
   }
   return context;
 };
