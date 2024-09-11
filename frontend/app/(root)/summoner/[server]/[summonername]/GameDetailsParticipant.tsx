@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Participant, Info, ItemCollection, PerkCollection, SpellCollection } from "@/types/matchTypes";
+import { Participant, Info } from "@/types/matchTypes";
 
 import ChampionIcon from "@/components/icons/serverSide/ChampionIcon";
 import SpellIconCSR from "@/components/icons/clientSide/SpellIconCSR";

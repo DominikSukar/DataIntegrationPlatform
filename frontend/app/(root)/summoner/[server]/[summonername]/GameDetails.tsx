@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 
 import { Participant, Info } from "@/types/matchTypes";
 
-import { DOMAIN } from "@/constants/api";
-
 import { IPSContextProvider } from "@/contexts/IPSContext";
 
 export default function GameDetails({
