@@ -8,6 +8,8 @@ import { Participant, Info } from "@/types/matchTypes";
 
 import { DOMAIN } from "@/constants/api";
 
+import { IPSContextProvider } from "@/contexts/IPSContext";
+
 export default function GameDetails({
   team_1,
   team_2,
@@ -17,72 +19,42 @@ export default function GameDetails({
   team_2: Participant[];
   info: Info;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [items, setItems] = useState<any>(null);
-  const [perks, setPerks] = useState<any>(null);
-  const [spells, setSpells] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchItems = async () => {
-      const response = await fetch(`${DOMAIN}/datadragon/items/`);
-      const items = await response.json();
-      setItems(items);
-    };
-    const fetchPerks = async () => {
-      const response = await fetch(`${DOMAIN}/datadragon/perks/`);
-      const perks = await response.json();
-      setPerks(perks);
-    };
-    const fetchSpells = async () => {
-      const response = await fetch(`${DOMAIN}/datadragon/summoners/`);
-      const spells = await response.json();
-      setSpells(spells);
-    };
-
-    fetchItems();
-    fetchPerks();
-    fetchSpells();
-  }, []);
-  
+  const [isOpen, setIsOpen] = useState(false);  
 
   return (
-    <div className="flex flex-col items-center">
-      <Button className="w-20 border border-white bg-white bg-opacity-5 backdrop-blur-md" onClick={()=>setIsOpen(!isOpen)}>Details</Button>
-      {isOpen ? (
-        <div className="flex justify-center gap-20 mt-5">
-          <div>
-            <h2 className="text-center text-red-500">Red team</h2>
-            {team_1.map((participant, index) => (
-              <GameDetailsParticipant
-                key={index}
-                participant={participant}
-                info={info}
-                items={items}
-                spells={spells}
-                perks={perks}
-              />
-            ))}
-            {/*Bans DPS DPSTAKEN GOLD TOWERS DRAGONS BARON KRUGS HERALDS */}
+    <IPSContextProvider>
+      <div className="flex flex-col items-center">
+        <Button className="w-20 border border-white bg-white bg-opacity-5 backdrop-blur-md" onClick={()=>setIsOpen(!isOpen)}>Details</Button>
+        {isOpen ? (
+          <div className="flex justify-center gap-20 mt-5">
+            <div>
+              <h2 className="text-center text-red-500">Red team</h2>
+              {team_1.map((participant, index) => (
+                <GameDetailsParticipant
+                  key={index}
+                  participant={participant}
+                  info={info}
+                />
+              ))}
+              {/*Bans DPS DPSTAKEN GOLD TOWERS DRAGONS BARON KRUGS HERALDS */}
+            </div>
+            <div>
+              {/* Bans DPS DPSTAKEN GOLD TOWERS DRAGONS BARON KRUGS HERALDS */}
+              <h2 className="text-center text-blue-500">Blue team</h2>
+              {team_2.map((participant, index) => (
+                <GameDetailsParticipant
+                  key={index}
+                  participant={participant}
+                  info={info}
+                  isReversed={true}
+                />
+              ))}
+            </div>
           </div>
-          <div>
-            {/* Bans DPS DPSTAKEN GOLD TOWERS DRAGONS BARON KRUGS HERALDS */}
-            <h2 className="text-center text-blue-500">Blue team</h2>
-            {team_2.map((participant, index) => (
-              <GameDetailsParticipant
-                key={index}
-                participant={participant}
-                info={info}
-                items={items}
-                perks={perks}
-                spells={spells}
-                isReversed={true}
-              />
-            ))}
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
-    </div>
+        ) : (
+          <></>
+        )}
+      </div>
+    </IPSContextProvider>
   );
 };
