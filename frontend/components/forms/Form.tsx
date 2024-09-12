@@ -57,6 +57,17 @@ export default function ProfileForm() {
   };
 
   const handleSubmit = async (formData: FormData) => {
+    let summonersSearchCookie: string = Cookies.get('summonersSearch')
+    if (summonersSearchCookie) {
+      const summonersSearch: string[] = JSON.parse(summonersSearchCookie)
+      if (!summonersSearch.includes(formData.username)) {
+        const updatedSummonersSearchCookie = [formData.username, ...summonersSearch]
+        Cookies.set('summonersSearch', JSON.stringify(updatedSummonersSearchCookie), { expires: 365 })
+      }
+    } else {
+      const updatedSummonersSearchCookie = [formData.username] 
+      Cookies.set('summonersSearch', JSON.stringify(updatedSummonersSearchCookie), { expires: 365 })
+    }
     router.push(`/summoner/${formData.region}/${formData.username}`);
   };
 
