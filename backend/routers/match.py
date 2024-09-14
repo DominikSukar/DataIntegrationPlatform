@@ -134,7 +134,7 @@ async def match_history(
                         "deaths": deaths,
                         "assists": assists,
                         "kda": kda,
-                        "kp": int(participant["challenges"]["killParticipation"]*100),
+                        "kp": int(participant["challenges"]["killParticipation"]*100) if participant["challenges"].get("killParticipation") is not None else 0,
                         "summonerName": participant["riotIdGameName"],
                         "tagLine": participant["riotIdTagline"],
                         "items": [
