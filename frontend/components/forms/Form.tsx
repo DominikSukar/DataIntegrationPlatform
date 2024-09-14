@@ -57,16 +57,20 @@ export default function ProfileForm() {
   };
 
   const handleSubmit = async (formData: FormData) => {
-    let summonersSearchCookie: string = Cookies.get('summonersSearch')
+    const searchEntry = `${formData.username}_${formData.region}`;
+    let summonersSearchCookie: string|undefined = Cookies.get('summonersSearch')
+
     if (summonersSearchCookie) {
-      const summonersSearch: string[] = JSON.parse(summonersSearchCookie)
-      if (!summonersSearch.includes(formData.username)) {
-        const updatedSummonersSearchCookie = [formData.username, ...summonersSearch]
-        Cookies.set('summonersSearch', JSON.stringify(updatedSummonersSearchCookie), { expires: 365 })
-      }
+      let summonersSearch: string[] = JSON.parse(summonersSearchCookie)
+      // Summoner found in the cookie results in him being removed and then added at the beginning
+      summonersSearch = summonersSearch.filter(entry => entry !== searchEntry);
+      summonersSearch.unshift(searchEntry);
+
+      summonersSearch = summonersSearch.slice(0, 10);
+      Cookies.set('summonersSearch', JSON.stringify(summonersSearch), { expires: 365 })
+
     } else {
-      const updatedSummonersSearchCookie = [formData.username] 
-      Cookies.set('summonersSearch', JSON.stringify(updatedSummonersSearchCookie), { expires: 365 })
+      Cookies.set('summonersSearch', JSON.stringify([searchEntry]), { expires: 365 })
     }
     router.push(`/summoner/${formData.region}/${formData.username}`);
   };
