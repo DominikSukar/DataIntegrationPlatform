@@ -51,7 +51,6 @@ export default function UserSearch() {
         inputRef.current &&
         !inputRef.current.contains(event.target as Node)
       ) {
-        console.log("Close");
         setIsSummonersDropdownOpen(false);
       }
     };
@@ -78,8 +77,6 @@ export default function UserSearch() {
 
     if (summonersSearchCookie) {
       let summonersSearch: string[] = JSON.parse(summonersSearchCookie);
-      console.log(summonersSearch);
-      console.log(searchEntry);
       // Summoner found in the cookie results in him being removed and then added at the beginning
       summonersSearch = summonersSearch.filter(
         (entry) => entry !== searchEntry

@@ -16,7 +16,6 @@ export default function MainAnimationWrapper({
 }) {
   const pathname = usePathname();
   const shouldAnimate = pathname.startsWith("/summoner");
-  console.log(pathname, shouldAnimate);
 
   return (
     <AnimatePresence mode="wait">
