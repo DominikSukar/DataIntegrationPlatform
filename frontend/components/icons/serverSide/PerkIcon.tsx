@@ -27,7 +27,7 @@ export default async function PerkIcon({
       <Tooltip delayDuration={200} disableHoverableContent={true}>
         <TooltipTrigger>
           <Image
-            src={`http://localhost:8000/static/dragontail-14.15.1/perk-images-byID/perk-images/Styles/${perkID}.png`}
+            src={`${DOMAIN}/static/dragontail-14.15.1/perk-images-byID/perk-images/Styles/${perkID}.png`}
             className="m-0.5"
             width={size}
             height={size}

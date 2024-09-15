@@ -1,22 +1,30 @@
-'use client'
+"use client";
 import Image from "next/image";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
 import { Perk } from "@/types/matchTypes";
+import { DOMAIN } from "@/constants/api";
 
-export default function PerkIconCSR({ perk, perkID, size }: { perk: Perk; perkID: number; size: number }) {
-
+export default function PerkIconCSR({
+  perk,
+  perkID,
+  size,
+}: {
+  perk: Perk;
+  perkID: number;
+  size: number;
+}) {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={200} disableHoverableContent={true}>
         <TooltipTrigger>
           <Image
-            src={`http://localhost:8000/static/dragontail-14.15.1/perk-images-byID/perk-images/Styles/${perkID}.png`}
+            src={`${DOMAIN}static/dragontail-14.15.1/perk-images-byID/perk-images/Styles/${perkID}.png`}
             className="m-0.5"
             width={size}
             height={size}
@@ -28,6 +36,6 @@ export default function PerkIconCSR({ perk, perkID, size }: { perk: Perk; perkID
           <p>{perk.description}</p>
         </TooltipContent>
       </Tooltip>
-    </TooltipProvider>    
+    </TooltipProvider>
   );
 }

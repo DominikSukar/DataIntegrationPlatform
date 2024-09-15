@@ -20,7 +20,7 @@ export default async function SpellIcon({ spellID, size }: { spellID: number; si
       <Tooltip delayDuration={200} disableHoverableContent={true}>
         <TooltipTrigger>
           <Image
-            src={`http://localhost:8000/static/dragontail-14.15.1/14.15.1/img/spell/${spellID}.png`}
+            src={`${DOMAIN}/static/dragontail-14.15.1/14.15.1/img/spell/${spellID}.png`}
             className="m-0.5"
             width={size}
             height={size}
