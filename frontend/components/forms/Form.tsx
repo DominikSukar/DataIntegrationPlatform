@@ -1,13 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
+import React, { useState, useEffect, useRef } from "react";
+import Cookies from "js-cookie";
+import { Transition } from "@headlessui/react";
 
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { MatchData } from "@/types/matchTypes";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -43,38 +43,72 @@ const regions = ["NA", "EUW", "EUNE", "KR", "BR", "JP", "OCE"];
 export default function ProfileForm() {
   const router = useRouter();
   const [selectedRegion, setSelectedRegion] = useState(regions[0]);
+  const [searchedSummoners, setSearchedSummoners] = useState([""]);
+  const [isSummonersDropdownOpen, setIsSummonersDropdownOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const savedRegion = Cookies.get('selectedRegion');
+    const savedRegion = Cookies.get("selectedRegion");
     if (savedRegion && regions.includes(savedRegion)) {
       setSelectedRegion(savedRegion);
     }
+    const summonersCookie: string | undefined = Cookies.get("summonersSearch");
+    if (summonersCookie) {
+      const summoners: string[] = JSON.parse(summonersCookie);
+      setSearchedSummoners(summoners);
+    }
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node)
+      ) {
+        console.log("Close");
+        setIsSummonersDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const handleRegionChange = (region: string) => {
     setSelectedRegion(region);
-    Cookies.set('selectedRegion', region, { expires: 365 });
+    Cookies.set("selectedRegion", region, { expires: 365 });
   };
 
   const handleSubmit = async (formData: FormData) => {
-    const searchEntry = `${formData.username}_${formData.region}`;
-    let summonersSearchCookie: string|undefined = Cookies.get('summonersSearch')
+    if (!formData.username.includes(formData.region)) {
+      var userString = `${formData.username}`;
+    } else {
+      var userString = formData.username;
+    }
+    const searchEntry = userString;
+    let summonersSearchCookie: string | undefined =
+      Cookies.get("summonersSearch");
 
     if (summonersSearchCookie) {
-      let summonersSearch: string[] = JSON.parse(summonersSearchCookie)
+      let summonersSearch: string[] = JSON.parse(summonersSearchCookie);
+      console.log(summonersSearch);
+      console.log(searchEntry);
       // Summoner found in the cookie results in him being removed and then added at the beginning
-      summonersSearch = summonersSearch.filter(entry => entry !== searchEntry);
+      summonersSearch = summonersSearch.filter(
+        (entry) => entry !== searchEntry
+      );
+      searchEntry.includes(formData.region);
       summonersSearch.unshift(searchEntry);
 
       summonersSearch = summonersSearch.slice(0, 10);
-      Cookies.set('summonersSearch', JSON.stringify(summonersSearch), { expires: 365 })
-
+      Cookies.set("summonersSearch", JSON.stringify(summonersSearch), {
+        expires: 365,
+      });
     } else {
-      Cookies.set('summonersSearch', JSON.stringify([searchEntry]), { expires: 365 })
+      Cookies.set("summonersSearch", JSON.stringify([searchEntry]), {
+        expires: 365,
+      });
     }
     router.push(`/summoner/${formData.region}/${formData.username}`);
   };
-
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -122,24 +156,47 @@ export default function ProfileForm() {
             render={({ field }) => (
               <FormItem className="flex-grow mb-6">
                 <FormControl>
-                  <div className="relative">
+                  <div className="relative" ref={inputRef}>
                     <Input
                       placeholder="Summoner name + Tag"
                       {...field}
                       className="w-full py-3 pl-5 pr-12 text-lg text-white bg-white bg-opacity-20 backdrop-blur-md rounded-r-full border-2 border-white border-opacity-30 focus:border-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30 transition-all duration-300 placeholder-gray-300"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          const searchButton =
-                            document.getElementById("searchButton");
-                          searchButton?.classList.add("active");
-                          setTimeout(() => {
-                            searchButton?.classList.remove("active");
-                          }, 150);
-                          form.handleSubmit(onSubmit)();
-                        }
+                      onFocus={() => setIsSummonersDropdownOpen(true)}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        setIsSummonersDropdownOpen(true);
                       }}
                     />
+                    <Transition
+                      show={isSummonersDropdownOpen}
+                      enter="transition-all duration-500 ease-in"
+                      enterFrom="max-h-0 overflow-hidden"
+                      enterTo="max-h-[1000px] overflow-hidden"
+                      leave="transition-all duration-500 ease-out"
+                      leaveFrom="max-h-[1000px] overflow-hidden"
+                      leaveTo="max-h-0 overflow-hidden"
+                    >
+                      <div className="absolute z-10 w-full mt-1">
+                        <ul className="bg-white bg-opacity-20 backdrop-blur-md border-2 border-white border-opacity-30 rounded-md overflow-hidden">
+                          {searchedSummoners.map((summoner) => (
+                            <li
+                              key={summoner}
+                              onClick={() => {
+                                field.onChange(summoner);
+                                setIsSummonersDropdownOpen(false);
+                                handleSubmit({
+                                  username: summoner,
+                                  region: selectedRegion,
+                                });
+                              }}
+                              className="px-4 py-2 text-white hover:bg-white hover:bg-opacity-30 transition-colors duration-300 cursor-pointer"
+                            >
+                              {summoner.replace("_", "#")}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </Transition>
                     <button
                       id="searchButton"
                       type="submit"
