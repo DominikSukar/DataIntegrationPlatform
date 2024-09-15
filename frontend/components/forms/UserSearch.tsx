@@ -13,10 +13,8 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -27,20 +25,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
+import { IFormData } from "@/types/userSearch";
+import { formSchema } from "@/constants/userSearch";
+import { regions } from "@/constants/userSearch";
 
-interface FormData {
-  username: string;
-  region: string;
-}
-
-const regions = ["NA", "EUW", "EUNE", "KR", "BR", "JP", "OCE"];
-
-export default function ProfileForm() {
+export default function UserSearch() {
   const router = useRouter();
   const [selectedRegion, setSelectedRegion] = useState(regions[0]);
   const [searchedSummoners, setSearchedSummoners] = useState([""]);
@@ -77,7 +66,7 @@ export default function ProfileForm() {
     Cookies.set("selectedRegion", region, { expires: 365 });
   };
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (formData: IFormData) => {
     if (!formData.username.includes(formData.region)) {
       var userString = `${formData.username}`;
     } else {
