@@ -4,16 +4,15 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database.database import Base
 
 
-class Summoner(Base):
-    __tablename__ = "summoners"
+class Server(Base):
+    __tablename__ = "servers"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    nickname: Mapped[str] = mapped_column(String(20), nullable=False)
-    tag: Mapped[str] = mapped_column(String(5), nullable=False)
-    server_id: Mapped[int] = mapped_column(Integer, ForeignKey("servers.id"))
+    name: Mapped[str] = mapped_column(String(50), nullable=False)
+    symbol: Mapped[str] = mapped_column(String(5), nullable=False)
+    active: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
-    server: Mapped["Server"] = relationship(back_populates="summoner")
-
+    summoners: Mapped["Summoner"] = relationship(back_populates="server")
 
     def __repr__(self):
         return f"<Server(name='{self.name}', symbol='{self.symbol}', active='{self.active}')>"
