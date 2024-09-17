@@ -12,7 +12,5 @@ class Server(Base):
     symbol: Mapped[str] = mapped_column(String(5), nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
-    summoners: Mapped["Summoner"] = relationship(back_populates="server")
-
     def __repr__(self):
         return f"<Server(name='{self.name}', symbol='{self.symbol}', active='{self.active}')>"

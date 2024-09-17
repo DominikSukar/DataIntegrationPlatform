@@ -12,8 +12,5 @@ class Summoner(Base):
     tag: Mapped[str] = mapped_column(String(5), nullable=False)
     server_id: Mapped[int] = mapped_column(Integer, ForeignKey("servers.id"))
 
-    server: Mapped["Server"] = relationship(back_populates="summoner")
-
-
     def __repr__(self):
-        return f"<Server(name='{self.name}', symbol='{self.symbol}', active='{self.active}')>"
+        return f"<Summoner(nickname='{self.nickname}', tag='{self.tag}', server_id='{self.server_id}')>"
