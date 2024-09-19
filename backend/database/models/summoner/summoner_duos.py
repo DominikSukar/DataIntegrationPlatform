@@ -6,13 +6,13 @@ from database.database import Base
 
 class SummonerDuo(Base):
     """
-    Tables stores data about how many times each player played with another player
+    Table stores data about how many times each player played with another player
     """
     __tablename__ = "summoner_duos"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    summoner_id: Mapped[str] = mapped_column(Integer, ForeignKey("summoners.id"))
-    duo_id: Mapped[str] = mapped_column(Integer, ForeignKey("summoners.id"))
+    summoner_id: Mapped[str] = mapped_column(Integer, ForeignKey("summoners.id"), nullable=False)
+    duo_id: Mapped[str] = mapped_column(Integer, ForeignKey("summoners.id"), nullable=False)
     matches_played: Mapped[int] = mapped_column(Integer, nullable=False)
 
     def __repr__(self):
