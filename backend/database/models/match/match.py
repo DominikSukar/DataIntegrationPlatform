@@ -5,6 +5,9 @@ from database.database import Base
 
 
 class Match(Base):
+    """
+    Table stores data about every match archived in the database
+    """
     __tablename__ = "matches"
 
     id: Mapped[int] = mapped_column(primary_key=True)

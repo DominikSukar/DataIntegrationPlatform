@@ -5,6 +5,9 @@ from database.database import Base
 
 
 class Server(Base):
+    """
+    Table stores data about every RIOT server.
+    """
     __tablename__ = "servers"
 
     id: Mapped[int] = mapped_column(primary_key=True)

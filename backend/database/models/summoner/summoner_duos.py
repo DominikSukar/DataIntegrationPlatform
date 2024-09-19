@@ -5,6 +5,9 @@ from database.database import Base
 
 
 class SummonerDuo(Base):
+    """
+    Tables stores data about how many times each player played with another player
+    """
     __tablename__ = "summoner_duos"
 
     id: Mapped[int] = mapped_column(primary_key=True)

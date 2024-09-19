@@ -5,6 +5,9 @@ from database.database import Base
 
 
 class MatchTeam(Base):
+    """
+    Table stores data about ta specific team that participated in a game
+    """
     __tablename__ = "match_teams"
 
     id: Mapped[int] = mapped_column(primary_key=True)
