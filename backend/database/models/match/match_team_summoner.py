@@ -12,7 +12,7 @@ class MatchTeamSummoner(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     summoner_id: Mapped[str] = mapped_column(Integer, ForeignKey("summoners.id"), nullable=False)
-    match_team_id: Mapped[str] = mapped_column(Integer, ForeignKey("match_team.id"), nullable=False)
+    match_team_id: Mapped[str] = mapped_column(Integer, ForeignKey("match_teams.id"), nullable=False)
 
     def __repr__(self):
         return f"<MatchTeamSummoner(summoner_id='{self.summoner_id}', match_team_id='{self.match_team_id}')>"
