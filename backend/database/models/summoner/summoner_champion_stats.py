@@ -15,7 +15,7 @@ class SummonerChampionStat(Base):
     champion_id: Mapped[str] = mapped_column(Integer, ForeignKey("champions.id"), nullable=False)
     matches_played: Mapped[int] = mapped_column(Integer, nullable=False)
     matches_won: Mapped[int] = mapped_column(Integer, nullable=False)
-    winrate = Mapped[int] = mapped_column(Integer, nullable=False)
+    winrate: Mapped[int] = mapped_column(Integer, nullable=False)
 
     def __repr__(self):
         return f"<SummonerChampionStat(summoner_id='{self.summoner_id}', champion_id='{self.champion_id}, matches_played='{self.matches_played}')>"
