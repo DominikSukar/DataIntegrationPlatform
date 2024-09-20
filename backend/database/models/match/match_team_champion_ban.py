@@ -1,10 +1,10 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
 
 from database.database import Base
 
 
-class MatchTeamChampionBans(Base):
+class MatchTeamChampionBan(Base):
     """
     Table stores data about champion bans a team has made
     """
@@ -15,4 +15,4 @@ class MatchTeamChampionBans(Base):
     champion_id: Mapped[int] = mapped_column(ForeignKey('champions.id'), nullable=False)
 
     def __repr__(self):
-        return f"<MatchTeamChampionBansmpion(match_team_id='{self.match_team_id}', champion_id='{self.champion_id}')>"
+        return f"<MatchTeamChampionBan(match_team_id='{self.match_team_id}', champion_id='{self.champion_id}')>"
