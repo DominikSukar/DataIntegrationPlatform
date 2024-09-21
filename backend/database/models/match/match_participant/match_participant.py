@@ -11,7 +11,7 @@ class MatchParticipant(Base):
     __tablename__ = "match_participants"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    summoner_id: Mapped[str] = mapped_column(ForeignKey('summoners.id'), nullable=False)
+    summoner_id: Mapped[int] = mapped_column(ForeignKey('summoners.id'), nullable=False)
     match_id: Mapped[int] = mapped_column(ForeignKey('matches.id'), nullable=False)
     # 100 for blue, 200 for red
     team_id: Mapped[int] = mapped_column(SmallInteger, nullable=False)

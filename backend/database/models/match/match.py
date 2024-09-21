@@ -12,7 +12,7 @@ class Match(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     riot_match_id: Mapped[str] = mapped_column(String(50), nullable=False)
-    server_id: Mapped[str] = mapped_column(ForeignKey('servers.id'), nullable=False)
+    server_id: Mapped[int] = mapped_column(ForeignKey('servers.id'), nullable=False)
     game_result: Mapped[str] = mapped_column(String, nullable=False)
     
 

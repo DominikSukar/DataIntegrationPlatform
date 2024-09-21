@@ -11,8 +11,8 @@ class SummonerChampionStat(Base):
     __tablename__ = "summoner_champion_stats"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    summoner_id: Mapped[str] = mapped_column(Integer, ForeignKey("summoners.id"), nullable=False)
-    champion_id: Mapped[str] = mapped_column(Integer, ForeignKey("champions.id"), nullable=False)
+    summoner_id: Mapped[int] = mapped_column(Integer, ForeignKey("summoners.id"), nullable=False)
+    champion_id: Mapped[int] = mapped_column(Integer, ForeignKey("champions.id"), nullable=False)
     matches_played: Mapped[int] = mapped_column(Integer, nullable=False)
     matches_won: Mapped[int] = mapped_column(Integer, nullable=False)
     winrate: Mapped[int] = mapped_column(Integer, nullable=False)
