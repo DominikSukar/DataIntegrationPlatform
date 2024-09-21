@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from routers import account, match, spectator, summoner, datadragon
+from routers import account, match, spectator, summoner, datadragon, database
 from middleware import UpperCaseServerParamMiddleware
 
 logging.basicConfig(
@@ -45,4 +45,5 @@ app.include_router(account.router, tags=["Account"], prefix="/account")
 app.include_router(summoner.router, tags=["Summoner"], prefix="/summoner")
 app.include_router(match.router, tags=["Match"], prefix="/match_history")
 app.include_router(spectator.router, tags=["Spectator"], prefix="/current_match")
+app.include_router(database.router, tags=["Database"], prefix="/database")
 app.include_router(datadragon.router, tags=["Datadragon"], prefix="/datadragon")
