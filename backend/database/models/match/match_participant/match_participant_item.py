@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, SmallInteger
 from sqlalchemy.orm import Mapped, mapped_column
 
 from database.database import Base
@@ -11,6 +11,7 @@ class MatchParticipantSummonerItem(Base):
     __tablename__ = "match_participant_summoner_items"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    slot: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     match_participant_id: Mapped[int] = mapped_column(ForeignKey('match_participants.id'), nullable=False)
     item_id: Mapped[int] = mapped_column(ForeignKey('items.id'), nullable=False)
 
