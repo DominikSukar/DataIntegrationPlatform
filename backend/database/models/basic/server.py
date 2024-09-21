@@ -11,8 +11,14 @@ class Server(Base):
     __tablename__ = "servers"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(50), nullable=False)
+    # Europe Nordic and East
+    full_name: Mapped[str] = mapped_column(String(50), nullable=False)
+    # EUNE
     symbol: Mapped[str] = mapped_column(String(5), nullable=False)
+    # EUN1
+    riot_symbol: Mapped[str] = mapped_column(String(5), nullable=False)
+    # eun1.api.riotgames.com
+    hostname: Mapped[str] = mapped_column(String(50), nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
     def __repr__(self):
