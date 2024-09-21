@@ -10,7 +10,6 @@ from database.models.match import (
 )
 from database.models.match.match_participant import (
     MatchParticipant,
-    MatchParticipantSummonerItem,
     MatchParticipantPerk,
     MatchParticipantSummonerSpell,
 )
@@ -30,7 +29,6 @@ __all__ = [
     "MatchTeamSummoner",
     "SummonerChampionStat",
     "MatchTeamChampionBan",
-    "MatchParticipantSummonerItem",
     "MatchParticipantPerk",
     "MatchParticipantSummonerSpell",
 ]
