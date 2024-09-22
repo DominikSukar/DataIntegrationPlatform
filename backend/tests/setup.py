@@ -7,30 +7,26 @@ from sqlalchemy.pool import StaticPool
 from database.database import Base, get_db
 from main import app
 
-class TestSetup:
-    @pytest.fixture(autouse=True)
-    def setup(self):
-        SQLALCHEMY_DATABASE_URL = "sqlite://"
-        self.engine = create_engine(
-            SQLALCHEMY_DATABASE_URL,
-            connect_args={"check_same_thread": False},
-            poolclass=StaticPool,
-        )
-        TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
+@pytest.fixture(scope="class")
+def mock_client():
+    SQLALCHEMY_DATABASE_URL = "sqlite://"
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL,
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    Base.metadata.create_all(bind=engine)
+    def override_get_db():
+        try:
+            db = TestingSessionLocal()
+            yield db
+        finally:
+            db.close()
+    app.dependency_overrides[get_db] = override_get_db
 
-        Base.metadata.create_all(bind=self.engine)
+    client = TestClient(app)
 
-        def override_get_db():
-            try:
-                db = TestingSessionLocal()
-                yield db
-            finally:
-                db.close()
+    yield client
 
-        app.dependency_overrides[get_db] = override_get_db
-
-        self.client = TestClient(app)
-
-        yield
-
-        Base.metadata.drop_all(bind=self.engine)
+    Base.metadata.drop_all(bind=engine)
