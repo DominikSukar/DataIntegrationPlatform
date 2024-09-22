@@ -22,4 +22,4 @@ class Server(Base):
     active: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
     def __repr__(self):
-        return f"<Server(name='{self.name}', symbol='{self.symbol}', active='{self.active}')>"
+        return f"<Server(name='{self.full_name}', symbol='{self.symbol}', active='{self.active}')>"
