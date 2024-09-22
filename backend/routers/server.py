@@ -20,7 +20,7 @@ async def get_servers(db: Session = Depends(get_db)) -> list[ServerResponse]:
     return servers
 
 
-@router.post("/")
+@router.post("/", status_code=201)
 async def post_server(
     server: ServerCreate, db: Session = Depends(get_db)
 ) -> ServerResponse:
