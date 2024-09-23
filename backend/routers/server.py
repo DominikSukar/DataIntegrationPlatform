@@ -14,7 +14,7 @@ router = APIRouter()
 
 @router.get("/")
 async def get_servers(db: Session = Depends(get_db)) -> list[ServerResponse]:
-    servers = db.query(Server).all()
+    servers = db.query(Server).order_by(Server.id).all()
     logger.debug(f"Returning data of a servers ({servers})")
     
     return servers
