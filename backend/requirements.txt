@@ -7,3 +7,6 @@ requests==2.32.3
 sqlalchemy==2.0.34
 alembic==1.13.2
 psycopg2==2.9.9
+black==24.3.0
+ruff==0.6.7
+pre-commit==3.8.0
