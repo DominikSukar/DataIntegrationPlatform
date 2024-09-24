@@ -7,6 +7,7 @@ from sqlalchemy.pool import StaticPool
 from database.database import Base, get_db
 from main import app
 
+
 @pytest.fixture(scope="class")
 def mock_client():
     SQLALCHEMY_DATABASE_URL = "sqlite://"
@@ -17,12 +18,14 @@ def mock_client():
     )
     TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     Base.metadata.create_all(bind=engine)
+
     def override_get_db():
         try:
             db = TestingSessionLocal()
             yield db
         finally:
             db.close()
+
     app.dependency_overrides[get_db] = override_get_db
 
     client = TestClient(app)

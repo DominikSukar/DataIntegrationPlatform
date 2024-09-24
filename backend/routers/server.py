@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Annotated
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -16,7 +16,7 @@ router = APIRouter()
 async def get_servers(db: Session = Depends(get_db)) -> list[ServerResponse]:
     servers = db.query(Server).order_by(Server.id).all()
     logger.debug(f"Returning data of a servers ({servers})")
-    
+
     return servers
 
 
@@ -59,20 +59,21 @@ async def patch_server(
 
     db.commit()
     db.refresh(server)
-    logger.info(f"Server ({server.full_name}) has updated with following data: ({server_data})")
+    logger.info(
+        f"Server ({server.full_name}) has updated with following data: ({server_data})"
+    )
 
     return server
 
 
 @router.delete("/{server_id}")
 async def delete_server(
-    server_id: int,
-    db: Session = Depends(get_db)
+    server_id: int, db: Session = Depends(get_db)
 ) -> ServerResponse:
     server = db.query(Server).get(server_id)
     if not server:
         raise HTTPException(status_code=404, detail="Server not found")
-    
+
     db.delete(server)
     db.commit()
     logger.info(f"Server ({server.full_name}) with id=({server_id}) has been deleted.")

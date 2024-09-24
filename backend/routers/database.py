@@ -3,7 +3,6 @@ from typing import Any, Annotated
 
 from fastapi import APIRouter, Query, Path
 from models import SummonerAndSpectorServerModel
-from api_requests.spectator import SpectatorController
 from schemas import CurrentGameInfo
 from utils.wrappers import map_puuid_and_server
 
@@ -19,11 +18,12 @@ async def get_match(
     summoner_name: str = None,
     puuid: str = None,
 ) -> CurrentGameInfo:
-    """Gets data about a specific match from a database. 
+    """Gets data about a specific match from a database.
     Takes into account the user that requested it."""
     pass
 
     return "Not working"
+
 
 @router.post("/{server}/match/{match_ID}")
 async def post_match(

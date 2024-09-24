@@ -8,6 +8,7 @@ class Item(Base):
     """
     Table stores data about every item
     """
+
     __tablename__ = "items"
 
     id: Mapped[int] = mapped_column(primary_key=True)

@@ -8,6 +8,7 @@ class Champion(Base):
     """
     Table stores data about every champion
     """
+
     __tablename__ = "champions"
 
     id: Mapped[int] = mapped_column(primary_key=True)

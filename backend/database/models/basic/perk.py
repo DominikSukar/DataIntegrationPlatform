@@ -8,6 +8,7 @@ class Perk(Base):
     """
     Table stores data about every perk
     """
+
     __tablename__ = "perks"
 
     id: Mapped[int] = mapped_column(primary_key=True)

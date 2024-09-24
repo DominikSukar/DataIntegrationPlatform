@@ -8,6 +8,7 @@ class Summoner(Base):
     """
     Table stores data about every summoner
     """
+
     __tablename__ = "summoners"
 
     id: Mapped[int] = mapped_column(primary_key=True)

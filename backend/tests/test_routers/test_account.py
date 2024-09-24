@@ -15,17 +15,16 @@ class TestGetAccountPUUID:
         params = {
             "summoner_name": "PrinceOfEssling",
             "tag_line": "EUW",
-            "server": "EUW",
         }
-        response = client.get("/get_puuid", params=params)
+        response = client.get("/EUW/get_puuid", params=params)
         assert response.status_code == 200
 
     def test_not_existing_user(self):
         "Test for user that should not exist"
-        params = {"summoner_name": "sdssd2174sdsd", "tag_line": "EUW", "server": "EUW"}
+        params = {"summoner_name": "sdssd2174sdsd", "tag_line": "EUW"}
 
         with pytest.raises(HTTPException) as err:
-            client.get("/get_puuid", params=params)
+            client.get("/EUW/get_puuid", params=params)
         assert err.value.status_code == 404
 
     def test_no_parameters(self):
@@ -33,7 +32,7 @@ class TestGetAccountPUUID:
         params = {}
 
         with pytest.raises(RequestValidationError) as err:
-            client.get("/get_puuid", params=params)
+            client.get("/EUW/get_puuid", params=params)
         errors = err.value.errors()
 
         for error in errors:
@@ -47,9 +46,8 @@ class TestGetAccountInfo:
         "Test endpoint by requesting data by providing only summoner_name"
         params = {
             "summoner_name": "PrinceOfEssling",
-            "server": "EUW",
         }
-        response = client.get("/info", params=params)
+        response = client.get("EUW//info", params=params)
         assert response.status_code == 200
         assert response.json() == {
             "gameName": "PrinceOfEssling",
@@ -61,9 +59,8 @@ class TestGetAccountInfo:
         "Test endpoint by requesting data by providing only summoner_name, but with tag inside"
         params = {
             "summoner_name": "PrinceOfEssling_EUW",
-            "server": "EUW",
         }
-        response = client.get("/info", params=params)
+        response = client.get("/EUW/info", params=params)
         assert response.status_code == 200
         assert response.json() == {
             "gameName": "PrinceOfEssling",
@@ -76,7 +73,7 @@ class TestGetAccountInfo:
         params = {"summoner_name": "63cburlhqa", "server": "EUW"}
 
         with pytest.raises(HTTPException) as err:
-            client.get("/info", params=params)
+            client.get("/EUW/info", params=params)
         assert err.value.status_code == 404
 
     def test_by_providing_puuid(self):
@@ -85,7 +82,7 @@ class TestGetAccountInfo:
             "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
             "server": "EUW",
         }
-        response = client.get("/info", params=params)
+        response = client.get("/EUW/info", params=params)
         assert response.status_code == 200
         assert response.json() == {
             "gameName": "PrinceOfEssling",
@@ -98,5 +95,5 @@ class TestGetAccountInfo:
         params = {"puuid": "fdfsdfdsfsdfdsfs", "server": "EUW"}
 
         with pytest.raises(HTTPException) as err:
-            client.get("/info", params=params)
+            client.get("/EUW/info", params=params)
         assert err.value.status_code == 400

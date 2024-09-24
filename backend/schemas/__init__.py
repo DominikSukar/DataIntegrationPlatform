@@ -14,5 +14,5 @@ __all__ = [
     "AccountDto",
     "SummonerDTO",
     "LeagueEntryDTO",
-    "LeagueAndSummonerEntryDTO"
+    "LeagueAndSummonerEntryDTO",
 ]

@@ -9,6 +9,7 @@ class MatchModel(str, Enum):
     ASIA = "ASIA"
     SEA = "SEA"
 
+
 class MatchType(str, Enum):
     _all: str = "all"
     normal: str = "normal"

@@ -22,7 +22,7 @@ async def match_timeline(
     summoner_name: str = None,
     puuid: str = None,
 ):
-    controller = MatchController(server, match_ID)
+    pass
 
 
 @router.get("/{server}/")
@@ -48,7 +48,11 @@ async def match_history(
     ),
 ):
     """Returns user's match history by provided puuid."""
-    data = get_summoner(server=server, summoner_name=summoner_name if summoner_name else None, puuid=puuid if puuid else None)
+    data = get_summoner(
+        server=server,
+        summoner_name=summoner_name if summoner_name else None,
+        puuid=puuid if puuid else None,
+    )
     await data
     controller = MatchController(mapped_server)
 
@@ -140,7 +144,12 @@ async def match_history(
                         "deaths": deaths,
                         "assists": assists,
                         "kda": kda,
-                        "kp": int(participant["challenges"]["killParticipation"]*100) if participant["challenges"].get("killParticipation") is not None else 0,
+                        "kp": (
+                            int(participant["challenges"]["killParticipation"] * 100)
+                            if participant["challenges"].get("killParticipation")
+                            is not None
+                            else 0
+                        ),
                         "summonerName": participant["riotIdGameName"],
                         "tagLine": participant["riotIdTagline"],
                         "items": [

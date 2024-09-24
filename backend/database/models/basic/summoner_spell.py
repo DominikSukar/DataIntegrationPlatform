@@ -8,6 +8,7 @@ class SummonerSpell(Base):
     """
     Table stores data about every summoner spell
     """
+
     __tablename__ = "summoner_spells"
 
     id: Mapped[int] = mapped_column(primary_key=True)

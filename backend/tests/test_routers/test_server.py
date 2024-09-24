@@ -1,6 +1,5 @@
 import pytest
 
-from tests.setup import mock_client
 
 @pytest.fixture(scope="class")
 def sample_server_data():
@@ -30,7 +29,7 @@ class TestServerAPI:
 
     def test_post(self, sample_server_data, created_server):
         """
-        Test only checks id data created by created_server fixture does equal 
+        Test only checks id data created by created_server fixture does equal
         to data used to create an object.
         """
 
@@ -72,7 +71,7 @@ class TestServerAPI:
         returned_object = response.json()
         # We check for 6 keys since 'id' should be returned as well (so 5+1 keys)
         assert len(returned_object) == 6
-        
+
         assert returned_object["id"] == 1
         assert returned_object["full_name"] == sample_server_data["full_name"]
         assert returned_object["symbol"] == sample_server_data["symbol"]
@@ -85,7 +84,9 @@ class TestServerAPI:
         PATCH test will update the 'active' attribute from 'True' to 'False'
         """
         update_data = {"active": False}
-        response = mock_client.patch(f"/server/{created_server['id']}", json=update_data)
+        response = mock_client.patch(
+            f"/server/{created_server['id']}", json=update_data
+        )
         assert response.status_code == 200
 
         returned_object = response.json()
@@ -93,7 +94,7 @@ class TestServerAPI:
         assert len(returned_object) == 6
 
         assert returned_object["id"] == 1
-        assert returned_object["active"] == False # noqa: E712
+        assert returned_object["active"] == False  # noqa: E712
         assert returned_object["full_name"] == sample_server_data["full_name"]
         assert returned_object["symbol"] == sample_server_data["symbol"]
         assert returned_object["riot_symbol"] == sample_server_data["riot_symbol"]
@@ -109,4 +110,4 @@ class TestServerAPI:
 
         # We check if object with 'id' returned from previous DELETE does not exist anymore
         get_response = mock_client.get(f"/server/{delete_response.json()["id"]}")
-        assert get_response.status_code == 404        
+        assert get_response.status_code == 404

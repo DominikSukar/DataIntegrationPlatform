@@ -64,7 +64,8 @@ async def get_summoners():
         raise HTTPException(
             status_code=500, detail=f"Unexpected data structure: {str(e)}"
         )
-    
+
+
 @router.get("/perks/")
 async def get_perks():
     "Fetches data about summoner perks"
