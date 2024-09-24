@@ -33,6 +33,9 @@ class TestServerAPI:
         Test only checks id data created by created_server fixture does equal 
         to data used to create an object.
         """
+
+        # We check for 6 keys since 'id' should be returned as well (so 5+1 keys)
+        assert len(created_server) == 6
         assert created_server["id"] == 1
         assert created_server["full_name"] == sample_server_data["full_name"]
         assert created_server["symbol"] == sample_server_data["symbol"]
