@@ -33,7 +33,7 @@ class TestServerAPI:
         Test only checks id data created by created_server fixture does equal 
         to data used to create an object.
         """
-
+        assert created_server["id"] == 1
         assert created_server["full_name"] == sample_server_data["full_name"]
         assert created_server["symbol"] == sample_server_data["symbol"]
         assert created_server["riot_symbol"] == sample_server_data["riot_symbol"]
@@ -52,7 +52,7 @@ class TestServerAPI:
         # We check for 6 keys since 'id' should be returned as well (so 5+1 keys)
         assert len(first_object) == 6
 
-        assert "id" in first_object
+        assert first_object["id"] == 1
         assert first_object["full_name"] == sample_server_data["full_name"]
         assert first_object["symbol"] == sample_server_data["symbol"]
         assert first_object["riot_symbol"] == sample_server_data["riot_symbol"]
@@ -70,7 +70,7 @@ class TestServerAPI:
         # We check for 6 keys since 'id' should be returned as well (so 5+1 keys)
         assert len(returned_object) == 6
         
-        assert "id" in returned_object
+        assert returned_object["id"] == 1
         assert returned_object["full_name"] == sample_server_data["full_name"]
         assert returned_object["symbol"] == sample_server_data["symbol"]
         assert returned_object["riot_symbol"] == sample_server_data["riot_symbol"]
@@ -89,6 +89,7 @@ class TestServerAPI:
         # We check for 6 keys since 'id' should be returned as well (so 5+1 keys)
         assert len(returned_object) == 6
 
+        assert returned_object["id"] == 1
         assert returned_object["active"] == False # noqa: E712
         assert returned_object["full_name"] == sample_server_data["full_name"]
         assert returned_object["symbol"] == sample_server_data["symbol"]
