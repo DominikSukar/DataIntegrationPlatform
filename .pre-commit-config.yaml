@@ -3,12 +3,12 @@ repos:
     hooks:
       - id: black
         name: black
-        entry: .backend/venv/bin/black
+        entry: .backend/venv/Lib/site-packages/black
         language: system
         types: [python]
 
       - id: ruff
         name: ruff
-        entry: .backend/venv/bin/ruff
+        entry: .backend/venv/Lib/site-packages/ruff
         language: system
         types: [python]
