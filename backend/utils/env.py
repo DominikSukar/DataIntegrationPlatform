@@ -10,6 +10,11 @@ def get_var(var_name: str) -> str:
 
 
 API_KEY = get_var("API_KEY")
+
+DATABASE_LOGIN = get_var("DATABASE_LOGIN")
+DATABASE_PASSWORD = get_var("DATABASE_PASSWORD")
+DATABASE_URL = get_var("DATABASE_URL")
+
 ITEMS_PATH = get_var("ITEMS_PATH")
 SUMMONERS_PATH = get_var("SUMMONERS_PATH")
 PERKS_PATH = get_var("PERKS_PATH")
