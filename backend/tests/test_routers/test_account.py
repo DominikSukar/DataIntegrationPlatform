@@ -47,7 +47,7 @@ class TestGetAccountInfo:
         params = {
             "summoner_name": "PrinceOfEssling",
         }
-        response = client.get("EUW//info", params=params)
+        response = client.get("EUW/info", params=params)
         assert response.status_code == 200
         assert response.json() == {
             "gameName": "PrinceOfEssling",
