@@ -24,8 +24,7 @@ export default function GameDetailsParticipant({
   const primaryPerks = participant.perks.primary;
   const secondaryPerks = participant.perks.secondary;
 
-  if (items && perks && spells)
-  {
+  if (items && perks && spells) {
     return (
       <div
         className={`flex my-1 items-center ${
@@ -42,7 +41,12 @@ export default function GameDetailsParticipant({
               {/* ChampionIconCOLUMN: tooltip to show leveling */}
               <div className="flex flex-col">
                 {participant.summoners.map((spellID, index) => (
-                  <SpellIconCSR spell={spells[spellID]} spellID={spellID} size={20} key={index} />
+                  <SpellIconCSR
+                    spell={spells[spellID]}
+                    spellID={spellID}
+                    size={20}
+                    key={index}
+                  />
                 ))}
               </div>
               <div className="flex flex-col">
@@ -61,7 +65,9 @@ export default function GameDetailsParticipant({
                 <div className="flex justify-center">
                   <h6>{participant.kills}</h6>
                   <h6 className="text-slate-400">/</h6>
-                  <h6 className="text-red-600 font-bold">{participant.deaths}</h6>
+                  <h6 className="text-red-600 font-bold">
+                    {participant.deaths}
+                  </h6>
                   <h6 className="text-slate-400">/</h6>
                   <h6>{participant.assists}</h6>
                 </div>
@@ -107,7 +113,12 @@ export default function GameDetailsParticipant({
             </div>
             <div className="flex">
               {participant.items.map((itemID, index) => (
-                <ItemIconCSR item={items[itemID]} itemID={itemID} size={24} key={index} />
+                <ItemIconCSR
+                  item={items[itemID]}
+                  itemID={itemID}
+                  size={24}
+                  key={index}
+                />
               ))}
             </div>
           </div>
@@ -131,7 +142,7 @@ export default function GameDetailsParticipant({
             <h6 className="text-slate-400">Emerald 3</h6>
           </div>
         </div>
-  
+
         {/* CS + CS/min */}
         {participant.vision}
         {/* DPS + Obj DPS */}
@@ -141,8 +152,5 @@ export default function GameDetailsParticipant({
       </div>
     );
   }
-  return (
-    <></>
-  )
-
-};
+  return <></>;
+}

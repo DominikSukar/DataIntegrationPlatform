@@ -1,6 +1,6 @@
 "use client";
 import { Transition } from "@headlessui/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import GameDetailsParticipant from "./GameDetailsParticipant";
 
 import { Button } from "@/components/ui/button";

@@ -66,13 +66,14 @@ export default function UserSearch() {
   };
 
   const handleSubmit = async (formData: IFormData) => {
+    let userString = ""
     if (!formData.username.includes(formData.region)) {
-      var userString = `${formData.username}`;
+      userString = `${formData.username}`;
     } else {
-      var userString = formData.username;
+      userString = formData.username;
     }
     const searchEntry = userString;
-    let summonersSearchCookie: string | undefined =
+    const summonersSearchCookie: string | undefined =
       Cookies.get("summonersSearch");
 
     if (summonersSearchCookie) {

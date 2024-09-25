@@ -1,8 +1,8 @@
 export function secondsToHMS(seconds: number) {
-    let hours = Math.floor(seconds / 3600);
+    const hours = Math.floor(seconds / 3600);
     seconds %= 3600;
-    let minutes = Math.floor(seconds / 60);
-    let secs = Math.floor(seconds % 60);
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
 
     return [hours, minutes, secs]
         .map(v => v < 10 ? '0' + v : v)
