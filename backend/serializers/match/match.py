@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class MatchBase(BaseModel):
@@ -14,5 +14,4 @@ class MatchResponse(MatchBase):
     id: int
     server_id: int
 
-    class Config:
-        orm_mode = True
+    model_coinfig = ConfigDict(from_attributes=True)

@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class ServerBase(BaseModel):
@@ -17,8 +17,7 @@ class ServerCreate(ServerBase):
 class ServerResponse(ServerBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ServerUpdate(BaseModel):
@@ -32,5 +31,4 @@ class ServerUpdate(BaseModel):
     )
     active: Optional[bool] = None
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
