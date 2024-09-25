@@ -1,5 +1,7 @@
 import pytest
 
+from tests.setup import mock_client  # noqa: F401
+
 
 @pytest.fixture(scope="class")
 def sample_server_data():
@@ -15,7 +17,7 @@ def sample_server_data():
 
 class TestServerAPI:
     @pytest.fixture(scope="class")
-    def created_server(self, mock_client, sample_server_data):
+    def created_server(self, mock_client, sample_server_data):  # noqa: F811
         """
         Method uses POST to create server data based on a sample and returns the server's response.
         It is used in future tests:
@@ -42,7 +44,7 @@ class TestServerAPI:
         assert created_server["hostname"] == sample_server_data["hostname"]
         assert created_server["active"] == sample_server_data["active"]
 
-    def test_list(self, mock_client, sample_server_data):
+    def test_list(self, mock_client, sample_server_data):  # noqa: F811
         """
         List GET endpoint should return a list with only one object.
         Furthermore, we have to delete the 'id' key returned after creating object.
@@ -61,7 +63,7 @@ class TestServerAPI:
         assert first_object["hostname"] == sample_server_data["hostname"]
         assert first_object["active"] == sample_server_data["active"]
 
-    def test_get(self, mock_client, sample_server_data, created_server):
+    def test_get(self, mock_client, sample_server_data, created_server):  # noqa: F811
         """
         GET endpoint returns specific object from the database
         """
@@ -79,7 +81,7 @@ class TestServerAPI:
         assert returned_object["hostname"] == sample_server_data["hostname"]
         assert returned_object["active"] == sample_server_data["active"]
 
-    def test_patch(self, mock_client, created_server, sample_server_data):
+    def test_patch(self, mock_client, created_server, sample_server_data):  # noqa: F811
         """
         PATCH test will update the 'active' attribute from 'True' to 'False'
         """
@@ -100,7 +102,7 @@ class TestServerAPI:
         assert returned_object["riot_symbol"] == sample_server_data["riot_symbol"]
         assert returned_object["hostname"] == sample_server_data["hostname"]
 
-    def test_delete(self, mock_client, created_server):
+    def test_delete(self, mock_client, created_server):  # noqa: F811
         """
         DELETE test will remove the server object from the database.
         Additional GET check will test if resource was delete succesfully.
