@@ -32,15 +32,15 @@ class TestGetCurrentMatch:
         "Test for user that exists"
         user = random_user
 
-        params = {"summoner_name": user, "server": "EUW"}
+        params = {"summoner_name": user}
 
-        response = client.get("/", params=params)
+        response = client.get("EUW/", params=params)
         assert response.status_code == 200
 
     def test_not_existing_user(self):
         "Test for user that should not exist"
-        params = {"summoner_name": "sdasdsad", "server": "EUW"}
+        params = {"summoner_name": "sdasdsad"}
 
         with pytest.raises(HTTPException) as err:
-            client.get("/", params=params)
+            client.get("EUW/", params=params)
         assert err.value.status_code == 404
