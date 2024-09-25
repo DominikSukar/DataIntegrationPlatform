@@ -17,7 +17,7 @@ router = APIRouter()
 @map_puuid_and_server
 async def match_timeline(
     server: SummonerAndSpectorServerModel,
-    match_ID: Annotated[str, Path(example="EUW1_7091585440")],
+    match_ID: Annotated[str, Path(examples="EUW1_7091585440")],
     mapped_server: MatchModel = Query(None, include_in_schema=False),
     summoner_name: str = None,
     puuid: str = None,

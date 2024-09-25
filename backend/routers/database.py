@@ -28,7 +28,7 @@ async def get_match(
 @router.post("/{server}/match/{match_ID}")
 async def post_match(
     server: SummonerAndSpectorServerModel,
-    match_ID: Annotated[str, Path(example="EUW1_7091585440")],
+    match_ID: Annotated[str, Path(examples="EUW1_7091585440")],
 ) -> CurrentGameInfo:
     "Posts data about a specific match from a database"
     pass
