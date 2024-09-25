@@ -1,4 +1,5 @@
 import logging
+import os
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -39,6 +40,12 @@ app.add_middleware(
     ),
 )
 
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+else:
+    logger.warning(
+        "Directory with static content has not been found. The endpoints will not work."
+    )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(account.router, tags=["Account"], prefix="/account")
