@@ -47,7 +47,6 @@ else:
         "Directory with static content has not been found. The endpoints will not work."
     )
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(account.router, tags=["Account"], prefix="/account")
 app.include_router(summoner.router, tags=["Summoner"], prefix="/summoner")
 app.include_router(match.router, tags=["Match"], prefix="/match_history")
