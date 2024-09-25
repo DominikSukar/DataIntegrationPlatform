@@ -37,7 +37,7 @@ async def post_server(
 async def get_server(
     server_id: int, db: Session = Depends(get_db)
 ) -> ServerResponse | Any:
-    server = db.query(Server).get(server_id)
+    server = db.get(Server, server_id)
     if not server:
         raise HTTPException(status_code=404, detail="Server not found")
     logger.debug(f"Returning data of a server ({server.full_name})")
@@ -49,7 +49,7 @@ async def get_server(
 async def patch_server(
     server_id: int, server_update: ServerUpdate, db: Session = Depends(get_db)
 ) -> ServerResponse:
-    server = db.query(Server).get(server_id)
+    server = db.get(Server, server_id)
     if not server:
         raise HTTPException(status_code=404, detail="Server not found")
 
@@ -70,7 +70,7 @@ async def patch_server(
 async def delete_server(
     server_id: int, db: Session = Depends(get_db)
 ) -> ServerResponse:
-    server = db.query(Server).get(server_id)
+    server = db.get(Server, server_id)
     if not server:
         raise HTTPException(status_code=404, detail="Server not found")
 
