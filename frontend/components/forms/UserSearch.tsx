@@ -46,7 +46,7 @@ export default function UserSearch() {
     };
     fetchServers();
     const savedRegion = Cookies.get("selectedRegion");
-    if (savedRegion && regions.includes(savedRegion)) {
+    if (savedRegion && regions.some(region => region.symbol === savedRegion)) {
       setSelectedRegion(savedRegion);
     }
     const summonersCookie: string | undefined = Cookies.get("summonersSearch");
