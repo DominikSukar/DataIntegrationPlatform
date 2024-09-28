@@ -4,17 +4,23 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
 import { Spell, SpellCollection } from "@/types/matchTypes";
 import { DOMAIN } from "@/constants/api";
 
-export default async function SpellIcon({ spellID, size }: { spellID: number; size: number }) {
+export default async function SpellIcon({
+  spellID,
+  size,
+}: {
+  spellID: number;
+  size: number;
+}) {
   const response = await fetch(`${DOMAIN}/datadragon/summoners/`, {
     next: { revalidate: 3600 },
   });
-  const summoners: SpellCollection = await response.json()
-  const summoner: Spell = summoners[spellID]
+  const summoners: SpellCollection = await response.json();
+  const summoner: Spell = summoners[spellID];
   return (
     <TooltipProvider>
       <Tooltip delayDuration={200} disableHoverableContent={true}>
@@ -28,10 +34,12 @@ export default async function SpellIcon({ spellID, size }: { spellID: number; si
           />
         </TooltipTrigger>
         <TooltipContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md rounded-[20px] border-2 w-80">
-          <p className="font-bold text-amber-600">{summoner.name}</p>
-          <p>{summoner.description}</p>
+          <p className="font-bold text-amber-600">
+            {summoner ? summoner.name : <></>}
+          </p>
+          <p>{summoner ? summoner.description : <></>}</p>
         </TooltipContent>
       </Tooltip>
-    </TooltipProvider>    
+    </TooltipProvider>
   );
 }

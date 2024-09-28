@@ -40,7 +40,6 @@ export default function ItemIconCSR({
             className="m-0.5"
             width={size}
             height={size}
-            placeholder="blur"
             blurDataURL="/loading.gif"
             alt={`Item ${itemID}`}
             priority={true}
@@ -55,18 +54,22 @@ export default function ItemIconCSR({
               height={56}
               alt={`Item ${itemID}`}
             />
-            <div>
-              <p className="font-bold text-amber-600">{item.name}</p>
-              <ItemDescription description={item.description} />
-              {item.gold.total === 0 ? (
-                <p></p>
-              ) : (
-                <div className="flex">
-                  <div>Cost: </div>
-                  <div className="text-amber-600 ml-1">{item.gold.total}</div>
-                </div>
-              )}
-            </div>
+            {item ? (
+              <div>
+                <p className="font-bold text-amber-600">{item.name}</p>
+                <ItemDescription description={item.description} />
+                {item.gold.total === 0 ? (
+                  <p></p>
+                ) : (
+                  <div className="flex">
+                    <div>Cost: </div>
+                    <div className="text-amber-600 ml-1">{item.gold.total}</div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </TooltipContent>
       </Tooltip>

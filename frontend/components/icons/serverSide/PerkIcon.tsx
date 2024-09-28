@@ -35,8 +35,8 @@ export default async function PerkIcon({
           />
         </TooltipTrigger>
         <TooltipContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md rounded-[20px] border-2 w-80">
-          <p className="font-bold text-amber-600">{perk.name}</p>
-          <p>{perk.description}</p>
+        <p className="font-bold text-amber-600">{perk? (perk.name) : (<></>)}</p>
+          <p>{perk? (perk.description) : (<></>)}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
