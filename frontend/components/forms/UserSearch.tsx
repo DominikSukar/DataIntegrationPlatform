@@ -27,16 +27,24 @@ import {
 
 import { IFormData } from "@/types/userSearch";
 import { formSchema } from "@/constants/userSearch";
-import { regions } from "@/constants/userSearch";
+import { DOMAIN } from "@/constants/api";
+import { defaultRegions } from "@/constants/userSearch";
 
 export default function UserSearch() {
   const router = useRouter();
-  const [selectedRegion, setSelectedRegion] = useState(regions[0]);
+  const [regions, setRegion] = useState(defaultRegions);
+  const [selectedRegion, setSelectedRegion] = useState("EUW");
   const [searchedSummoners, setSearchedSummoners] = useState([""]);
   const [isSummonersDropdownOpen, setIsSummonersDropdownOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    const fetchServers = async () => {
+      const response = await fetch(`${DOMAIN}/server/`);
+      const result = await response.json();
+      setRegion(result);
+    };
+    fetchServers();
     const savedRegion = Cookies.get("selectedRegion");
     if (savedRegion && regions.includes(savedRegion)) {
       setSelectedRegion(savedRegion);
@@ -66,7 +74,7 @@ export default function UserSearch() {
   };
 
   const handleSubmit = async (formData: IFormData) => {
-    let userString = ""
+    let userString = "";
     if (!formData.username.includes(formData.region)) {
       userString = `${formData.username}`;
     } else {
@@ -125,14 +133,14 @@ export default function UserSearch() {
                 {selectedRegion} ▼
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white bg-opacity-20 backdrop-blur-md border-2 border-white border-opacity-30 rounded-md overflow-hidden">
+            <DropdownMenuContent className="bg-white bg-opacity-20 backdrop-blur-md border-2 border-white border-opacity-30 rounded-md overflow-hidden max-h-[200px] overflow-y-auto">
               {regions.map((region) => (
                 <DropdownMenuItem
-                  key={region}
-                  onSelect={() => handleRegionChange(region)}
+                  key={region.symbol}
+                  onSelect={() => handleRegionChange(region.symbol)}
                   className="text-white hover:bg-white hover:bg-opacity-30 transition-colors duration-300 focus:bg-white focus:bg-opacity-30 focus:text-black"
                 >
-                  {region}
+                  {region.symbol}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
