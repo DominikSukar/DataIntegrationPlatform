@@ -20,7 +20,9 @@ export default async function User({ params }: PageProps) {
       <div className="flex items-center">
         <ProfileIcon iconID={user.profileIconId} size={120}></ProfileIcon>
         <div className="flex flex-col">
-          <h1 className="font-bold m-2 md:text-xl sm:text-lg">{params.summonerName}</h1>
+          <h1 className="font-bold m-2 md:text-xl sm:text-lg">
+            {params.summonerName}
+          </h1>
           <h3 className="font-bold m-2">Level {user.summonerLevel}</h3>
         </div>
       </div>
@@ -43,7 +45,16 @@ export default async function User({ params }: PageProps) {
             </div>
           </>
         ) : (
-          <></>
+          <>
+            <div className="flex flex-col items-center justify-center">
+              <p>UNRANKED</p>
+              <div className="flex">
+                <p className="text-green-600">0W</p>
+                <p className="ml-1 text-red-600">0L </p>
+                <div className="text-slate-400 ml-2">0 % WR</div>
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>
