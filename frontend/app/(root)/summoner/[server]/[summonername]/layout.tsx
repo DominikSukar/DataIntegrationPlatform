@@ -10,13 +10,19 @@ export default function DashboardLayout({
 }) {
   return (
     <section>
-      <nav></nav>
-      <Link href="/">
-        <div className="text-center lg:absolute 0">
-          <Logo></Logo>
-        </div>
-      </Link>
+      <div className="fixed z-50">
+        <nav>
+          <Link href="/">
+            <div className="text-center">
+              <Logo></Logo>
+            </div>
+          </Link>
+        </nav>
+      </div>
       <SummonersAnimationWrapper>{children}</SummonersAnimationWrapper>
+      <footer className="text-white py-4 text-center">
+        <p>&copy; 2024 FF15. All rights reserved.</p>
+      </footer>
     </section>
   );
 }

@@ -20,11 +20,11 @@ export default async function User({ params }: PageProps) {
       <div className="flex items-center">
         <ProfileIcon iconID={user.profileIconId} size={120}></ProfileIcon>
         <div className="flex flex-col">
-          <h1 className="font-bold m-2">{params.summonerName}</h1>
+          <h1 className="font-bold m-2 md:text-xl sm:text-lg">{params.summonerName}</h1>
           <h3 className="font-bold m-2">Level {user.summonerLevel}</h3>
         </div>
       </div>
-      <div className="flex  mr-16">
+      <div className="flex mr-16">
         {user.tier ? (
           <>
             <RankIcon rankName={user.tier} size={120}></RankIcon>
