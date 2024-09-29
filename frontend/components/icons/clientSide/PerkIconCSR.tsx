@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 
 import { Perk } from "@/types/matchTypes";
-import { DOMAIN } from "@/constants/api";
+import { PERK_URL } from "@/constants/api";
 
 export default function PerkIconCSR({
   perk,
@@ -25,7 +25,7 @@ export default function PerkIconCSR({
       <Tooltip delayDuration={200} disableHoverableContent={true}>
         <TooltipTrigger>
           <Image
-            src={`${DOMAIN}/static/dragontail-14.15.1/perk-images-byID/perk-images/Styles/${perkID}.png`}
+            src={`${PERK_URL}/${perkID}.png`}
             className="m-0.5"
             width={size}
             height={size}
