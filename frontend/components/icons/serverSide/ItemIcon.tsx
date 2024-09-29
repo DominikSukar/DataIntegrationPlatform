@@ -52,7 +52,7 @@ export default async function ItemIcon({
         <TooltipContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md rounded-[20px] border-2 w-80">
           <div className="flex p-2">
             <Image
-              src={`${DOMAIN}/static/dragontail-14.15.1/14.15.1/img/item/${itemID}.png`}
+              src={`${ITEM_URL}/${itemID}.png`}
               className="m-0.5 mr-6 h-14"
               width={56}
               height={56}
