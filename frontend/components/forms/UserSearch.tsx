@@ -154,6 +154,7 @@ export default function UserSearch() {
                   <div className="relative" ref={inputRef}>
                     <Input
                       placeholder="Summoner name + Tag"
+                      autoComplete="off"
                       {...field}
                       className="w-full py-3 pl-5 pr-12 text-lg text-white bg-white bg-opacity-20 backdrop-blur-md rounded-r-full border-2 border-white border-opacity-30 focus:border-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30 transition-all duration-300 placeholder-gray-300"
                       onFocus={() => setIsSummonersDropdownOpen(true)}
