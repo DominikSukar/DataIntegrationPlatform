@@ -9,7 +9,7 @@ import ItemDescription from "@/components/ItemDescription";
 
 import { Item, ItemCollection } from "@/types/matchTypes";
 
-import { DOMAIN } from "@/constants/api";
+import { DOMAIN, ITEM_URL } from "@/constants/api";
 
 export default async function ItemIcon({
   itemID,
@@ -42,7 +42,7 @@ export default async function ItemIcon({
       <Tooltip delayDuration={200} disableHoverableContent={true}>
         <TooltipTrigger>
           <Image
-            src={`${DOMAIN}/static/dragontail-14.15.1/14.15.1/img/item/${itemID}.png`}
+            src={`${ITEM_URL}/${itemID}.png`}
             className="m-0.5"
             width={size}
             height={size}
