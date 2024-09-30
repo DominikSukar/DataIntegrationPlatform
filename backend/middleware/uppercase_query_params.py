@@ -18,6 +18,7 @@ class UpperCaseServerParamMiddleware:
             and "docs" not in fragmented_path
             and "openapi.json" not in fragmented_path
             and "server" not in fragmented_path
+            and "item" not in fragmented_path
         ):
             fragmented_path[1] = fragmented_path[1].upper()
             whole_path = "/".join(fragmented_path)
