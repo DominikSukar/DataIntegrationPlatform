@@ -22,9 +22,9 @@ async def get_champions(db: Session = Depends(get_db)) -> list[ChampionResponse]
 
 @router.post("/", status_code=201)
 async def post_champion(
-    server: ChampionCreate, db: Session = Depends(get_db)
+    champion: ChampionCreate, db: Session = Depends(get_db)
 ) -> ChampionResponse:
-    new_champion = Champion(**server.model_dump())
+    new_champion = Champion(**champion.model_dump())
     db.add(new_champion)
     db.commit()
     db.refresh(new_champion)

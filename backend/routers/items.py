@@ -21,8 +21,8 @@ async def get_items(db: Session = Depends(get_db)) -> list[ItemResponse]:
 
 
 @router.post("/", status_code=201)
-async def post_item(server: ItemCreate, db: Session = Depends(get_db)) -> ItemResponse:
-    new_item = Item(**server.model_dump())
+async def post_item(item: ItemCreate, db: Session = Depends(get_db)) -> ItemResponse:
+    new_item = Item(**item.model_dump())
     db.add(new_item)
     db.commit()
     db.refresh(new_item)
