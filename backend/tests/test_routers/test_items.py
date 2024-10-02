@@ -23,7 +23,7 @@ class TestItemAPI:
         test_post - to check if returned data equals the one used to create an object
         test_get, test_patch, test_delete - to use returned 'id' attribute.
         """
-        response = mock_client.post("/item/", json=sample_item_data)
+        response = mock_client.post("/items/", json=sample_item_data)
         assert response.status_code == 201
 
         return response.json()
@@ -48,7 +48,7 @@ class TestItemAPI:
         List GET endpoint should return a list with only one object.
         Furthermore, we have to delete the 'id' key returned after creating object.
         """
-        response = mock_client.get("/item/")
+        response = mock_client.get("/items/")
         assert response.status_code == 200
 
         first_object = response.json()[0]
@@ -65,7 +65,7 @@ class TestItemAPI:
         """
         GET endpoint returns specific object from the database
         """
-        response = mock_client.get(f"/item/{created_item["id"]}")
+        response = mock_client.get(f"/items/{created_item["id"]}")
         assert response.status_code == 200
 
         returned_object = response.json()
@@ -83,7 +83,7 @@ class TestItemAPI:
         PATCH test will update the 'active' attribute from 'True' to 'False'
         """
         update_data = {"active": False}
-        response = mock_client.patch(f"/item/{created_item['id']}", json=update_data)
+        response = mock_client.patch(f"/items/{created_item['id']}", json=update_data)
         assert response.status_code == 200
 
         returned_object = response.json()
@@ -101,9 +101,9 @@ class TestItemAPI:
         DELETE test will remove the server object from the database.
         Additional GET check will test if resource was delete succesfully.
         """
-        delete_response = mock_client.delete(f"/item/{created_item['id']}")
+        delete_response = mock_client.delete(f"/items/{created_item['id']}")
         assert delete_response.status_code == 200
 
         # We check if object with 'id' returned from previous DELETE does not exist anymore
-        get_response = mock_client.get(f"/item/{delete_response.json()["id"]}")
+        get_response = mock_client.get(f"/items/{delete_response.json()["id"]}")
         assert get_response.status_code == 404
