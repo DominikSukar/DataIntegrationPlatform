@@ -24,14 +24,16 @@ class TestSummonerSpellAPI:
         test_post - to check if returned data equals the one used to create an object
         test_get, test_patch, test_delete - to use returned 'id' attribute.
         """
-        response = mock_client.post("/summoner_spell/", json=sample_summoner_spell_data)
+        response = mock_client.post(
+            "/summoner_spells/", json=sample_summoner_spell_data
+        )
         assert response.status_code == 201
 
         return response.json()
 
     def test_post(self, sample_summoner_spell_data, created_summoner_spell):
         """
-        Test only checks id data created by created_server fixture does equal
+        Test only checks id data created by created_summoner_spell fixture does equal
         to data used to create an object.
         """
 
@@ -53,7 +55,7 @@ class TestSummonerSpellAPI:
         List GET endpoint should return a list with only one object.
         Furthermore, we have to delete the 'id' key returned after creating object.
         """
-        response = mock_client.get("/summoner_spell/")
+        response = mock_client.get("/summoner_spells/")
         assert response.status_code == 200
 
         first_object = response.json()[0]
@@ -74,7 +76,7 @@ class TestSummonerSpellAPI:
         """
         GET endpoint returns specific object from the database
         """
-        response = mock_client.get(f"/summoner_spell/{created_summoner_spell["id"]}")
+        response = mock_client.get(f"/summoner_spells/{created_summoner_spell["id"]}")
         assert response.status_code == 200
 
         returned_object = response.json()
@@ -99,7 +101,7 @@ class TestSummonerSpellAPI:
         """
         update_data = {"active": False}
         response = mock_client.patch(
-            f"/summoner_spell/{created_summoner_spell['id']}", json=update_data
+            f"/summoner_spells/{created_summoner_spell['id']}", json=update_data
         )
         assert response.status_code == 200
 
@@ -120,12 +122,12 @@ class TestSummonerSpellAPI:
         Additional GET check will test if resource was delete succesfully.
         """
         delete_response = mock_client.delete(
-            f"/summoner_spell/{created_summoner_spell['id']}"
+            f"/summoner_spells/{created_summoner_spell['id']}"
         )
         assert delete_response.status_code == 200
 
         # We check if object with 'id' returned from previous DELETE does not exist anymore
         get_response = mock_client.get(
-            f"/summoner_spell/{delete_response.json()["id"]}"
+            f"/summoner_spells/{delete_response.json()["id"]}"
         )
         assert get_response.status_code == 404

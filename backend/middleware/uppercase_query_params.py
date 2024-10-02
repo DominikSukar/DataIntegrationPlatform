@@ -20,7 +20,7 @@ class UpperCaseServerParamMiddleware:
             and "servers" not in fragmented_path
             and "item" not in fragmented_path
             and "champion" not in fragmented_path
-            and "summoner_spell" not in fragmented_path
+            and "summoner_spells" not in fragmented_path
             and "perks" not in fragmented_path
         ):
             fragmented_path[1] = fragmented_path[1].upper()

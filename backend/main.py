@@ -16,7 +16,7 @@ from routers import (
     servers,
     items,
     champion,
-    summoner_spell,
+    summoner_spells,
     perks,
 )
 from middleware import UpperCaseServerParamMiddleware
@@ -67,7 +67,7 @@ app.include_router(servers.router, tags=["Server"], prefix="/servers")
 app.include_router(items.router, tags=["Item"], prefix="/item")
 app.include_router(perks.router, tags=["Perks"], prefix="/perks")
 app.include_router(
-    summoner_spell.router, tags=["Summoner spell"], prefix="/summoner_spell"
+    summoner_spells.router, tags=["Summoner spells"], prefix="/summoner_spells"
 )
 app.include_router(champion.router, tags=["Champion"], prefix="/champion")
 app.include_router(database.router, tags=["Database"], prefix="/database")
