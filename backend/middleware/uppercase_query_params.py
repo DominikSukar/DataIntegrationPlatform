@@ -21,6 +21,7 @@ class UpperCaseServerParamMiddleware:
             and "item" not in fragmented_path
             and "champion" not in fragmented_path
             and "summoner_spell" not in fragmented_path
+            and "perk" not in fragmented_path
         ):
             fragmented_path[1] = fragmented_path[1].upper()
             whole_path = "/".join(fragmented_path)
