@@ -13,7 +13,7 @@ from routers import (
     summoner,
     datadragon,
     database,
-    server,
+    servers,
     items,
     champion,
     summoner_spell,
@@ -63,7 +63,7 @@ app.include_router(account.router, tags=["Account"], prefix="/account")
 app.include_router(summoner.router, tags=["Summoner"], prefix="/summoner")
 app.include_router(match.router, tags=["Match"], prefix="/match_history")
 app.include_router(spectator.router, tags=["Spectator"], prefix="/current_match")
-app.include_router(server.router, tags=["Server"], prefix="/server")
+app.include_router(servers.router, tags=["Server"], prefix="/servers")
 app.include_router(items.router, tags=["Item"], prefix="/item")
 app.include_router(perks.router, tags=["Perks"], prefix="/perks")
 app.include_router(

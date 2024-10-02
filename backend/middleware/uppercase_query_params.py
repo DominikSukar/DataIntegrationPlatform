@@ -17,7 +17,7 @@ class UpperCaseServerParamMiddleware:
             "datadragon" not in fragmented_path
             and "docs" not in fragmented_path
             and "openapi.json" not in fragmented_path
-            and "server" not in fragmented_path
+            and "servers" not in fragmented_path
             and "item" not in fragmented_path
             and "champion" not in fragmented_path
             and "summoner_spell" not in fragmented_path

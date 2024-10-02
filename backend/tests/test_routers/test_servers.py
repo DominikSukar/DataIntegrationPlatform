@@ -24,7 +24,7 @@ class TestServerAPI:
         test_post - to check if returned data equals the one used to create an object
         test_get, test_patch, test_delete - to use returned 'id' attribute.
         """
-        response = mock_client.post("/server/", json=sample_server_data)
+        response = mock_client.post("/servers/", json=sample_server_data)
         assert response.status_code == 201
 
         return response.json()
@@ -49,7 +49,7 @@ class TestServerAPI:
         List GET endpoint should return a list with only one object.
         Furthermore, we have to delete the 'id' key returned after creating object.
         """
-        response = mock_client.get("/server/")
+        response = mock_client.get("/servers/")
         assert response.status_code == 200
 
         first_object = response.json()[0]
@@ -67,7 +67,7 @@ class TestServerAPI:
         """
         GET endpoint returns specific object from the database
         """
-        response = mock_client.get(f"/server/{created_server["id"]}")
+        response = mock_client.get(f"/servers/{created_server["id"]}")
         assert response.status_code == 200
 
         returned_object = response.json()
@@ -87,7 +87,7 @@ class TestServerAPI:
         """
         update_data = {"active": False}
         response = mock_client.patch(
-            f"/server/{created_server['id']}", json=update_data
+            f"/servers/{created_server['id']}", json=update_data
         )
         assert response.status_code == 200
 
@@ -107,9 +107,9 @@ class TestServerAPI:
         DELETE test will remove the server object from the database.
         Additional GET check will test if resource was delete succesfully.
         """
-        delete_response = mock_client.delete(f"/server/{created_server['id']}")
+        delete_response = mock_client.delete(f"/servers/{created_server['id']}")
         assert delete_response.status_code == 200
 
         # We check if object with 'id' returned from previous DELETE does not exist anymore
-        get_response = mock_client.get(f"/server/{delete_response.json()["id"]}")
+        get_response = mock_client.get(f"/servers/{delete_response.json()["id"]}")
         assert get_response.status_code == 404
