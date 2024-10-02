@@ -5,7 +5,7 @@ from tests.setup import mock_client  # noqa: F401
 
 @pytest.fixture(scope="class")
 def sample_champion_data():
-    "Sample fixture returns an examplary item data"
+    "Sample fixture returns an examplary champion data"
     return {"riot_id": 266, "name": "Aatrox"}
 
 
@@ -18,14 +18,14 @@ class TestChampionPI:
         test_post - to check if returned data equals the one used to create an object
         test_get, test_patch, test_delete - to use returned 'id' attribute.
         """
-        response = mock_client.post("/champion/", json=sample_champion_data)
+        response = mock_client.post("/champions/", json=sample_champion_data)
         assert response.status_code == 201
 
         return response.json()
 
     def test_post(self, sample_champion_data, created_champion):
         """
-        Test only checks id data created by created_server fixture does equal
+        Test only checks id data created by created_champion fixture does equal
         to data used to create an object.
         """
 
@@ -41,7 +41,7 @@ class TestChampionPI:
         List GET endpoint should return a list with only one object.
         Furthermore, we have to delete the 'id' key returned after creating object.
         """
-        response = mock_client.get("/champion/")
+        response = mock_client.get("/champions/")
         assert response.status_code == 200
 
         first_object = response.json()[0]
@@ -58,7 +58,7 @@ class TestChampionPI:
         """
         GET endpoint returns specific object from the database
         """
-        response = mock_client.get(f"/champion/{created_champion["id"]}")
+        response = mock_client.get(f"/champions/{created_champion["id"]}")
         assert response.status_code == 200
 
         returned_object = response.json()
@@ -77,7 +77,7 @@ class TestChampionPI:
         """
         update_data = {"active": False}
         response = mock_client.patch(
-            f"/champion/{created_champion['id']}", json=update_data
+            f"/champions/{created_champion['id']}", json=update_data
         )
         assert response.status_code == 200
 
@@ -94,9 +94,9 @@ class TestChampionPI:
         DELETE test will remove the server object from the database.
         Additional GET check will test if resource was delete succesfully.
         """
-        delete_response = mock_client.delete(f"/champion/{created_champion['id']}")
+        delete_response = mock_client.delete(f"/champions/{created_champion['id']}")
         assert delete_response.status_code == 200
 
         # We check if object with 'id' returned from previous DELETE does not exist anymore
-        get_response = mock_client.get(f"/champion/{delete_response.json()["id"]}")
+        get_response = mock_client.get(f"/champions/{delete_response.json()["id"]}")
         assert get_response.status_code == 404

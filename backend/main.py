@@ -15,7 +15,7 @@ from routers import (
     database,
     servers,
     items,
-    champion,
+    champions,
     summoner_spells,
     perks,
 )
@@ -69,6 +69,6 @@ app.include_router(perks.router, tags=["Perks"], prefix="/perks")
 app.include_router(
     summoner_spells.router, tags=["Summoner spells"], prefix="/summoner_spells"
 )
-app.include_router(champion.router, tags=["Champion"], prefix="/champion")
+app.include_router(champions.router, tags=["Champions"], prefix="/champions")
 app.include_router(database.router, tags=["Database"], prefix="/database")
 app.include_router(datadragon.router, tags=["Datadragon"], prefix="/datadragon")
