@@ -1,6 +1,14 @@
 from database.database import Base
 
-from database.models.basic import Champion, Item, Perk, SummonerSpell, Server
+from database.models.basic import (
+    Champion,
+    Item,
+    Perk,
+    SummonerSpell,
+    Server,
+    Season,
+    Split,
+)
 from database.models.summoner import SummonerChampionStat, SummonerDuo, Summoner
 from database.models.match import (
     Match,
@@ -21,6 +29,8 @@ __all__ = [
     "Perk",
     "SummonerSpell",
     "Server",
+    "Season",
+    "Split",
     "Summoner",
     "SummonerDuo",
     "Match",
