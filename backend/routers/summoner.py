@@ -32,6 +32,8 @@ async def get_summoner(
             )
         )
     except ValueError:
+        # If a player didn't play any games in current season the riot API does not return any league data
+        # In that case we only return basic info like accountIDm, profileIconId etc.
         summoner_dict = summoner_data.model_dump()
         final_dataset = {**summoner_dict}
 

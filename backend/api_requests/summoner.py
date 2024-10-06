@@ -3,6 +3,7 @@ import logging
 from ._base import RiotAPIBase
 from models import SummonerAndSpectorServerModel
 from utils.requests import send_request
+from utils.custom_exceptions import MethodUnvailable
 from schemas import SummonerDTO
 
 logger = logging.getLogger(__name__)
@@ -13,25 +14,23 @@ class SummonerControler(RiotAPIBase):
 
     PATH = "/lol/summoner/v4/summoners"
 
-    def __init__(self, server: SummonerAndSpectorServerModel):
+    def __init__(self, server: SummonerAndSpectorServerModel, puuid: int):
         domain = super().get_domain(server)
         key = super().KEY
-        self.url_account_by_puuid = "{}{}/by-puuid/{}{}".format(
-            domain, self.PATH, "{puuid}", key
-        )
+        self.url_account_by_puuid = f"{domain}{self.PATH}/by-puuid/{puuid}{key}"
 
     def get_a_summoner_by_its_RSO_encrypted_PUUID(self) -> SummonerDTO:
         """Not used"""
-        pass
+        raise MethodUnvailable
 
     def get_a_summoner_by_account_ID(self) -> SummonerDTO:
         """Not used"""
-        pass
+        raise MethodUnvailable
 
-    def get_a_summoner_by_PUUID(self, puuid: str) -> SummonerDTO:
+    def get_a_summoner_by_PUUID(self) -> SummonerDTO:
         """Fetches data summoner specific data"""
 
-        URL = self.url_account_by_puuid.format(puuid=puuid)
+        URL = self.url_account_by_puuid
 
         summoner_info = send_request(URL)
         summoner_info = SummonerDTO.model_validate(summoner_info)
@@ -42,8 +41,8 @@ class SummonerControler(RiotAPIBase):
 
     def get_a_summoner_by_access_token(self) -> SummonerDTO:
         """Not used"""
-        pass
+        raise MethodUnvailable
 
     def get_a_summoner_by_summoner_ID(self) -> SummonerDTO:
         """Not used"""
-        pass
+        raise MethodUnvailable
