@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, Integer, SmallInteger, Float, String
+from sqlalchemy import ForeignKey, BigInteger, Integer, SmallInteger, Float, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from database.database import Base
@@ -14,6 +14,12 @@ class Summoner(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     nickname: Mapped[str] = mapped_column(String(20), nullable=False)
     tag: Mapped[str] = mapped_column(String(5), nullable=False)
+    puuid: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    profile_icon_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    riot_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    account_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    revision_date: Mapped[int] = mapped_column(BigInteger, nullable=False)
+
     server_id: Mapped[int] = mapped_column(Integer, ForeignKey("servers.id"))
     rank: Mapped[str] = mapped_column(String(20), nullable=False)
     lp: Mapped[int] = mapped_column(SmallInteger, nullable=False)
