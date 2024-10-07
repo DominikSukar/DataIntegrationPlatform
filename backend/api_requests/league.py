@@ -43,7 +43,22 @@ class LeagueControler(RiotAPIBase):
             logger.warning(
                 f"No RANKED_SOLO_5x5 data found for summoner's ID {summoner_id}"
             )
-            raise ValueError("Ranked 5x5 data not found")
+
+            # Default summoner info
+            final_info = {
+                "leagueId": None,
+                "summonerId": None,
+                "queueType": "RANKED_SOLO_5x5",
+                "tier": "UNRANKED",
+                "rank": "UNRANKED",
+                "leaguePoints": 0,
+                "wins": 0,
+                "losses": 0,
+                "hotStreak": False,
+                "veteran": False,
+                "freshBlood": False,
+                "inactive": False,
+            }
 
         summoner_info = LeagueEntryDTO.model_validate(final_info)
 

@@ -2,8 +2,8 @@ from pydantic import BaseModel
 
 
 class LeagueEntryDTO(BaseModel):
-    leagueId: str
-    summonerId: str
+    leagueId: str | None
+    summonerId: str | None
     queueType: str
     tier: str
     rank: str

@@ -21,27 +21,23 @@ async def get_summoner(
     puuid: str = None,
 ) -> LeagueAndSummonerEntryDTO:
     "Return summoner's info based on his PUUID"
-    summoner_controller = SummonerControler(server)
-    summoner_data = summoner_controller.get_a_summoner_by_PUUID(puuid)
+    summoner_controller = SummonerControler(server, puuid)
+    summoner_data = summoner_controller.get_a_summoner_by_PUUID()
 
     league_controller = LeagueControler(server)
-    try:
-        league_data = (
-            league_controller.get_league_entries_in_all_queues_for_a_given_summoner_ID(
-                summoner_data.id
-            )
-        )
-    except ValueError:
-        # If a player didn't play any games in current season the riot API does not return any league data
-        # In that case we only return basic info like accountIDm, profileIconId etc.
-        summoner_dict = summoner_data.model_dump()
-        final_dataset = {**summoner_dict}
 
-        return final_dataset
+    league_data = (
+        league_controller.get_league_entries_in_all_queues_for_a_given_summoner_ID(
+            summoner_data.id
+        )
+    )
 
     summoner_dict = summoner_data.model_dump()
     league_dict = league_data.model_dump()
-    winrate = league_dict["wins"] / (league_dict["wins"] + league_dict["losses"])
+    if league_dict["losses"] == 0 and league_dict["wins"] == 0:
+        winrate = 0
+    else:
+        winrate = league_dict["wins"] / (league_dict["wins"] + league_dict["losses"])
     league_dict["winrate"] = int(winrate * 100)
     final_dataset = {**summoner_dict, **league_dict}
 
