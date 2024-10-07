@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.database import Base
 
@@ -21,6 +21,8 @@ class Server(Base):
     # eun1.api.riotgames.com
     hostname: Mapped[str] = mapped_column(String(50), nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False)
+
+    summoners = relationship("Summoner", back_populates="server")
 
     def __repr__(self):
         return f"<Server(name='{self.full_name}', symbol='{self.symbol}', active='{self.active}')>"

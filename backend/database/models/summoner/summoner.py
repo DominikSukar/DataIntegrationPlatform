@@ -1,5 +1,5 @@
 from sqlalchemy import ForeignKey, BigInteger, Integer, SmallInteger, Float, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.database import Base
 
@@ -26,6 +26,8 @@ class Summoner(Base):
     matches_played: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     matched_won: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     winrate: Mapped[int] = mapped_column(Float, nullable=False)
+
+    server = relationship("Server", back_populates="summoners")
 
     def __repr__(self):
         return f"<Summoner(nickname='{self.nickname}', tag='{self.tag}', server_id='{self.server_id}')>"
