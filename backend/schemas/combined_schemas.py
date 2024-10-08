@@ -12,7 +12,7 @@ class LeagueAndSummonerEntryDTO(BaseModel):
     summonerId: str | None = None
     queueType: str
     tier: str
-    rank: str
+    rank: str | None = None
     leaguePoints: int
     wins: int
     losses: int

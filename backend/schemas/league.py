@@ -6,7 +6,7 @@ class LeagueEntryDTO(BaseModel):
     summonerId: str | None
     queueType: str
     tier: str
-    rank: str
+    rank: str | None
     leaguePoints: int
     wins: int
     losses: int

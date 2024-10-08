@@ -22,7 +22,7 @@ class Summoner(Base):
 
     server_id: Mapped[int] = mapped_column(Integer, ForeignKey("servers.id"))
     tier: Mapped[str] = mapped_column(String(20), nullable=False)
-    rank: Mapped[str] = mapped_column(String(5), nullable=False)
+    rank: Mapped[str] = mapped_column(String(5), nullable=True)
     lp: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     matches_played: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     matched_won: Mapped[int] = mapped_column(SmallInteger, nullable=False)

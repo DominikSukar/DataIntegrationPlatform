@@ -50,7 +50,7 @@ class LeagueControler(RiotAPIBase):
                 "summonerId": None,
                 "queueType": "RANKED_SOLO_5x5",
                 "tier": "UNRANKED",
-                "rank": "UNRANKED",
+                "rank": None,
                 "leaguePoints": 0,
                 "wins": 0,
                 "losses": 0,
