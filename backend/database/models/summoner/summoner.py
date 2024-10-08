@@ -1,4 +1,6 @@
-from sqlalchemy import ForeignKey, BigInteger, Integer, SmallInteger, Float, String
+from datetime import datetime
+
+from sqlalchemy import ForeignKey, Integer, SmallInteger, Float, String, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.database import Base
@@ -18,7 +20,7 @@ class Summoner(Base):
     profile_icon_id: Mapped[int] = mapped_column(Integer, nullable=False)
     riot_id: Mapped[str] = mapped_column(String, nullable=False)
     account_id: Mapped[str] = mapped_column(String, nullable=False)
-    revision_date: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    revision_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
 
     server_id: Mapped[int] = mapped_column(Integer, ForeignKey("servers.id"))
     tier: Mapped[str] = mapped_column(String(20), nullable=False)
