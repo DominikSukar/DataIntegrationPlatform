@@ -1,0 +1,130 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0" version="24.7.17">
+  <diagram name="Strona-1" id="Q1XB8nV9ZLxs6bK5noB-">
+    <mxGraphModel dx="3021" dy="2371" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-4" value="Riot API calls" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;fontSize=20;textShadow=0;labelBorderColor=none;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="710" y="30" width="220" height="570" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-3" value="Database operations" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="-100" y="40" width="480" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-1" target="cVNc0m0RVkJqtP1FDIUN-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-8" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=20;" vertex="1" connectable="0" parent="cVNc0m0RVkJqtP1FDIUN-7">
+          <mxGeometry x="-0.2855" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-15" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=20;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-1" target="cVNc0m0RVkJqtP1FDIUN-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint y="-110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-1" value="Is User in DB?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="-190" width="160" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-36" target="cVNc0m0RVkJqtP1FDIUN-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="-250" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-6" target="cVNc0m0RVkJqtP1FDIUN-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-6" value="Fetch summoner data" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="100" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-9" target="cVNc0m0RVkJqtP1FDIUN-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-9" value="Save user&#39;s info&lt;div&gt;&lt;font color=&quot;#5c5c5c&quot;&gt;accountId, profileIconId, summonerLevel, tier, rank, totalGames&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="100" width="180" height="61.88" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-19" value="YES" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=20;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-11" target="cVNc0m0RVkJqtP1FDIUN-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-24" value="NO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=20;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-11" target="cVNc0m0RVkJqtP1FDIUN-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-11" value="Is user&#39;s total &lt;br&gt;game count equal&lt;br&gt;to DB data?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="220" width="140" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-12" value="Return match data" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="414" y="690" width="210" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-14" target="cVNc0m0RVkJqtP1FDIUN-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint y="630" />
+              <mxPoint x="520" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-14" value="Fetch matches data&lt;br&gt;&lt;font color=&quot;#383838&quot;&gt;Default to 10&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-65" y="490" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-16" target="cVNc0m0RVkJqtP1FDIUN-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint y="190" />
+              <mxPoint x="510" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-16" value="Fetch user&#39;s data from DB" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-80" y="95" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-22" target="cVNc0m0RVkJqtP1FDIUN-30">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="820" y="370" />
+              <mxPoint x="240" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-22" value="Fetch all matches ID user participated in" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="260" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-29" target="cVNc0m0RVkJqtP1FDIUN-33">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="825" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-29" value="Fetch all matches data that are not in DB" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="410" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-30" target="cVNc0m0RVkJqtP1FDIUN-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-30" value="Compare matches ID between Riot servers and DB" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cVNc0m0RVkJqtP1FDIUN-33" target="cVNc0m0RVkJqtP1FDIUN-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="520" />
+              <mxPoint x="120" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-33" value="Insert matches data into DB" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="175" y="490" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cVNc0m0RVkJqtP1FDIUN-36" value="Request user&#39;s data" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="345" y="-390" width="210" height="140" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
