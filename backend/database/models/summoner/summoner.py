@@ -16,8 +16,8 @@ class Summoner(Base):
     tag: Mapped[str] = mapped_column(String(5), nullable=False)
     puuid: Mapped[str] = mapped_column(String, nullable=False, unique=True)
     profile_icon_id: Mapped[int] = mapped_column(Integer, nullable=False)
-    riot_id: Mapped[int] = mapped_column(Integer, nullable=False)
-    account_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    riot_id: Mapped[str] = mapped_column(String, nullable=False)
+    account_id: Mapped[str] = mapped_column(String, nullable=False)
     revision_date: Mapped[int] = mapped_column(BigInteger, nullable=False)
 
     server_id: Mapped[int] = mapped_column(Integer, ForeignKey("servers.id"))
