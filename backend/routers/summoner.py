@@ -41,4 +41,6 @@ async def get_summoner(
     league_dict["winrate"] = int(winrate * 100)
     final_dataset = {**summoner_dict, **league_dict}
 
+    final_dataset = LeagueAndSummonerEntryDTO.model_validate(final_dataset)
+
     return final_dataset
