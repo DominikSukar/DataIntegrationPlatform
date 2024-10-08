@@ -20,14 +20,16 @@ class Summoner(Base):
     profile_icon_id: Mapped[int] = mapped_column(Integer, nullable=False)
     riot_id: Mapped[str] = mapped_column(String, nullable=False)
     account_id: Mapped[str] = mapped_column(String, nullable=False)
+    # Date specifying when data was last time fetched from Riot's API
     revision_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    last_update_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
 
     server_id: Mapped[int] = mapped_column(Integer, ForeignKey("servers.id"))
     tier: Mapped[str] = mapped_column(String(20), nullable=False)
     rank: Mapped[str] = mapped_column(String(5), nullable=True)
     lp: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     matches_played: Mapped[int] = mapped_column(SmallInteger, nullable=False)
-    matched_won: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    matches_won: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     winrate: Mapped[int] = mapped_column(Float, nullable=False)
 
     server = relationship("Server", back_populates="summoners")
