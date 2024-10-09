@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Annotated
+from typing import Any, Annotated, Optional
 
 from fastapi import APIRouter, Query, Path, Depends
 from sqlalchemy import select
@@ -10,6 +10,7 @@ from schemas import CurrentGameInfo
 from utils.wrappers import map_puuid_and_server, map_identity_to_puuid
 from database.models.summoner import Summoner
 from database.models.basic import Server
+from database.models.match.match_participant import MatchParticipant
 from database.database import get_db
 from routers.summoner import get_summoner as get_summoner_from_riot_api
 from routers.account import get_account_info as get_account_name_from_riot_api
@@ -48,13 +49,16 @@ async def get_matches(
     """Fetches data with last games of the requested user's"""
 
     # Is summoner in DB?
-    summoner = db.execute(
-        select(Summoner)
-        .options(joinedload(Summoner.server))
-        .join(Server)
-        .filter(Summoner.puuid == puuid)
-        .filter(Server.symbol == server)
-    ).scalar_one_or_none()
+    def fetch_summoner(puuid: str, server: str) -> Optional[Summoner]:
+        return db.execute(
+            select(Summoner)
+            .options(joinedload(Summoner.server))
+            .join(Server)
+            .filter(Summoner.puuid == puuid)
+            .filter(Server.symbol == server)
+        ).scalar_one_or_none()
+
+    summoner = fetch_summoner(puuid, server)
     summoner_from_api = await get_summoner_from_riot_api(puuid=puuid, server=server)
 
     if not summoner:
@@ -82,17 +86,27 @@ async def get_matches(
         db.add(new_summoner)
         db.commit()
 
-        summoner = new_summoner
+        # Fetch summoner from database in order to get assigned ID
+        summoner = fetch_summoner(puuid, server)
 
+        assert summoner
+
+    matches_played_by_summoner = db.execute(
+        select(MatchParticipant).filter(MatchParticipant.id == summoner.id)
+    ).fetchall()
     # Is user's total game count equal to DB data?
-    matches_stored_in_db = summoner.matches_played
+    matches_stored_in_db = len(matches_played_by_summoner)
     matches_in_riot_api = summoner_from_api.wins + summoner_from_api.losses
-    if not matches_stored_in_db == matches_in_riot_api:
+    match_count_diff = matches_in_riot_api - matches_stored_in_db
+
+    if match_count_diff > 0:
         logger.debug(
-            f"Matches count for user {puuid} needs update from Riot's API. The difference is {matches_in_riot_api-matches_stored_in_db}"
+            f"Matches count for user {puuid} needs update from Riot's API. The difference is {match_count_diff}"
         )
-    elif matches_stored_in_db == matches_in_riot_api:
-        logger.debug(f"Matches count for user {puuid} is up to date")
+    elif match_count_diff == 0:
+        logger.debug(
+            f"Matches count for user {puuid} is up to date. The values are {matches_stored_in_db = } and {matches_in_riot_api = }"
+        )
     else:
         logger.error(
             f"Matches count for user {puuid} is higher in database. The difference is {matches_stored_in_db-matches_in_riot_api}"
