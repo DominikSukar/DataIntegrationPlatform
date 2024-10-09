@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session, joinedload
 
 from models import MatchModel, SummonerAndSpectorServerModel, MatchType
 from schemas import CurrentGameInfo
-from utils.wrappers import map_puuid_and_server
+from utils.wrappers import map_puuid_and_server, map_identity_to_puuid
 from database.models.summoner import Summoner
 from database.models.basic import Server
 from database.database import get_db
@@ -21,11 +21,13 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.get("/matches/{server}/{puuid}")
-@map_puuid_and_server
+@router.get("/matches/{server}/{identity}")
+@map_identity_to_puuid
 async def get_matches(
     server: SummonerAndSpectorServerModel,
-    puuid: str,
+    identity: str,
+    summoner_name: str = Query(None, include_in_schema=False),
+    puuid: str = Query(None, include_in_schema=False),
     mapped_server: MatchModel = Query(None, include_in_schema=False),
     match_type: Annotated[
         MatchType,
