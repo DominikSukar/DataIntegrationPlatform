@@ -76,9 +76,9 @@ class TestSeasonAPI:
 
     def test_patch(self, mock_client, created_season, sample_season_data):  # noqa: F811
         """
-        PATCH test will update the 'active' attribute from 'True' to 'False'
+        PATCH test will update the 'name' attribute from from 'S2024' to 'S2025'
         """
-        update_data = {"active": False}
+        update_data = {"name": "S2025"}
         response = mock_client.patch(
             f"/seasons/{created_season['id']}", json=update_data
         )
@@ -89,7 +89,7 @@ class TestSeasonAPI:
         assert len(returned_object) == 4
 
         assert returned_object["id"] == 1
-        assert returned_object["name"] == sample_season_data["name"]
+        assert returned_object["name"] == update_data["name"]
         assert returned_object["start_date"] == sample_season_data["start_date"]
         assert returned_object["end_date"] == sample_season_data["end_date"]
 
