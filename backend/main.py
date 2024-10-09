@@ -19,6 +19,7 @@ from routers import (
     summoner_spells,
     perks,
     seasons,
+    splits,
 )
 from middleware import UpperCaseServerParamMiddleware
 
@@ -72,5 +73,6 @@ app.include_router(
 )
 app.include_router(champions.router, tags=["Champions"], prefix="/champions")
 app.include_router(seasons.router, tags=["Seasons"], prefix="/seasons")
+app.include_router(splits.router, tags=["Splits"], prefix="/splits")
 app.include_router(database.router, tags=["Database"], prefix="/database")
 app.include_router(datadragon.router, tags=["Datadragon"], prefix="/datadragon")
