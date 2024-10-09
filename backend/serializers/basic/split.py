@@ -6,7 +6,7 @@ from serializers.date_serializers import datetime_serializer
 
 
 class SplitBase(BaseModel):
-    name: str = Field(..., examples=["S2024"])
+    name: str = Field(..., examples=["S1"])
     season_id: int = Field(..., examples=[1])
     start_date: datetime = Field(
         ...,
@@ -32,8 +32,8 @@ class SplitResponse(SplitBase):
 
 
 class SplitUpdate(BaseModel):
-    name: Optional[str] = Field(None, examples=["S2024"])
-    season_id: Optional[int] = Field(..., examples=[1])
+    name: Optional[str] = Field(None, examples=["S1"])
+    season_id: Optional[int] = Field(None, examples=[1])
     start_date: Optional[datetime] = Field(
         None,
         examples=["2024-05-24 00:00:00"],

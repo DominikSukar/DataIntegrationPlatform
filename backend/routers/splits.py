@@ -47,13 +47,13 @@ async def get_split(
 
 @router.patch("/{split_id}")
 async def patch_split(
-    split_id: int, season_update: SplitUpdate, db: Session = Depends(get_db)
+    split_id: int, split_update: SplitUpdate, db: Session = Depends(get_db)
 ) -> SplitResponse:
     split = db.get(Split, split_id)
     if not split:
         raise HTTPException(status_code=404, detail="Split not found")
 
-    split_data = season_update.model_dump(exclude_unset=True)
+    split_data = split_update.model_dump(exclude_unset=True)
     for key, value in split_data.items():
         setattr(split, key, value)
 

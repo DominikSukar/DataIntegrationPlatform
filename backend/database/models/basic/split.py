@@ -25,4 +25,4 @@ class Split(Base):
     )
 
     def __repr__(self):
-        return f"<Split(id='{self.id}', riot_match_id='{self.riot_match_id}')>"
+        return f"<Split(id='{self.id}', name='{self.name}')>"
