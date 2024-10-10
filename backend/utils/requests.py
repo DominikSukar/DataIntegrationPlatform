@@ -27,7 +27,7 @@ def _handle_non_200(status_code, URL=None):
 
 def send_request(URL: str):
     """This function in supposed to be used by all requests to RIOT API"""
-    response = requests.get(URL)
+    response = requests.get(URL, verify=False)
 
     if response.status_code == 200:
         data = json.loads(response.text)
@@ -39,7 +39,7 @@ def send_request(URL: str):
 async def send_async_request(session, URL: str):
     """This function in supposed to be used by all requests to RIOT API"""
 
-    async with session.get(URL) as response:
+    async with session.get(URL, ssl=False) as response:
         if response.status == 200:
             return await response.json()
         else:
