@@ -58,7 +58,7 @@ async def match_history(
 
     async with aiohttp.ClientSession() as session:
         match_ids = controller.get_a_list_of_match_ids_by_puuid(
-            puuid, match_type.value, count
+            puuid, count, match_type.value
         )
 
         tasks = [
