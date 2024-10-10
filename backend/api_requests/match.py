@@ -25,7 +25,7 @@ class MatchController(RiotAPIBase):
         )
 
     def get_a_list_of_match_ids_by_puuid(
-        self, puuid: str, match_type: MatchType, count: int
+        self, puuid: str, count: int, match_type: MatchType = "ranked"
     ) -> MatchIds:
         "Endpoint gets you a list of user's matches"
         URL = (
