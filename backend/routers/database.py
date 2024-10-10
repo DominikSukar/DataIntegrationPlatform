@@ -1,5 +1,7 @@
 import logging
 from typing import Any, Annotated, Optional
+import aiohttp
+import asyncio
 
 from fastapi import APIRouter, Query, Path, Depends
 from sqlalchemy import select
@@ -14,6 +16,7 @@ from database.models.match.match_participant import MatchParticipant
 from database.database import get_db
 from routers.summoner import get_summoner as get_summoner_from_riot_api
 from routers.account import get_account_info as get_account_name_from_riot_api
+from api_requests.match import MatchController
 from utils.mappers import (
     convert_LeagueAndSummonerEntryDTO_to_Summoner as map_to_summoner_model,
 )
@@ -91,22 +94,48 @@ async def get_matches(
 
         assert summoner
 
+    matches_in_riot_api = summoner_from_api.wins + summoner_from_api.losses
+
+    if matches_in_riot_api == 0:
+        return []
+
     matches_played_by_summoner = db.execute(
         select(MatchParticipant).filter(MatchParticipant.id == summoner.id)
     ).fetchall()
     # Is user's total game count equal to DB data?
     matches_stored_in_db = len(matches_played_by_summoner)
-    matches_in_riot_api = summoner_from_api.wins + summoner_from_api.losses
     match_count_diff = matches_in_riot_api - matches_stored_in_db
 
     if match_count_diff > 0:
         logger.debug(
             f"Matches count for user {puuid} needs update from Riot's API. The difference is {match_count_diff}"
         )
+        # matches = await match_history(server=server, puuid=puuid, count=match_count_diff)
+        controller = MatchController(server=mapped_server)
+        match_ids = controller.get_a_list_of_match_ids_by_puuid(
+            puuid, count=match_count_diff
+        )
+
+        async with aiohttp.ClientSession() as session:
+            match_ids = controller.get_a_list_of_match_ids_by_puuid(
+                puuid,
+                count,
+                match_type.value,
+            )
+
+            tasks = [
+                controller.get_a_match_by_match_id(session, match_id)
+                for match_id in match_ids
+            ]
+            match_data_list = await asyncio.gather(*tasks)
+
+            return match_data_list
+
     elif match_count_diff == 0:
         logger.debug(
             f"Matches count for user {puuid} is up to date. The values are {matches_stored_in_db = } and {matches_in_riot_api = }"
         )
+
     else:
         logger.error(
             f"Matches count for user {puuid} is higher in database. The difference is {matches_stored_in_db-matches_in_riot_api}"
