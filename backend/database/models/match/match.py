@@ -1,8 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy import ForeignKey, String, DateTime
+from sqlalchemy import ForeignKey, SmallInteger, String, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.sql import func
 
 from database.database import Base
 
@@ -18,10 +17,12 @@ class Match(Base):
     riot_match_id: Mapped[str] = mapped_column(String(50), nullable=False)
     server_id: Mapped[int] = mapped_column(ForeignKey("servers.id"), nullable=False)
     game_result: Mapped[str] = mapped_column(String, nullable=False)
-    date: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now(), nullable=False
+    creation_date: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False
     )
-    season_id: Mapped[int] = mapped_column(ForeignKey("seasons.id"), nullable=False)
+    end_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    game_duration: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    split_id: Mapped[int] = mapped_column(ForeignKey("splits.id"), nullable=False)
 
     def __repr__(self):
-        return f"<Match(id='{self.id}', riot_match_id='{self.riot_match_id}'), date='{self.date}'>"
+        return f"<Match(id='{self.id}', riot_match_id='{self.riot_match_id}'), game_duration='{self.game_duration}'>"
