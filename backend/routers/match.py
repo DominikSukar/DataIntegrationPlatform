@@ -6,7 +6,6 @@ from typing import Annotated
 from fastapi import APIRouter, Query, Path
 from models import MatchModel, MatchType, SummonerAndSpectorServerModel
 from api_requests.match import MatchController
-from .summoner import get_summoner
 from utils.wrappers import map_puuid_and_server
 
 logger = logging.getLogger(__name__)
@@ -48,12 +47,7 @@ async def match_history(
     ),
 ):
     """Returns user's match history by provided puuid."""
-    data = get_summoner(
-        server=server,
-        summoner_name=summoner_name if summoner_name else None,
-        puuid=puuid if puuid else None,
-    )
-    await data
+
     controller = MatchController(mapped_server)
 
     async with aiohttp.ClientSession() as session:
