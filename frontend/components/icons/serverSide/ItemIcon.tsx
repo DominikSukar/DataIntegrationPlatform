@@ -33,9 +33,10 @@ export default async function ItemIcon({
       ></div>
     );
   }
-  /* https://blog.ggboost.com/bl-content/uploads/pages/731fd39180a3f7570690918001c01fa4/lol-new-items-confusion-1.webp
-  Dodac :after do css, aby wyswietlal te podstawowe ikonki. Zmienic kolorystke - wypierdolic wszystko, aktywy na ciemny pomaranczowy.
-   */
+  /* 
+    For future inspiration:
+    https://blog.ggboost.com/bl-content/uploads/pages/731fd39180a3f7570690918001c01fa4/lol-new-items-confusion-1.webp
+  */
 
   return (
     <TooltipProvider>
