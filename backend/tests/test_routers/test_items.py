@@ -61,6 +61,56 @@ class TestItemAPI:
         assert first_object["description"] == sample_item_data["description"]
         assert first_object["cost"] == sample_item_data["cost"]
 
+    def test_list_query_riot_id(self, mock_client, sample_item_data):  # noqa: F811
+        """
+        This test additionally checks if filtering by riot_id is supported
+        """
+        response = mock_client.get(f"/items/?riot_id={sample_item_data['riot_id']}")
+        assert response.status_code == 200
+
+        first_object = response.json()[0]
+        # We check for 5 keys since 'id' should be returned as well (so 4+1 keys)
+        assert len(first_object) == 5
+
+        assert first_object["id"] == 1
+        assert first_object["riot_id"] == sample_item_data["riot_id"]
+        assert first_object["name"] == sample_item_data["name"]
+        assert first_object["description"] == sample_item_data["description"]
+        assert first_object["cost"] == sample_item_data["cost"]
+
+        # In theory this riot_id should not exist and endpoint should correctly respond with empty list
+        response = mock_client.get("/perks/?riot_id=99999")
+        assert response.status_code == 200
+
+        first_object = response.json()
+
+        assert len(first_object) == 0
+
+    def test_list_query_name(self, mock_client, sample_item_data):  # noqa: F811
+        """
+        This test additionally checks if filtering by name and name is supported
+        """
+        response = mock_client.get(f"/items/?name={sample_item_data['name']}")
+        assert response.status_code == 200
+
+        first_object = response.json()[0]
+        # We check for 5 keys since 'id' should be returned as well (so 4+1 keys)
+        assert len(first_object) == 5
+
+        assert first_object["id"] == 1
+        assert first_object["riot_id"] == sample_item_data["riot_id"]
+        assert first_object["name"] == sample_item_data["name"]
+        assert first_object["description"] == sample_item_data["description"]
+        assert first_object["cost"] == sample_item_data["cost"]
+
+        # 'Wukong' is a champion name to should not exist in perks table
+        response = mock_client.get("/perks/?name=Wukong")
+        assert response.status_code == 200
+
+        first_object = response.json()
+
+        assert len(first_object) == 0
+
     def test_get(self, mock_client, sample_item_data, created_item):  # noqa: F811
         """
         GET endpoint returns specific object from the database
