@@ -1,7 +1,7 @@
 import logging
-from typing import Any
+from typing import Any, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from database.database import get_db
@@ -19,8 +19,21 @@ router = APIRouter()
 @router.get("/")
 async def get_summoner_spells(
     db: Session = Depends(get_db),
+    riot_id: Optional[int] = Query(
+        None, description="Filter summoner spells by riot_id"
+    ),
+    name: Optional[str] = Query(None, description="Filter summoner spells by name"),
 ) -> list[SummonerSpellResponse]:
-    summoner_spells = db.query(SummonerSpell).order_by(SummonerSpell.id).all()
+    summoner_spells = db.query(SummonerSpell).order_by(SummonerSpell.id)
+
+    if riot_id is not None:
+        summoner_spells = summoner_spells.filter(SummonerSpell.riot_id == riot_id)
+
+    if name is not None:
+        summoner_spells = summoner_spells.filter(SummonerSpell.name.ilike(f"%{name}%"))
+
+    summoner_spells = summoner_spells.all()
+
     logger.debug(f"Returning data of all summoner spells ({summoner_spells})")
 
     return summoner_spells
