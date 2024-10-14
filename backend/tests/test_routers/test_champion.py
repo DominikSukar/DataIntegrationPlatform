@@ -52,6 +52,54 @@ class TestChampionPI:
         assert first_object["riot_id"] == sample_champion_data["riot_id"]
         assert first_object["name"] == sample_champion_data["name"]
 
+    def test_list_query_riot_id(self, mock_client, sample_champion_data):  # noqa: F811
+        """
+        This test additionally checks if filtering by riot_id is supported
+        """
+        response = mock_client.get(
+            f"/champions/?riot_id={sample_champion_data['riot_id']}"
+        )
+        assert response.status_code == 200
+
+        first_object = response.json()[0]
+        # We check for 3 keys since 'id' should be returned as well (so 2+1 keys)
+        assert len(first_object) == 3
+
+        assert first_object["id"] == 1
+        assert first_object["riot_id"] == sample_champion_data["riot_id"]
+        assert first_object["name"] == sample_champion_data["name"]
+
+        # In theory this riot_id should not exist and endpoint should correctly respond with empty list
+        response = mock_client.get("/champions/?riot_id=99999")
+        assert response.status_code == 200
+
+        first_object = response.json()
+
+        assert len(first_object) == 0
+
+    def test_list_query_name(self, mock_client, sample_champion_data):  # noqa: F811
+        """
+        This test additionally checks if filtering by name and name is supported
+        """
+        response = mock_client.get(f"/champions/?name={sample_champion_data['name']}")
+        assert response.status_code == 200
+
+        first_object = response.json()[0]
+        # We check for 3 keys since 'id' should be returned as well (so 2+1 keys)
+        assert len(first_object) == 3
+
+        assert first_object["id"] == 1
+        assert first_object["riot_id"] == sample_champion_data["riot_id"]
+        assert first_object["name"] == sample_champion_data["name"]
+
+        # 'Liandry' is an item name to should not exist in perks table
+        response = mock_client.get("/champions/?name=Liandry")
+        assert response.status_code == 200
+
+        first_object = response.json()
+
+        assert len(first_object) == 0
+
     def test_get(
         self, mock_client, sample_champion_data, created_champion  # noqa: F811
     ):
