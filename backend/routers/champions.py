@@ -1,7 +1,7 @@
 import logging
-from typing import Any
+from typing import Any, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from database.database import get_db
@@ -13,8 +13,21 @@ router = APIRouter()
 
 
 @router.get("/")
-async def get_champions(db: Session = Depends(get_db)) -> list[ChampionResponse]:
-    champions = db.query(Champion).order_by(Champion.id).all()
+async def get_champions(
+    db: Session = Depends(get_db),
+    riot_id: Optional[int] = Query(None, description="Filter champions by riot_id"),
+    name: Optional[str] = Query(None, description="Filter champions by name"),
+) -> list[ChampionResponse]:
+    champions = db.query(Champion).order_by(Champion.id)
+
+    if riot_id is not None:
+        champions = champions.filter(Champion.riot_id == riot_id)
+
+    if name is not None:
+        champions = champions.filter(Champion.name.ilike(f"%{name}%"))
+
+    champions = champions.all()
+
     logger.debug(f"Returning data of all champions ({champions})")
 
     return champions
