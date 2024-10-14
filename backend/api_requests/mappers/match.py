@@ -14,12 +14,12 @@ from serializers.match.match import MatchResponse
 
 def matches_mapper(match: MatchDto, server_id: int, split_id: int) -> MatchResponse:
     return {
-        "riot_id": match.metadata.matchId,
+        "riot_id": match["metadata"]["matchId"],
         "server_id": server_id,
-        "game_result": match.info.endOfGameResult,
-        "creation_date": datetime.fromtimestamp(match.info.gameCreation / 1000),
-        "end_date": datetime.fromtimestamp(match.info.gameEndTimestamp / 1000),
-        "game_duration": match.info.gameDuration,
+        "game_result": match["info"]["endOfGameResult"],
+        "creation_date": datetime.fromtimestamp(match["info"]["gameCreation"] / 1000),
+        "end_date": datetime.fromtimestamp(match["info"]["gameEndTimestamp"] / 1000),
+        "game_duration": match["info"]["gameDuration"],
         "split_id": split_id,
     }
 
@@ -41,26 +41,26 @@ def match_participants_mapper(
     return {
         "summoner_id": summoner_id,
         "match_id": match_id,
-        "team_id": participant.teamId,
+        "team_id": participant["teamId"],
         "match_team_id": match_team_id,
-        "win": participant.win,
-        "individual_position": participant.individualPosition,
-        "team_position": participant.teamPosition,
-        "objective_stolen": participant.objectivesStolen,
-        "objective_stolen_assists": participant.objectivesStolenAssists,
+        "win": participant["win"],
+        "individual_position": participant["individualPosition"],
+        "team_position": participant["teamPosition"],
+        "objective_stolen": participant["objectivesStolen"],
+        "objective_stolen_assists": participant["objectivesStolenAssists"],
         "champion_id": champion_id,
-        "champion_level": participant.champLevel,
-        "kills": participant.kills,
-        "deaths": participant.deaths,
-        "assists": participant.assists,
+        "champion_level": participant["champLevel"],
+        "kills": participant["kills"],
+        "deaths": participant["deaths"],
+        "assists": participant["assists"],
         "kda": (
             "{:.2f}".format(
-                (participant.kills + participant.assists) / participant.deaths
+                (participant["kills"] + participant["assists"]) / participant["deaths"]
             )
-            if participant.deaths != 0
+            if participant["deaths"] != 0
             else (
                 "0.00"
-                if participant.kills == 0 and participant.assists == 0
+                if participant["kills"] == 0 and participant["assists"] == 0
                 else "Perfect"
             )
         ),
