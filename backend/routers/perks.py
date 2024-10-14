@@ -1,7 +1,7 @@
 import logging
-from typing import Any
+from typing import Any, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from database.database import get_db
@@ -13,8 +13,20 @@ router = APIRouter()
 
 
 @router.get("/")
-async def get_perks(db: Session = Depends(get_db)) -> list[PerkResponse]:
-    perks = db.query(Perk).order_by(Perk.id).all()
+async def get_perks(
+    db: Session = Depends(get_db),
+    riot_id: Optional[int] = Query(None, description="Filter perks by riot_id"),
+    name: Optional[str] = Query(None, description="Filter perks by name"),
+) -> list[PerkResponse]:
+    perks = db.query(Perk).order_by(Perk.id)
+
+    if riot_id is not None:
+        perks = perks.filter(Perk.riot_id == riot_id)
+
+    if name is not None:
+        perks = perks.filter(Perk.name.ilike(f"%{name}%"))
+
+    perks = perks.all()
     logger.debug(f"Returning data of all perks ({perks})")
 
     return perks
