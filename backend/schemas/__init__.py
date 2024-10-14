@@ -1,5 +1,15 @@
 from .spectator import CurrentGameInfo, FeaturedGames
-from .match import MatchIds, MatchDto, TimelineDto
+from .match import (
+    MatchIds,
+    MatchDto,
+    TimelineDto,
+    ParticipantDto,
+    ObjectivesDto,
+    TeamDto,
+    InfoDto,
+    BanDto,
+    PerksDto,
+)
 from .account import AccountDto
 from .summoner import SummonerDTO
 from .league import LeagueEntryDTO
@@ -11,6 +21,12 @@ __all__ = [
     "MatchIds",
     "MatchDto",
     "TimelineDto",
+    "ParticipantDto",
+    "ObjectivesDto",
+    "TeamDto",
+    "InfoDto",
+    "BanDto",
+    "PerksDto",
     "AccountDto",
     "SummonerDTO",
     "LeagueEntryDTO",
