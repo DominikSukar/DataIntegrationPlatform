@@ -1,7 +1,7 @@
 import logging
-from typing import Any
+from typing import Any, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from database.database import get_db
@@ -13,8 +13,21 @@ router = APIRouter()
 
 
 @router.get("/")
-async def get_items(db: Session = Depends(get_db)) -> list[ItemResponse]:
-    items = db.query(Item).order_by(Item.id).all()
+async def get_items(
+    db: Session = Depends(get_db),
+    riot_id: Optional[int] = Query(None, description="Filter items by riot_id"),
+    name: Optional[str] = Query(None, description="Filter items by name"),
+) -> list[ItemResponse]:
+    items = db.query(Item).order_by(Item.id)
+
+    if riot_id is not None:
+        items = items.filter(Item.riot_id == riot_id)
+
+    if name is not None:
+        items = items.filter(Item.name.ilike(f"%{name}%"))
+
+    items = items.all()
+
     logger.debug(f"Returning data of all items ({items})")
 
     return items
