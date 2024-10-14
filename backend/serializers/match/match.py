@@ -18,4 +18,4 @@ class MatchCreate(MatchBase):
 class MatchResponse(MatchBase):
     id: int
 
-    model_coinfig = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True)
