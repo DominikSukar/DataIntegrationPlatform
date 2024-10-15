@@ -14,7 +14,7 @@ from serializers.match.match import MatchResponse
 
 def matches_mapper(match: MatchDto, server_id: int, split_id: int) -> MatchResponse:
     return {
-        "riot_id": match["metadata"]["matchId"],
+        "riot_match_id": match["metadata"]["matchId"],
         "server_id": server_id,
         "game_result": match["info"]["endOfGameResult"],
         "creation_date": datetime.fromtimestamp(match["info"]["gameCreation"] / 1000),
@@ -26,7 +26,7 @@ def matches_mapper(match: MatchDto, server_id: int, split_id: int) -> MatchRespo
 
 def match_participants_mapper(
     participant: ParticipantDto,
-    summoner_id: str,
+    summoner_id: int,
     match_id: int,
     match_team_id: int,
     champion_id: int,
