@@ -11,16 +11,14 @@ logger = logging.getLogger(__name__)
 
 
 async def get_matches_data(
-    puuid, mapped_server, match_count, match_type
+    puuid, mapped_server, match_count, match_type, start_time
 ) -> List[MatchBase]:
     controller = MatchController(server=mapped_server)
     mapped_match_data_list = []
 
     async with aiohttp.ClientSession() as session:
         match_ids = controller.get_a_list_of_match_ids_by_puuid(
-            puuid,
-            match_count,
-            match_type.value,
+            puuid, match_count, match_type.value, start_time
         )
         tasks = [
             controller.get_a_match_by_match_id(session, match_id)
