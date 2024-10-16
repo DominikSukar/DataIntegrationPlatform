@@ -25,12 +25,21 @@ class MatchController(RiotAPIBase):
         )
 
     def get_a_list_of_match_ids_by_puuid(
-        self, puuid: str, count: int, match_type: MatchType = "ranked"
+        self,
+        puuid: str,
+        count: int,
+        match_type: MatchType = "ranked",
+        start_time: str = 1623794400,
     ) -> MatchIds:
-        "Endpoint gets you a list of user's matches"
+        """
+        Endpoint gets you a list of user's matches
+        Note: Riot endpoint has a 'count' parameter set to 20 by default. Additionally, the maximum count is always 100.
+        In order to fetch matches from a specific season it is necessary to provide a correct date (unix timestamp).
+        The timestamp's default value is 1623794400 corresponding to June 16th, 2021 which is a date Riot games started storing matches in DB.
+        """
         URL = (
             self.url_list_of_match_ids.format(puuid=puuid)
-            + f"&type={match_type}&count={count}"
+            + f"&type={match_type}&count={count}&startTime={start_time}"
         )
         match_ids = send_request(URL)
         MatchIds.model_validate(match_ids)
