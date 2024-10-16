@@ -27,6 +27,7 @@ def _handle_non_200(status_code, URL=None):
 
 def send_request(URL: str):
     """This function in supposed to be used by all requests to RIOT API"""
+    logger.debug(f"Sending synchronous request to : {URL}")
     response = requests.get(URL, verify=False)
 
     if response.status_code == 200:
@@ -38,6 +39,7 @@ def send_request(URL: str):
 
 async def send_async_request(session, URL: str):
     """This function in supposed to be used by all requests to RIOT API"""
+    logger.debug(f"Sending asynchronous request to : {URL}")
 
     async with session.get(URL, ssl=False) as response:
         if response.status == 200:
