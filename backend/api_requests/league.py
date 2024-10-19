@@ -1,11 +1,11 @@
-import logging
+from logger import get_logger
 
 from ._base import RiotAPIBase
 from models import SummonerAndSpectorServerModel
 from utils.requests import send_request
 from schemas import LeagueEntryDTO
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class LeagueControler(RiotAPIBase):
@@ -62,7 +62,7 @@ class LeagueControler(RiotAPIBase):
 
         summoner_info = LeagueEntryDTO.model_validate(final_info)
 
-        logging.debug(
+        logger.debug(
             f"get_league_entries_in_all_queues_for_a_given_summoner_ID > summoner_info: {summoner_info}"
         )
 

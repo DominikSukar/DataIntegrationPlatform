@@ -1,10 +1,11 @@
 import requests
-import logging
 import json
 
 from fastapi import HTTPException
 
-logger = logging.getLogger(__name__)
+from logger import get_logger
+
+logger = get_logger(__name__)
 
 
 def _handle_non_200(status_code, URL=None):

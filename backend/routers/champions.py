@@ -1,14 +1,14 @@
-import logging
 from typing import Any, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
+from logger import get_logger
 from database.database import get_db
 from serializers.basic.champion import ChampionCreate, ChampionResponse, ChampionUpdate
 from database.models.basic.champion import Champion
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 router = APIRouter()
 
 

@@ -1,11 +1,11 @@
-import logging
+from logger import get_logger
 
 from ._base import RiotAPIBase
 from schemas import CurrentGameInfo
 from models import SummonerAndSpectorServerModel
 from utils.requests import send_request
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class SpectatorController(RiotAPIBase):
@@ -34,7 +34,7 @@ class SpectatorController(RiotAPIBase):
         game_info = send_request(URL)
         game_info = CurrentGameInfo.model_validate(game_info)
 
-        logging.debug(
+        logger.debug(
             f"get_current_game_information__for_the_given_puuid > game_info: {game_info}"
         )
 
@@ -47,6 +47,6 @@ class SpectatorController(RiotAPIBase):
 
         featured_games = send_request(URL)
 
-        logging.debug(f"get_list_of_featured_games > featured_games: {featured_games}")
+        logger.debug(f"get_list_of_featured_games > featured_games: {featured_games}")
 
         return featured_games

@@ -1,11 +1,11 @@
-import logging
+from logger import get_logger
 
 from ._base import RiotAPIBase
 from models import MatchModel, MatchType
 from utils.requests import send_request, send_async_request
 from schemas import MatchIds, MatchDto, TimelineDto
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class MatchController(RiotAPIBase):
@@ -44,7 +44,7 @@ class MatchController(RiotAPIBase):
         match_ids = send_request(URL)
         MatchIds.model_validate(match_ids)
 
-        logging.debug(f"get_a_list_of_match_ids_by_puuid > match_ids: {match_ids}")
+        logger.debug(f"get_a_list_of_match_ids_by_puuid > match_ids: {match_ids}")
 
         return match_ids
 

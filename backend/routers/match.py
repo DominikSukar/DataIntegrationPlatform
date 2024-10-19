@@ -1,14 +1,14 @@
-import logging
 import aiohttp
 import asyncio
 from typing import Annotated
 
+from logger import get_logger
 from fastapi import APIRouter, Query, Path
 from models import MatchModel, MatchType, SummonerAndSpectorServerModel
 from api_requests.match import MatchController
 from utils.wrappers import map_puuid_and_server
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 router = APIRouter()
 
 

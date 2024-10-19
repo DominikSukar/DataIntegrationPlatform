@@ -1,13 +1,13 @@
-import logging
 from typing import List
 import aiohttp
 import asyncio
 
+from logger import get_logger
 from api_requests.match import MatchController
 from api_requests.mappers.match import matches_mapper
 from serializers.match.match import MatchBase
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 async def get_matches_data(

@@ -1,4 +1,4 @@
-import logging
+from logger import get_logger
 
 from fastapi import APIRouter, Query
 
@@ -8,7 +8,7 @@ from utils.wrappers import map_puuid_and_server, map_server
 from models import AccountModel, SummonerAndSpectorServerModel
 from schemas import AccountDto
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 router = APIRouter()
 
 

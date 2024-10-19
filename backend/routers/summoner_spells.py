@@ -1,9 +1,9 @@
-import logging
 from typing import Any, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
+from logger import get_logger
 from database.database import get_db
 from serializers.basic.summoner_spell import (
     SummonerSpellCreate,
@@ -12,7 +12,7 @@ from serializers.basic.summoner_spell import (
 )
 from database.models.basic.summoner_spell import SummonerSpell
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 router = APIRouter()
 
 

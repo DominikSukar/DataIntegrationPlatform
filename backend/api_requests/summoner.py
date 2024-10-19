@@ -1,4 +1,4 @@
-import logging
+from logger import get_logger
 
 from ._base import RiotAPIBase
 from models import SummonerAndSpectorServerModel
@@ -6,7 +6,7 @@ from utils.requests import send_request
 from utils.custom_exceptions import MethodUnvailable
 from schemas import SummonerDTO
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class SummonerControler(RiotAPIBase):
@@ -35,7 +35,7 @@ class SummonerControler(RiotAPIBase):
         summoner_info = send_request(URL)
         summoner_info = SummonerDTO.model_validate(summoner_info)
 
-        logging.debug(f"get_a_summoner_by_PUUID > summoner_info: {summoner_info}")
+        logger.debug(f"get_a_summoner_by_PUUID > summoner_info: {summoner_info}")
 
         return summoner_info
 

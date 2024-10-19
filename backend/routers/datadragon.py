@@ -1,11 +1,11 @@
-import logging
 import json
 
 from fastapi import APIRouter, HTTPException
 
+from logger import get_logger
 from utils.env import ITEMS_PATH, SUMMONERS_PATH, PERKS_PATH
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 router = APIRouter()
 
 

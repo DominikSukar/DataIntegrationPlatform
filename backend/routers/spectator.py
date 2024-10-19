@@ -1,13 +1,14 @@
-import logging
 from typing import Any
 
 from fastapi import APIRouter, Query
+
+from logger import get_logger
 from models import SummonerAndSpectorServerModel
 from api_requests.spectator import SpectatorController
 from schemas import CurrentGameInfo
 from utils.wrappers import map_puuid_and_server
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 router = APIRouter()
 
 

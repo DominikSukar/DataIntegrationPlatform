@@ -1,5 +1,6 @@
-import logging
 import os
+
+from logger import configure_logger, get_logger
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -23,14 +24,8 @@ from routers import (
 )
 from middleware import UpperCaseServerParamMiddleware
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="%(levelname)s:      %(message)s",
-    handlers=[logging.StreamHandler()],
-)
-logging.getLogger("requests").setLevel(logging.WARNING)
-
-logger = logging.getLogger(__name__)
+configure_logger()
+logger = get_logger(__name__)
 
 app = FastAPI()
 

@@ -1,11 +1,11 @@
-import logging
+from logger import get_logger
 
 from ._base import RiotAPIBase
 from utils.requests import send_request
 from models import AccountModel
 from schemas import AccountDto
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class AccountController(RiotAPIBase):
@@ -38,7 +38,7 @@ class AccountController(RiotAPIBase):
         summoner_info = send_request(URL)
         summoner_info = AccountDto.model_validate(summoner_info)
 
-        logging.debug(f"get_account_by_puuid > summoner_info: {summoner_info}")
+        logger(f"get_account_by_puuid > summoner_info: {summoner_info}")
 
         return summoner_info
 

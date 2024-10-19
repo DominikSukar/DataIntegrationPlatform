@@ -1,5 +1,4 @@
-import logging
-
+from logger import get_logger
 from fastapi import Query
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
@@ -16,7 +15,7 @@ from utils.mappers import (
 )
 from routers_services.database.matches_data import get_matches_data
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 async def return_summoner_comparison(
