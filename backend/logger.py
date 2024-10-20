@@ -34,6 +34,7 @@ def configure_logger():
         logger.addHandler(handler)
 
     logging.getLogger("requests").setLevel(logging.WARNING)
+    logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 
 def get_logger(name):
