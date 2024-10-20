@@ -3,13 +3,18 @@ from typing import Any, Annotated
 from logger import get_logger
 
 from fastapi import APIRouter, Query, Path, Depends
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from models import MatchModel, SummonerAndSpectorServerModel, MatchType
 from schemas import CurrentGameInfo
 from utils.wrappers import map_puuid_and_server, map_identity_to_puuid
 from database.database import get_db
-from routers_services.database.matches_num_in_dbs import resolve_data_intergrity
+from routers_services.database.matches_num_in_dbs import (
+    resolve_data_intergrity,
+    get_summoner_id,
+)
+from database.models.match.match_participant import MatchParticipant
 
 logger = get_logger(__name__)
 router = APIRouter()
@@ -39,8 +44,9 @@ async def get_matches(
     ),
     db: Session = Depends(get_db),
 ):
-    """Fetches data with last games of the requested user's"""
+    """Fetches data with last games requested summoner participated in"""
 
+    # Resolves whether server data is up to date with Riot API
     await resolve_data_intergrity(
         server=server,
         mapped_server=mapped_server,
@@ -48,7 +54,18 @@ async def get_matches(
         match_type=match_type,
         db=db,
     )
-    logger.error("XD")
+    (summoner, _) = await get_summoner_id(server, db, puuid)
+    matches = (
+        db.execute(
+            select(MatchParticipant)
+            .filter(MatchParticipant.summoner_id == summoner.id)
+            .limit(count)
+        )
+        .scalars()
+        .all()
+    )
+
+    return matches
 
 
 @router.post("/matches/{server}/{puuid}")
