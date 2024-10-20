@@ -4,7 +4,7 @@ from typing import Annotated
 
 from logger import get_logger
 from fastapi import APIRouter, Query, Path
-from models import MatchModel, MatchType, SummonerAndSpectorServerModel
+from schemas import MatchModel, MatchType, SummonerAndSpectorServerModel
 from api_requests.match import MatchController
 from utils.wrappers.mappers import map_puuid_and_server
 

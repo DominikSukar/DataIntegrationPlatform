@@ -1,9 +1,8 @@
 from logger import get_logger
 
 from ._base import RiotAPIBase
-from models import MatchModel, MatchType
 from utils.requests import send_request, send_async_request
-from schemas import MatchIds, MatchDto, TimelineDto
+from schemas import MatchIds, MatchDto, TimelineDto, MatchModel, MatchType
 
 logger = get_logger(__name__)
 

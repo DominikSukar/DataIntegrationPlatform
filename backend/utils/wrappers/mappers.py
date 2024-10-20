@@ -2,7 +2,7 @@ from functools import wraps
 from fastapi import HTTPException
 from typing import Callable
 
-from models import AccountModel, MatchModel, SummonerAndSpectorServerModel
+from schemas import AccountModel, MatchModel, SummonerAndSpectorServerModel
 from api_requests import AccountController
 from utils.domain_routers import get_mapped_server
 from logger import get_logger

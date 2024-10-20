@@ -2,8 +2,7 @@ from logger import get_logger
 
 from ._base import RiotAPIBase
 from utils.requests import send_request
-from models import AccountModel
-from schemas import AccountDto
+from schemas import AccountDto, AccountModel
 
 logger = get_logger(__name__)
 

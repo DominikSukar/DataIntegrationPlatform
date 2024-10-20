@@ -1,5 +1,6 @@
 from typing import List, Optional, Dict
 from pydantic import BaseModel, RootModel
+from enum import Enum
 
 
 class MatchIds(RootModel):
@@ -487,3 +488,19 @@ class InfoTimeLineDto(BaseModel):
 class TimelineDto(BaseModel):
     metadata: MetadataTimeLineDto
     info: InfoTimeLineDto
+
+
+class MatchModel(str, Enum):
+    """EUROPE, AMERICAS, ASIA, SEA"""
+
+    EUROPE = "EUROPE"
+    AMERICAS = "AMERICAS"
+    ASIA = "ASIA"
+    SEA = "SEA"
+
+
+class MatchType(str, Enum):
+    _all: str = "all"
+    normal: str = "normal"
+    ranked: str = "ranked"
+    tournament: str = "tournament"

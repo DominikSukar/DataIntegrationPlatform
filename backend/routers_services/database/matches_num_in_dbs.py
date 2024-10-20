@@ -3,7 +3,7 @@ from fastapi import Query
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
 
-from models import SummonerAndSpectorServerModel, MatchType, MatchModel
+from schemas import SummonerAndSpectorServerModel, MatchType, MatchModel
 from database.models.summoner import Summoner
 from database.models.basic import Server, Champion, Item, Perk, SummonerSpell
 from database.models.match.match_team import MatchTeam

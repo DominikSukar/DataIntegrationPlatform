@@ -1,9 +1,8 @@
 from logger import get_logger
 
 from ._base import RiotAPIBase
-from models import SummonerAndSpectorServerModel
 from utils.requests import send_request
-from schemas import LeagueEntryDTO
+from schemas import LeagueEntryDTO, SummonerAndSpectorServerModel
 
 logger = get_logger(__name__)
 

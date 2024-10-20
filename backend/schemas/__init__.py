@@ -9,9 +9,11 @@ from .match import (
     InfoDto,
     BanDto,
     PerksDto,
+    MatchModel,
+    MatchType,
 )
-from .account import AccountDto
-from .summoner import SummonerDTO
+from .account import AccountDto, AccountModel
+from .summoner import SummonerDTO, SummonerAndSpectorServerModel
 from .league import LeagueEntryDTO
 from .combined_schemas import LeagueAndSummonerEntryDTO
 
@@ -27,8 +29,12 @@ __all__ = [
     "InfoDto",
     "BanDto",
     "PerksDto",
+    "MatchModel",
+    "MatchType",
     "AccountDto",
+    "AccountModel",
     "SummonerDTO",
+    "SummonerAndSpectorServerModel",
     "LeagueEntryDTO",
     "LeagueAndSummonerEntryDTO",
 ]

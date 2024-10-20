@@ -1,10 +1,9 @@
 from logger import get_logger
 
 from ._base import RiotAPIBase
-from models import SummonerAndSpectorServerModel
 from utils.requests import send_request
 from utils.custom_exceptions import MethodUnvailable
-from schemas import SummonerDTO
+from schemas import SummonerDTO, SummonerAndSpectorServerModel
 
 logger = get_logger(__name__)
 

@@ -3,9 +3,8 @@ from typing import Any
 from fastapi import APIRouter, Query
 
 from logger import get_logger
-from models import SummonerAndSpectorServerModel
 from api_requests.spectator import SpectatorController
-from schemas import CurrentGameInfo
+from schemas import CurrentGameInfo, SummonerAndSpectorServerModel
 from utils.wrappers.mappers import map_puuid_and_server
 
 logger = get_logger(__name__)

@@ -2,10 +2,9 @@ import pytest
 
 from fastapi.testclient import TestClient
 from fastapi import HTTPException
-from models import SummonerAndSpectorServerModel
 
+from schemas import SummonerAndSpectorServerModel
 from routers.spectator import router
-
 from api_requests.spectator import SpectatorController
 
 client = TestClient(router)

@@ -5,8 +5,7 @@ from fastapi import APIRouter, Query
 from api_requests.account import AccountController
 from utils.wrappers.mappers import map_puuid_and_server, map_server
 
-from models import AccountModel, SummonerAndSpectorServerModel
-from schemas import AccountDto
+from schemas import AccountDto, AccountModel, SummonerAndSpectorServerModel
 
 logger = get_logger(__name__)
 router = APIRouter()

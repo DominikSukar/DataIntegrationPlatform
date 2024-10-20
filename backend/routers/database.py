@@ -6,8 +6,12 @@ from fastapi import APIRouter, Query, Path, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from models import MatchModel, SummonerAndSpectorServerModel, MatchType
-from schemas import CurrentGameInfo
+from schemas import (
+    CurrentGameInfo,
+    MatchModel,
+    SummonerAndSpectorServerModel,
+    MatchType,
+)
 from utils.wrappers.mappers import map_puuid_and_server, map_identity_to_puuid
 from database.database import get_db
 from routers_services.database.matches_num_in_dbs import (

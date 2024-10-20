@@ -1,4 +1,4 @@
-from models import SummonerAndSpectorServerModel, MatchModel
+from schemas import SummonerAndSpectorServerModel, MatchModel
 
 
 def get_mapped_server(server: SummonerAndSpectorServerModel) -> MatchModel:
