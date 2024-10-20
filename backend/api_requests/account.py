@@ -38,7 +38,7 @@ class AccountController(RiotAPIBase):
         summoner_info = send_request(URL)
         summoner_info = AccountDto.model_validate(summoner_info)
 
-        logger(f"get_account_by_puuid > summoner_info: {summoner_info}")
+        logger.debug(f"get_account_by_puuid > summoner_info: {summoner_info}")
 
         return summoner_info
 
