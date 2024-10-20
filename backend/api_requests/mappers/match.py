@@ -1,9 +1,9 @@
 from datetime import datetime
+from typing import List
 
 from schemas import (
     MatchDto,
     ParticipantDto,
-    ObjectivesDto,
     TeamDto,
     InfoDto,
     BanDto,
@@ -30,13 +30,7 @@ def match_participants_mapper(
     match_id: int,
     match_team_id: int,
     champion_id: int,
-    item_0: int,
-    item_1: int,
-    item_2: int,
-    item_3: int,
-    item_4: int,
-    item_5: int,
-    item_6: int,
+    items: List[int],
 ):
     return {
         "summoner_id": summoner_id,
@@ -54,14 +48,14 @@ def match_participants_mapper(
         "deaths": participant["deaths"],
         "assists": participant["assists"],
         "kda": (
-            "{:.2f}".format(
-                (participant["kills"] + participant["assists"]) / participant["deaths"]
+            int(
+                (participant["kills"] + participant["assists"])
+                / participant["deaths"]
+                * 100
             )
             if participant["deaths"] != 0
             else (
-                "0.00"
-                if participant["kills"] == 0 and participant["assists"] == 0
-                else "Perfect"
+                0 if participant["kills"] == 0 and participant["assists"] == 0 else 2137
             )
         ),
         "kill_participation": (
@@ -74,7 +68,7 @@ def match_participants_mapper(
         "champion_transform": participant["championTransform"],
         "gold_earned": participant["goldEarned"],
         "turret_kills": participant["turretKills"],
-        "turret_takedown": participant["turretTakedown"],
+        "turret_takedown": participant["turretTakedowns"],
         "damage_to_champions": participant["totalDamageDealtToChampions"],
         "damage_to_objectives": participant["damageDealtToObjectives"],
         "damage_to_turrets": participant["damageDealtToTurrets"],
@@ -82,29 +76,36 @@ def match_participants_mapper(
         "damage_taken": participant["totalDamageTaken"],
         "damage_shielded_to_champions": participant["totalDamageShieldedOnTeammates"],
         "total_heals_on_teammates": participant["totalHealsOnTeammates"],
-        "item_0": item_0,
-        "item_1": item_1,
-        "item_2": item_2,
-        "item_3": item_3,
-        "item_4": item_4,
-        "item_5": item_5,
-        "item_6": item_6,
+        "item_0": items[0],
+        "item_1": items[1],
+        "item_2": items[2],
+        "item_3": items[3],
+        "item_4": items[4],
+        "item_5": items[5],
+        "item_6": items[6],
     }
 
 
-def match_teams_mapper(
-    team: TeamDto, objectives: ObjectivesDto, match_info: InfoDto, match_id: int
-):
+def match_teams_mapper(team: TeamDto, match_info: InfoDto, match_id: int):
+    objectives = team["objectives"]
     return {
         "match_id": match_id,
         "team_id": team["teamId"],
         "damage_dealt": sum(
-            [x for x in match_info["participants"]["totalDamageDealtToChampions"]]
+            [
+                participant["totalDamageDealtToChampions"]
+                for participant in match_info["participants"]
+            ]
         ),
         "damage_taken": sum(
-            [x for x in match_info["participants"]["totalDamageTaken"]]
+            [
+                participant["totalDamageTaken"]
+                for participant in match_info["participants"]
+            ]
         ),
-        "total_gold": sum([x for x in match_info["participants"]["goldEarned"]]),
+        "total_gold": sum(
+            [participant["goldEarned"] for participant in match_info["participants"]]
+        ),
         "towers_taken": objectives["tower"]["kills"],
         "dragons_taken": objectives["dragon"]["kills"],
         "barons_taken": objectives["baron"]["kills"],
@@ -113,7 +114,7 @@ def match_teams_mapper(
     }
 
 
-def get_team_champion_bans_mapper(ban: BanDto, match_team_id: int, champion_id: int):
+def team_champion_bans_mapper(ban: BanDto, match_team_id: int, champion_id: int):
     return {
         "match_team_id": match_team_id,
         "champion_id": champion_id,
@@ -121,9 +122,7 @@ def get_team_champion_bans_mapper(ban: BanDto, match_team_id: int, champion_id: 
     }
 
 
-def match_participant_perks_mapper(
-    perks: PerksDto, match_participant_id: int, perk_id: int
-):
+def match_participant_perks_mapper(perks: PerksDto, match_participant_id: int):
     returned_list = []
 
     for perk in perks["styles"]:
@@ -154,3 +153,13 @@ def match_participant_perks_mapper(
         )
 
     return returned_list
+
+
+def match_participant_summoner_spells_mapper(
+    slot: int, match_participant_id: int, summoner_spell_id: int
+):
+    return {
+        "slot": slot,
+        "match_participant_id": match_participant_id,
+        "summoner_spell_id": summoner_spell_id,
+    }
