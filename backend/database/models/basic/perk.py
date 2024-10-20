@@ -14,7 +14,7 @@ class Perk(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     riot_id: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     name: Mapped[str] = mapped_column(String(20), nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=False)
+    description: Mapped[str] = mapped_column(String, nullable=True)
 
     def __repr__(self):
         return f"<Perk(name='{self.name}')>"
