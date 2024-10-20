@@ -36,10 +36,12 @@ class MatchController(RiotAPIBase):
         Note: Riot endpoint has a 'count' parameter set to 20 by default. Additionally, the maximum count is always 100.
         In order to fetch matches from a specific season it is necessary to provide a correct date (unix timestamp).
         The timestamp's default value is 1623794400 corresponding to June 16th, 2021 which is a date Riot games started storing matches in DB.
+
+        queue comes from: https://static.developer.riotgames.com/docs/lol/queues.json
         """
         URL = (
             self.url_list_of_match_ids.format(puuid=puuid)
-            + f"&type={match_type}&count={count}&startTime={start_time}"
+            + f"&type={match_type}&count={count}&startTime={start_time}&queue=420"
         )
         match_ids = send_request(URL)
         MatchIds.model_validate(match_ids)
