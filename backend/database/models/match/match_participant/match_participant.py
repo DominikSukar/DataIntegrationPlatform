@@ -56,13 +56,13 @@ class MatchParticipant(Base):
     damage_shielded_to_champions: Mapped[int] = mapped_column(Integer, nullable=False)
     total_heals_on_teammates: Mapped[int] = mapped_column(Integer, nullable=False)
 
-    item_0: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=False)
-    item_1: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=False)
-    item_2: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=False)
-    item_3: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=False)
-    item_4: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=False)
-    item_5: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=False)
-    item_6: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=False)
+    item_0: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
+    item_1: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
+    item_2: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
+    item_3: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
+    item_4: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
+    item_5: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
+    item_6: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
 
     def __repr__(self):
         return (
