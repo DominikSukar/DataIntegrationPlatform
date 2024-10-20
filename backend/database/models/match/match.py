@@ -14,7 +14,7 @@ class Match(Base):
     __tablename__ = "matches"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    riot_match_id: Mapped[str] = mapped_column(String(50), nullable=False)
+    riot_match_id: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
     server_id: Mapped[int] = mapped_column(ForeignKey("servers.id"), nullable=False)
     game_result: Mapped[str] = mapped_column(String, nullable=False)
     creation_date: Mapped[datetime] = mapped_column(
