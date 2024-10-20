@@ -41,10 +41,6 @@ Project is still being developed, currently frontend fetches most of the data di
 ### Installation
 
 1. Clone the repository
-```bash
-git clone <your-repo-url>
-cd <project-name>
-```
 
 2. Set up backend (FastAPI)
 ```bash
@@ -71,7 +67,7 @@ DATABASE_URL=
 
 ITEMS_PATH=
 SUMMONERS_PATH=
-PERKS_PATH="
+PERKS_PATH=
 
 DOMAIN_EUROPE=
 DOMAIN_AMERICAS=
@@ -83,7 +79,7 @@ DOMAIN_EUNE=
 DOMAIN_EUW=
 DOMAIN_JP=
 DOMAIN_KR=
-DOMAIN_LAN="
+DOMAIN_LAN=
 DOMAIN_LAS=
 DOMAIN_ME=
 DOMAIN_NA=
@@ -126,7 +122,6 @@ Frontend runs on: http://localhost:3000
 
 ## 🧪 Testing
 ```bash
-# Backend tests
 cd backend
 python -m pytest
 
