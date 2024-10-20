@@ -22,7 +22,7 @@ class MatchTeam(Base):
     dragons_taken: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     barons_taken: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     krugs_taken: Mapped[int] = mapped_column(SmallInteger, nullable=False)
-    herals_taken: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    heralds_taken: Mapped[int] = mapped_column(SmallInteger, nullable=False)
 
     def __repr__(self):
         return f"<MatchTeam(match_id='{self.match_id}', team_id='{self.team_id}')>"
