@@ -3,7 +3,7 @@ import json
 from fastapi import HTTPException
 
 from logger import get_logger
-from utils.wrappers import retry_on_429, retry_on_503
+from utils.wrappers.request_exceptions_handlers import retry_on_429, retry_on_503
 
 logger = get_logger(__name__)
 
@@ -36,7 +36,7 @@ def _handle_non_200(status_code, URL=None):
 def send_request(URL: str):
     """This function in supposed to be used by all requests to RIOT API"""
     logger.debug(f"Sending synchronous request to : {URL}")
-    response = requests.get(URL, verify=False)
+    response = requests.get(URL)
 
     if response.status_code == 200:
         data = json.loads(response.text)
@@ -51,7 +51,7 @@ async def send_async_request(session, URL: str):
     """This function in supposed to be used by all requests to RIOT API"""
     logger.debug(f"Sending asynchronous request to : {URL}")
 
-    async with session.get(URL, ssl=False) as response:
+    async with session.get(URL) as response:
         if response.status == 200:
             return await response.json()
         else:

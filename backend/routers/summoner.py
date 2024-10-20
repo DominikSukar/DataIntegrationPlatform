@@ -5,7 +5,7 @@ from fastapi import APIRouter, Query
 from logger import get_logger
 from api_requests import SummonerControler, LeagueControler
 from models import SummonerAndSpectorServerModel
-from utils.wrappers import map_puuid_and_server
+from utils.wrappers.mappers import map_puuid_and_server
 from schemas import LeagueAndSummonerEntryDTO
 
 logger = get_logger(__name__)

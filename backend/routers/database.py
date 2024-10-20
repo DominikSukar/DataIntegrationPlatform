@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 
 from models import MatchModel, SummonerAndSpectorServerModel, MatchType
 from schemas import CurrentGameInfo
-from utils.wrappers import map_puuid_and_server, map_identity_to_puuid
+from utils.wrappers.mappers import map_puuid_and_server, map_identity_to_puuid
 from database.database import get_db
 from routers_services.database.matches_num_in_dbs import (
     resolve_data_intergrity,

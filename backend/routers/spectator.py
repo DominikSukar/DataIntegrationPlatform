@@ -6,7 +6,7 @@ from logger import get_logger
 from models import SummonerAndSpectorServerModel
 from api_requests.spectator import SpectatorController
 from schemas import CurrentGameInfo
-from utils.wrappers import map_puuid_and_server
+from utils.wrappers.mappers import map_puuid_and_server
 
 logger = get_logger(__name__)
 router = APIRouter()
