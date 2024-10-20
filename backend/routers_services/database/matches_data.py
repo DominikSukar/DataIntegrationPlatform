@@ -4,30 +4,36 @@ import asyncio
 
 from logger import get_logger
 from api_requests.match import MatchController
-from api_requests.mappers.match import matches_mapper
 from serializers.match.match import MatchBase
 
 logger = get_logger(__name__)
 
 
-async def get_matches_data(
-    puuid, mapped_server, match_count, match_type, start_time
-) -> List[MatchBase]:
+async def get_matches_ids(
+    puuid: str, mapped_server: str, match_count: int, match_type: str, start_time: int
+) -> List[str]:
+    "Fetching IDs of matches that provided puuid has participated in from Riot API"
     controller = MatchController(server=mapped_server)
-    mapped_match_data_list = []
 
+    match_ids = controller.get_a_list_of_match_ids_by_puuid(
+        puuid, match_count, match_type.value, start_time
+    )
+
+    logger.debug(f"Fetched match ids: {len(match_ids) = }")
+
+    return match_ids
+
+
+async def get_matches_data(mapped_server: str, match_ids: List[str]) -> List[MatchBase]:
+    "Fetching data of matches based on provided list of match ids from Riot API"
+    controller = MatchController(server=mapped_server)
     async with aiohttp.ClientSession() as session:
-        match_ids = controller.get_a_list_of_match_ids_by_puuid(
-            puuid, match_count, match_type.value, start_time
-        )
         tasks = [
             controller.get_a_match_by_match_id(session, match_id)
             for match_id in match_ids
         ]
         raw_matches = await asyncio.gather(*tasks)
 
-        for raw_match_data in raw_matches:
-            match_data_mapped = matches_mapper(raw_match_data, server_id=2, split_id=4)
-            mapped_match_data_list.append(match_data_mapped)
+    logger.debug(f"Fetched matches: {len(raw_matches) = }")
 
-    return raw_matches, mapped_match_data_list
+    return raw_matches
