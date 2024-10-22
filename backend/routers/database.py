@@ -1,4 +1,4 @@
-from typing import Any, Annotated
+from typing import Annotated, Optional
 
 from logger import get_logger
 
@@ -7,18 +7,18 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from schemas import (
-    CurrentGameInfo,
     MatchModel,
     SummonerAndSpectorServerModel,
     MatchType,
 )
-from utils.wrappers.mappers import map_puuid_and_server, map_identity_to_puuid
+from utils.wrappers.mappers import map_identity_to_puuid
 from database.database import get_db
 from routers_services.database.matches_num_in_dbs import (
     resolve_data_intergrity,
     get_summoner_id,
 )
 from database.models.match.match_participant import MatchParticipant
+from database.models.match.match import Match
 
 logger = get_logger(__name__)
 router = APIRouter()
@@ -26,7 +26,7 @@ router = APIRouter()
 
 @router.get("/matches/{server}/{identity}")
 @map_identity_to_puuid
-async def get_matches(
+async def get_players_matches(
     server: SummonerAndSpectorServerModel,
     identity: str,
     summoner_name: str = Query(None, include_in_schema=False),
@@ -72,16 +72,33 @@ async def get_matches(
     return matches
 
 
-@router.get("/matches/{server}/{puuid}/{match_id}")
-@map_puuid_and_server
-async def get_match(
-    server: SummonerAndSpectorServerModel,
-    mapped_server: Any = Query(None, include_in_schema=False),
-    summoner_name: str = None,
-    puuid: str = None,
-) -> CurrentGameInfo:
-    """Gets data about a specific match from a database.
-    Takes into account the user that requested it."""
-    pass
+@router.get("/matches/{match_id}")
+async def get_match(match_id: str, db: Session = Depends(get_db)):
+    "Endpoint fetches specific match from database"
 
-    return "Not working"
+    match = db.execute(select(Match).filter(Match.id == match_id)).scalars().all()
+
+    return match
+
+
+@router.get("/matches/")
+async def get_matches(
+    db: Session = Depends(get_db),
+    riot_match_id: Optional[str] = Query(
+        None, description="Filter matches by riot_match_id"
+    ),
+    split_id: Optional[str] = Query(None, description="Filter matches by split_id"),
+):
+    "Endpoint fetches all matches from database"
+
+    matches = db.query(Match).order_by(Match.id)
+
+    if riot_match_id is not None:
+        matches = matches.filter(Match.riot_match_id == riot_match_id)
+
+    if split_id is not None:
+        matches = matches.filter(Match.split_id == split_id)
+
+    matches = matches.all()
+
+    return matches
