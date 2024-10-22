@@ -2,7 +2,7 @@ from typing import Any, Annotated
 
 from logger import get_logger
 
-from fastapi import APIRouter, Query, Path, Depends
+from fastapi import APIRouter, Query, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -70,17 +70,6 @@ async def get_matches(
     )
 
     return matches
-
-
-@router.post("/matches/{server}/{puuid}")
-async def post_match(
-    server: SummonerAndSpectorServerModel,
-    match_ID: Annotated[str, Path(examples="EUW1_7091585440")],
-) -> CurrentGameInfo:
-    "Posts data about a specific match from a database"
-    pass
-
-    return "Not working"
 
 
 @router.get("/matches/{server}/{puuid}/{match_id}")
