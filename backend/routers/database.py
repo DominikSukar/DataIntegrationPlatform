@@ -32,6 +32,10 @@ async def get_players_matches(
     summoner_name: str = Query(None, include_in_schema=False),
     puuid: str = Query(None, include_in_schema=False),
     mapped_server: MatchModel = Query(None, include_in_schema=False),
+    resolve_intergrity: int = Query(
+        False,
+        description="Resolve whether server data is up to date with Riot API",
+    ),
     match_type: Annotated[
         MatchType,
         Query(
@@ -51,13 +55,14 @@ async def get_players_matches(
     """Fetches data with last games requested summoner participated in"""
 
     # Resolves whether server data is up to date with Riot API
-    await resolve_data_intergrity(
-        server=server,
-        mapped_server=mapped_server,
-        puuid=puuid,
-        match_type=match_type,
-        db=db,
-    )
+    if resolve_intergrity:
+        await resolve_data_intergrity(
+            server=server,
+            mapped_server=mapped_server,
+            puuid=puuid,
+            match_type=match_type,
+            db=db,
+        )
     (summoner, _) = await get_summoner_id(server, db, puuid)
     matches = (
         db.execute(
