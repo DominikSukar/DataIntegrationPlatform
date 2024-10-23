@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from logger import get_logger
 
@@ -6,11 +6,7 @@ from fastapi import APIRouter, Query, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from schemas import (
-    MatchModel,
-    SummonerAndSpectorServerModel,
-    MatchQueryModel,
-)
+from schemas import MatchModel, SummonerAndSpectorServerModel, MatchQueryModel
 from utils.wrappers.mappers import map_identity_to_puuid
 from database.database import get_db
 from routers_services.database.matches_num_in_dbs import (
@@ -19,6 +15,7 @@ from routers_services.database.matches_num_in_dbs import (
 )
 from database.models.match.match_participant import MatchParticipant
 from database.models.match.match import Match
+from serializers.match.match import MatchParticipantResponse
 
 logger = get_logger(__name__)
 router = APIRouter()
@@ -34,7 +31,7 @@ async def get_players_matches(
     mapped_server: MatchModel = Query(None, include_in_schema=False),
     query_params: MatchQueryModel = Depends(),
     db: Session = Depends(get_db),
-):
+) -> List[MatchParticipantResponse]:
     """Fetches data with last games requested summoner participated in"""
 
     # Resolves whether server data is up to date with Riot API
