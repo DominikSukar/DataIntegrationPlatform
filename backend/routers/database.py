@@ -38,12 +38,12 @@ async def get_players_matches(
     """Fetches data with last games requested summoner participated in"""
 
     # Resolves whether server data is up to date with Riot API
-    if MatchQueryModel.resolve_intergrity:
+    if query_params.resolve_integrity:
         await resolve_data_intergrity(
             server=server,
             mapped_server=mapped_server,
             puuid=puuid,
-            match_type=MatchQueryModel.match_type,
+            match_type=query_params.match_type,
             db=db,
         )
     (summoner, _) = await get_summoner_id(server, db, puuid)
@@ -51,7 +51,7 @@ async def get_players_matches(
         db.execute(
             select(MatchParticipant)
             .filter(MatchParticipant.summoner_id == summoner.id)
-            .limit(MatchQueryModel.count)
+            .limit(query_params.count)
         )
         .scalars()
         .all()
