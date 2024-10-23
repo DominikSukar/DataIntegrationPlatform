@@ -23,7 +23,7 @@ router = APIRouter()
 
 @router.get("/matches/{server}/{identity}")
 @map_identity_to_puuid
-async def get_players_matches(
+async def get_players_matches_participation(
     server: SummonerAndSpectorServerModel,
     identity: str,
     summoner_name: str = Query(None, include_in_schema=False),
