@@ -16,6 +16,7 @@ from .account import AccountDto, AccountModel
 from .summoner import SummonerDTO, SummonerAndSpectorServerModel
 from .league import LeagueEntryDTO
 from .combined_schemas import LeagueAndSummonerEntryDTO
+from .database import MatchQueryModel
 
 __all__ = [
     "CurrentGameInfo",
@@ -37,4 +38,5 @@ __all__ = [
     "SummonerAndSpectorServerModel",
     "LeagueEntryDTO",
     "LeagueAndSummonerEntryDTO",
+    "MatchQueryModel",
 ]

@@ -1,4 +1,4 @@
-from typing import Annotated, Optional
+from typing import Optional
 
 from logger import get_logger
 
@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from schemas import (
     MatchModel,
     SummonerAndSpectorServerModel,
-    MatchType,
+    MatchQueryModel,
 )
 from utils.wrappers.mappers import map_identity_to_puuid
 from database.database import get_db
@@ -32,35 +32,18 @@ async def get_players_matches(
     summoner_name: str = Query(None, include_in_schema=False),
     puuid: str = Query(None, include_in_schema=False),
     mapped_server: MatchModel = Query(None, include_in_schema=False),
-    resolve_intergrity: int = Query(
-        False,
-        description="Resolve whether server data is up to date with Riot API",
-    ),
-    match_type: Annotated[
-        MatchType,
-        Query(
-            title="Query string",
-            description="""Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
-        Default value is ranked, so not need to pass it. Do not use '--', it's FastAPI/enum bug.""",
-        ),
-    ] = MatchType.ranked,
-    count: int = Query(
-        10,
-        ge=0,
-        le=100,
-        description="Number of match ids to return. Valid values: 0 to 100.",
-    ),
+    query_params: MatchQueryModel = Depends(),
     db: Session = Depends(get_db),
 ):
     """Fetches data with last games requested summoner participated in"""
 
     # Resolves whether server data is up to date with Riot API
-    if resolve_intergrity:
+    if MatchQueryModel.resolve_intergrity:
         await resolve_data_intergrity(
             server=server,
             mapped_server=mapped_server,
             puuid=puuid,
-            match_type=match_type,
+            match_type=MatchQueryModel.match_type,
             db=db,
         )
     (summoner, _) = await get_summoner_id(server, db, puuid)
@@ -68,7 +51,7 @@ async def get_players_matches(
         db.execute(
             select(MatchParticipant)
             .filter(MatchParticipant.summoner_id == summoner.id)
-            .limit(count)
+            .limit(MatchQueryModel.count)
         )
         .scalars()
         .all()
