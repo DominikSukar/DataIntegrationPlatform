@@ -58,7 +58,9 @@ async def get_players_matches(
 
 
 @router.get("/matches/{match_id}")
-async def get_match(match_id: str, db: Session = Depends(get_db)):
+async def get_match(
+    match_id: str, db: Session = Depends(get_db)
+) -> MatchParticipantResponse:
     "Endpoint fetches specific match from database"
 
     match = db.execute(select(Match).filter(Match.id == match_id)).scalars().all()
