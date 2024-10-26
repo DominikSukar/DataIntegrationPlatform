@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from fastapi import APIRouter, Query, Depends
 from sqlalchemy import select
@@ -20,7 +20,7 @@ async def get_matches(
         None, description="Filter matches by riot_match_id"
     ),
     split_id: Optional[str] = Query(None, description="Filter matches by split_id"),
-):
+) -> List[MatchParticipantResponse]:
     "Endpoint fetches all matches from database"
 
     matches = db.query(Match).order_by(Match.id)
