@@ -3,25 +3,13 @@ import asyncio
 from typing import Annotated
 
 from logger import get_logger
-from fastapi import APIRouter, Query, Path
+from fastapi import APIRouter, Query
 from schemas import MatchModel, MatchType, SummonerAndSpectorServerModel
 from api_requests.match import MatchController
 from utils.wrappers.mappers import map_puuid_and_server
 
 logger = get_logger(__name__)
 router = APIRouter()
-
-
-@router.get("/{server}/{match_ID}")
-@map_puuid_and_server
-async def match_timeline(
-    server: SummonerAndSpectorServerModel,
-    match_ID: Annotated[str, Path(examples="EUW1_7091585440")],
-    mapped_server: MatchModel = Query(None, include_in_schema=False),
-    summoner_name: str = None,
-    puuid: str = None,
-):
-    pass
 
 
 @router.get("/{server}/")
