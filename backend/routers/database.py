@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import List
 
 from logger import get_logger
 
@@ -14,7 +14,6 @@ from routers_services.database.matches_num_in_dbs import (
     get_summoner_id,
 )
 from database.models.match.match_participant import MatchParticipant
-from database.models.match.match import Match
 from serializers.match.match import MatchParticipantResponse
 
 logger = get_logger(__name__)
@@ -53,39 +52,5 @@ async def get_players_matches_participation(
         .scalars()
         .all()
     )
-
-    return matches
-
-
-@router.get("/matches/{match_id}")
-async def get_match(
-    match_id: str, db: Session = Depends(get_db)
-) -> MatchParticipantResponse:
-    "Endpoint fetches specific match from database"
-
-    match = db.execute(select(Match).filter(Match.id == match_id)).scalars().all()
-
-    return match
-
-
-@router.get("/matches/")
-async def get_matches(
-    db: Session = Depends(get_db),
-    riot_match_id: Optional[str] = Query(
-        None, description="Filter matches by riot_match_id"
-    ),
-    split_id: Optional[str] = Query(None, description="Filter matches by split_id"),
-):
-    "Endpoint fetches all matches from database"
-
-    matches = db.query(Match).order_by(Match.id)
-
-    if riot_match_id is not None:
-        matches = matches.filter(Match.riot_match_id == riot_match_id)
-
-    if split_id is not None:
-        matches = matches.filter(Match.split_id == split_id)
-
-    matches = matches.all()
 
     return matches

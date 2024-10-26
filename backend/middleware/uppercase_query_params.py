@@ -25,6 +25,7 @@ class UpperCaseServerParamMiddleware:
             and "database" not in fragmented_path
             and "seasons" not in fragmented_path
             and "splits" not in fragmented_path
+            and "match_history" not in fragmented_path
         ):
             fragmented_path[1] = fragmented_path[1].upper()
             whole_path = "/".join(fragmented_path)
