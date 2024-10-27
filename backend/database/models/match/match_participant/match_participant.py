@@ -1,5 +1,5 @@
 from sqlalchemy import ForeignKey, Integer, SmallInteger, Boolean, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.database import Base
 
@@ -63,6 +63,8 @@ class MatchParticipant(Base):
     item_4: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
     item_5: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
     item_6: Mapped[int] = mapped_column(ForeignKey("items.id"), nullable=True)
+
+    perks = relationship("MatchParticipantPerk", back_populates="match_participants")
 
     def __repr__(self):
         return (

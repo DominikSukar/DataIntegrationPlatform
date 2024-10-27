@@ -1,7 +1,9 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Optional, Annotated
+from typing import Optional, Annotated, List
 from enum import IntEnum
+
+from serializers.basic.perk import MatchParticipantPerk as Perk
 
 
 class MatchBase(BaseModel):
@@ -88,6 +90,8 @@ class MatchParticipantResponse(BaseModel):
     item_4: Optional[int] = None
     item_5: Optional[int] = None
     item_6: Optional[int] = None
+
+    perks: List[Perk]
 
     class Config:
         from_attributes = True

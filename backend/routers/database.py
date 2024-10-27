@@ -3,8 +3,7 @@ from typing import List
 from logger import get_logger
 
 from fastapi import APIRouter, Query, Depends
-from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from schemas import MatchModel, SummonerAndSpectorServerModel, MatchQueryModel
 from utils.wrappers.mappers import map_identity_to_puuid
@@ -13,7 +12,10 @@ from routers_services.database.matches_num_in_dbs import (
     resolve_data_intergrity,
     get_summoner_id,
 )
-from database.models.match.match_participant import MatchParticipant
+from database.models.match.match_participant import (
+    MatchParticipant,
+    MatchParticipantPerk,
+)
 from serializers.match.match import MatchParticipantResponse
 
 logger = get_logger(__name__)
@@ -44,12 +46,14 @@ async def get_players_matches_participation(
         )
     (summoner, _) = await get_summoner_id(server, db, puuid)
     matches = (
-        db.execute(
-            select(MatchParticipant)
-            .filter(MatchParticipant.summoner_id == summoner.id)
-            .limit(query_params.count)
+        db.query(MatchParticipant)
+        .options(
+            joinedload(MatchParticipant.perks).joinedload(
+                MatchParticipantPerk.perk_data
+            )
         )
-        .scalars()
+        .filter(MatchParticipant.summoner_id == summoner.id)
+        .limit(query_params.count)
         .all()
     )
 

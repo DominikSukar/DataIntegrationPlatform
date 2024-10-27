@@ -1,5 +1,5 @@
 from sqlalchemy import ForeignKey, Boolean, SmallInteger
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.database import Base
 
@@ -19,6 +19,9 @@ class MatchParticipantPerk(Base):
         ForeignKey("match_participants.id"), nullable=False
     )
     perk_id: Mapped[int] = mapped_column(ForeignKey("perks.id"), nullable=False)
+
+    perk_data = relationship("Perk", back_populates="match_participant_perks")
+    match_participants = relationship("MatchParticipant", back_populates="perks")
 
     def __repr__(self):
         return f"<MatchParticipantPerk(name='{self.name}')>"

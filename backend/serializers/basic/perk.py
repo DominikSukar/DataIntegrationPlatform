@@ -34,3 +34,15 @@ class PerkUpdate(BaseModel):
     )
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class MatchParticipantPerk(BaseModel):
+    is_style: bool = (Field(examples=[False]),)
+    match_participant_id: int = (Field(examples=[6]),)
+    perk_id: int = (Field(examples=[31]),)
+    is_primary: bool = (Field(examples=[True]),)
+    id: int = (Field(examples=[41]),)
+    slot: int = (Field(examples=[0]),)
+    perk_data: PerkUpdate
+
+    model_config = ConfigDict(from_attributes=True)
