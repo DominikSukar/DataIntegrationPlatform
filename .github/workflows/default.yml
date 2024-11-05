@@ -77,34 +77,34 @@ jobs:
         - name: Run tests
           env:
             #### Variables ####
-            DOMAIN_EUROPE: https://europe.api.riotgames.com
-            DOMAIN_AMERICAS: https://americas.api.riotgames.com
-            DOMAIN_ASIA: https://asia.api.riotgames.com
-            DOMAIN_SEA: https://sea.api.riotgames.com
-            DOMAIN_ESPORTS: https://esports.api.riotgames.com
+            DOMAIN_EUROPE: ${{ vars.DOMAIN_EUROPE }}
+            DOMAIN_AMERICAS: ${{ vars.DOMAIN_AMERICAS }}
+            DOMAIN_ASIA: ${{ vars.DOMAIN_ASIA }}
+            DOMAIN_SEA: ${{ vars.DOMAIN_SEA }}
+            DOMAIN_ESPORTS: ${{ vars.DOMAIN_ESPORTS }}
   
             #Domains for SPECTATOR, SUMMONER, status, lol-challanges, league, league-exp, clash, champion
-            DOMAIN_BR: https://br1.api.riotgames.com
+            DOMAIN_BR: ${{ vars.DOMAIN_BR }}
             #EUNE is EUN1 officialy
-            DOMAIN_EUNE: https://eun1.api.riotgames.com
-            DOMAIN_EUW: https://euw1.api.riotgames.com
-            DOMAIN_JP: https://jp1.api.riotgames.com
-            DOMAIN_KR: https://kr.api.riotgames.com
+            DOMAIN_EUNE: ${{ vars.DOMAIN_EUNE }}
+            DOMAIN_EUW: ${{ vars.DOMAIN_EUW }}
+            DOMAIN_JP: ${{ vars.DOMAIN_JP }}
+            DOMAIN_KR: ${{ vars.DOMAIN_KR }}
             #LAN is LA1 officialy
-            DOMAIN_LAN: https://la1.api.riotgames.com
+            DOMAIN_LAN: ${{ vars.DOMAIN_LAN }}
             #LAS is LA2 officialy
-            DOMAIN_LAS: https://la2.api.riotgames.com
-            DOMAIN_ME: https://me1.api.riotgames.com
-            DOMAIN_NA: https://na1.api.riotgames.com
+            DOMAIN_LAS: ${{ vars.DOMAIN_LAS }}
+            DOMAIN_ME: ${{ vars.DOMAIN_ME }}
+            DOMAIN_NA: ${{ vars.DOMAIN_NA }}
             #OCE is OC1 offcially
-            DOMAIN_OCE: https://oc1.api.riotgames.com
-            DOMAIN_PH: https://ph2.api.riotgames.com
-            DOMAIN_RU: https://ru.api.riotgames.com
-            DOMAIN_SG: https://sg2.api.riotgames.com
-            DOMAIN_TH: https://th2.api.riotgames.com
-            DOMAIN_TR: https://tr1.api.riotgames.com
-            DOMAIN_TW: https://tw2.api.riotgames.com
-            DOMAIN_VN: https://vn2.api.riotgames.com
+            DOMAIN_OCE: ${{ vars.DOMAIN_OCE }}
+            DOMAIN_PH: ${{ vars.DOMAIN_PH }}
+            DOMAIN_RU: ${{ vars.DOMAIN_RU }}
+            DOMAIN_SG: ${{ vars.DOMAIN_SG }}
+            DOMAIN_TH: ${{ vars.DOMAIN_TH }}
+            DOMAIN_TR: ${{ vars.DOMAIN_TR }}
+            DOMAIN_TW: ${{ vars.DOMAIN_TW }}
+            DOMAIN_VN: ${{ vars.DOMAIN_VN }}
   
             #### Secrets ####
             API_KEY: ${{ secrets.API_KEY }}
