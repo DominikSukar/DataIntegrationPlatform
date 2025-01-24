@@ -10,6 +10,16 @@ services:
       - .env
     volumes:
       - 'postgresql_data:/bitnami/postgresql'
+
+  backend:
+    container_name: ff15_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgresql
    
 volumes:
   postgresql_data:

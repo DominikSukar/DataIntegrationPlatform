@@ -42,22 +42,8 @@ Project is still being developed, currently frontend fetches most of the data di
 
 1. Clone the repository
 
-2. Set up backend (FastAPI)
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-3. Set up frontend (Next.js)
-```bash
-cd frontend
-npm install
-```
-
-4. Environment Variables
-- Backend:
+2. Setup all neccessary environment variables.
+- In /backend/.env:
 ```
 API_KEY=
 DATABASE_LOGIN=
@@ -92,11 +78,22 @@ DOMAIN_TR=
 DOMAIN_TW=
 DOMAIN_VN=
 ```
-- Database: 
+- In /.env:: 
 ```
 POSTGRESQL_USERNAME=
 POSTGRESQL_PASSWORD=
 POSTGRESQL_DATABASE=
+```
+
+3. Run containers
+```bash
+docker-compose up --build -d
+```
+
+4. Set up frontend (Next.js)
+```bash
+cd frontend
+npm install
 ```
 
 ## 🛠️ Development
