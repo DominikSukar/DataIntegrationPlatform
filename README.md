@@ -43,6 +43,10 @@ Project is still being developed, currently frontend fetches most of the data di
 1. Clone the repository
 
 2. Setup all neccessary environment variables.
+- In /frontend/.env:: 
+```
+DOMAIN=
+```
 - In /backend/.env:
 ```
 API_KEY=
@@ -88,12 +92,6 @@ POSTGRESQL_DATABASE=
 3. Run containers
 ```bash
 docker-compose up --build -d
-```
-
-4. Set up frontend (Next.js)
-```bash
-cd frontend
-npm install
 ```
 
 ## 🛠️ Development
