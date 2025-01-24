@@ -66,7 +66,7 @@ export default function UserSearch() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [regions]);
 
   const handleRegionChange = (region: string) => {
     setSelectedRegion(region);
