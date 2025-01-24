@@ -6,11 +6,8 @@ services:
     image: bitnami/postgresql:16.4.0
     ports:
      - '5432:5432'
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-      - POSTGRESQL_USERNAME=${DB_USER}
-      - POSTGRESQL_PASSWORD=${DB_PASSWORD}
-      - POSTGRESQL_DATABASE=${DB_NAME}
+    env_file:
+      - .env
     volumes:
       - 'postgresql_data:/bitnami/postgresql'
       - ./database:/docker-entrypoint-initdb.d

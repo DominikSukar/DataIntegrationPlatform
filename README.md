@@ -94,9 +94,9 @@ DOMAIN_VN=
 ```
 - Database: 
 ```
-DB_USER=
-DB_PASSWORD=
-DB_NAME=
+POSTGRESQL_USERNAME=
+POSTGRESQL_PASSWORD=
+POSTGRESQL_DATABASE=
 ```
 
 ## 🛠️ Development
