@@ -10,11 +10,11 @@ client = TestClient(router)
 
 
 class TestGetAccountPUUID:
-    def test_existing_user(self):
+    def test_existing_user(self, sample_user_data):
         "Test for user that exists"
         params = {
-            "summoner_name": "PrinceOfEssling",
-            "tag_line": "EUW",
+            "summoner_name": sample_user_data["gameName"],
+            "tag_line": sample_user_data["tagLine"],
         }
         response = client.get("/EUW/get_puuid", params=params)
         assert response.status_code == 200
@@ -42,31 +42,24 @@ class TestGetAccountPUUID:
 
 
 class TestGetAccountInfo:
-    def test_by_providing_summoner_name(self):
+    def test_by_providing_summoner_name(self, sample_user_data):
         "Test endpoint by requesting data by providing only summoner_name"
         params = {
             "summoner_name": "PrinceOfEssling",
         }
         response = client.get("EUW/info", params=params)
         assert response.status_code == 200
-        assert response.json() == {
-            "gameName": "PrinceOfEssling",
-            "tagLine": "EUW",
-            "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
-        }
+        assert response.json() == sample_user_data
 
-    def test_by_providing_summoner_name_with_tag_line(self):
+    def test_by_providing_summoner_name_with_tag_line(self, sample_user_data):
         "Test endpoint by requesting data by providing only summoner_name, but with tag inside"
+        # f.e. "PrinceOfEssling_EUW"
         params = {
-            "summoner_name": "PrinceOfEssling_EUW",
+            "summoner_name": f"{sample_user_data['gameName']}_{sample_user_data['tagLine']}",
         }
         response = client.get("/EUW/info", params=params)
         assert response.status_code == 200
-        assert response.json() == {
-            "gameName": "PrinceOfEssling",
-            "tagLine": "EUW",
-            "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
-        }
+        assert response.json() == sample_user_data
 
     def test_by_providing_not_existing_summoner_name(self):
         "Test endpoint by requesting data by providing summoner_name that (should!) not exist"
@@ -76,19 +69,15 @@ class TestGetAccountInfo:
             client.get("/EUW/info", params=params)
         assert err.value.status_code == 404
 
-    def test_by_providing_puuid(self):
+    def test_by_providing_puuid(self, sample_user_data):
         "Test endpoint by requesting data by providing user's puuid"
         params = {
-            "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
-            "server": "EUW",
+            "puuid": sample_user_data["puuid"],
+            "server": sample_user_data["tagLine"],
         }
         response = client.get("/EUW/info", params=params)
         assert response.status_code == 200
-        assert response.json() == {
-            "gameName": "PrinceOfEssling",
-            "tagLine": "EUW",
-            "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
-        }
+        assert response.json() == sample_user_data
 
     def test_by_providing_not_existing_puuid(self):
         "Test endpoint by requesting data by puuid that is not decryptable or simply doesnt exist"

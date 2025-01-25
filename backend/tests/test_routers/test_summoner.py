@@ -11,13 +11,13 @@ client = TestClient(router)
 
 
 class TestGetSummonerInfo:
-    def test_by_providing_summoner_name(self):
+    def test_by_providing_summoner_name(self, sample_summoner_data):
         "Test endpoint by requesting data by providing combination of summoner_name and tag_line"
         REQUEST_PARAMS = {"summoner_name": "PrinceOfEssling"}
         EXPECTED_STABLE_FIELDS = {
-            "id": "lWUIM6ChhgyyeccN5Z-CKFhX-WETnc19xTdetXkDO-W-sXI",
-            "accountId": "y4m_h-DtfgBfRr5msXkwQHwFvEwyHR-kCJM-VCArJ2Q2fpI",
-            "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
+            "id": sample_summoner_data["id"],
+            "accountId": sample_summoner_data["accountId"],
+            "puuid": sample_summoner_data["puuid"],
         }
         response = client.get("EUW/", params=REQUEST_PARAMS)
         assert response.status_code == 200
@@ -37,17 +37,15 @@ class TestGetSummonerInfo:
             client.get("EUW/", params=params)
         assert err.value.status_code == 404
 
-    def test_by_providing_puuid(self):
+    def test_by_providing_puuid(self, sample_summoner_data):
         """Test endpoint by requesting data by providing user's puuid
         Testing 1:1 values only on stable keys, the rest is just checking if a key is even in response (SummonerDTO schema)
         """
-        REQUEST_PARAMS = {
-            "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA"
-        }
+        REQUEST_PARAMS = {"puuid": sample_summoner_data["puuid"]}
         EXPECTED_STABLE_FIELDS = {
-            "id": "lWUIM6ChhgyyeccN5Z-CKFhX-WETnc19xTdetXkDO-W-sXI",
-            "accountId": "y4m_h-DtfgBfRr5msXkwQHwFvEwyHR-kCJM-VCArJ2Q2fpI",
-            "puuid": "Bh1lQALIiYypSsY1PGNULQhGCM6hy3ejaLmHiUZXbR84yPOuD7jMa9PhVlwI42mcdpteq-RYWNw-RA",
+            "id": sample_summoner_data["id"],
+            "accountId": sample_summoner_data["accountId"],
+            "puuid": sample_summoner_data["puuid"],
         }
         response = client.get("EUW/", params=REQUEST_PARAMS)
         assert response.status_code == 200
